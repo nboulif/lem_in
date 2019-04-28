@@ -50,15 +50,18 @@ int		resolv(t_objectif *obj)
 {
 	t_solution	best_sol;
 	t_solution	next_sol;
+	t_way				*way;
 
 	best_sol = (t_solution){NULL, 0, 0, 0};
+	next_sol = (t_solution){NULL, 0, 0, 0};
 
     if (//!(first_way(obj, &first))
-		!(next_sol = find_way_bf(obj, best_sol)).way)
+		!(way = find_way_bf(obj)))
 			return (-1);
 			// exit(printf("ERROR\n"));
-
-	printf("%d\n", best_sol.nb_way);
+	best_sol.nb_way = 1;
+	best_sol.way = (t_way*)malloc(sizeof(t_way) * best_sol.nb_way);
+	best_sol.way[0] = *way;
 
 	print_way(obj, best_sol);
 

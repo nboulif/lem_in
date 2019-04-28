@@ -36,7 +36,7 @@ int				clone_way(t_objectif *obj, t_solution *sol, t_solution *cur);
 void 			init_graph_bf(t_objectif *obj, int first_time);
 
 //resolv_bf
-t_solution 		find_way_bf(t_objectif *obj, t_solution cur);
+t_way	 		*find_way_bf(t_objectif *obj);
 
 //resolv
 int				resolv(t_objectif *obj);

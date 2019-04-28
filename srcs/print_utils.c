@@ -48,10 +48,10 @@ void 			print_way(t_objectif *obj, t_solution best)
 		i = 0;
 		while (1)
 		{
-			printf("%d. |%s|", i, best.way[x].node[i]->name);
-			printf(" |%s|-|%s|\n", best.way[x].tube[i]->node1->name, best.way[x].tube[i]->node2->name);
 			if (best.way[x].node[i++] == obj->end_node)
 				break ;
+			printf("%d. |%s|", i, best.way[x].node[i]->name);
+			printf(" |%s|-|%s|\n", best.way[x].tube[i]->node1->name, best.way[x].tube[i]->node2->name);
 		}
 		printf("\n");
 	}
