@@ -66,27 +66,27 @@ int 		check_need_realloc(t_node *next)
 	{
 		if (!ft_realloc((void**)&next->father_node, &next->nb_father_n,
 				next->nb_father_n * 2, sizeof(t_node*)) || 
-			!ft_realloc((void**)&next->father_tube, &next->nb_father_t,
-				next->nb_father_n, sizeof(t_tube*)))
+			!ft_realloc((void**)&next->father_edge, &next->nb_father_t,
+				next->nb_father_n, sizeof(t_edge*)))
 			return (0);
 	}
 	return (1);
 }
 
-t_node 		*get_right_node_in_tube(t_node *node, int i)
+t_node 		*get_right_node_in_edge(t_node *node, int i)
 {
-	if (node->tube[i]->deja_vu)
+	if (node->edge[i]->deja_vu)
 		return (NULL);
-	if (node->name == node->tube[i]->node1->name)
+	if (node->name == node->edge[i]->node1->name)
 	{
-		if (!(node->tube[i]->direction & UNIDIR2))
+		if (!(node->edge[i]->direction & UNIDIR2))
 			return (NULL);
-		return (node->tube[i]->node2);
+		return (node->edge[i]->node2);
 	}
 	else
 	{
-		if (!(node->tube[i]->direction & UNIDIR1))
+		if (!(node->edge[i]->direction & UNIDIR1))
 			return (NULL);
-		return (node->tube[i]->node1);
+		return (node->edge[i]->node1);
 	}
 }

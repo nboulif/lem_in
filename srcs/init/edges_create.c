@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_tab_tube.c                                    :+:      :+:    :+:   */
+/*   make_tab_edge.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,16 @@
 
 #include "lem_in.h"
 
-t_tube		create_tube(t_node *node1, t_node *node2)
+t_edge		create_edge(t_node *node1, t_node *node2)
 {
-	t_tube tube;
+	t_edge edge;
 
 	if (!node1 || !node2)
-		return ((t_tube){NULL, NULL, 0, 0, 0, 0});
-	node1->nb_tube_o++;
-	node2->nb_tube_o++;
-	tube = (t_tube){node1, node2, 1, 1, BIDIR, 0};
-	return (tube);
+		return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
+	node1->nb_edge_o++;
+	node2->nb_edge_o++;
+	edge = (t_edge){node1, node2, 1, 1, BIDIR, 0, 0};
+	return (edge);
 }
 
 t_node *find_in_lst(t_objectif *obj, char *name, int size)
@@ -47,11 +47,11 @@ t_node *find_in_lst(t_objectif *obj, char *name, int size)
 }
 
 
-t_tube		next_tube(t_objectif *obj, char *str, int *i)
+t_edge		next_edge(t_objectif *obj, char *str, int *i)
 {
 	int		x;
 	int		l;
-	t_tube	tube;
+	t_edge	edge;
 
 	zap_comm(str, i);
 	x = *i;
@@ -63,41 +63,41 @@ t_tube		next_tube(t_objectif *obj, char *str, int *i)
 			if (x == *i)
 			{
 				*i = l;
-				return ((t_tube){NULL, NULL, 0, 0, 0, 0});
+				return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
 			}
-			tube = create_tube(
+			edge = create_edge(
 				find_in_lst(obj, str + *i, x - *i),
 				find_in_lst(obj, str + x + 1, l - (x + 1)));
 			*i = l;
-			return (tube);
+			return (edge);
 		}
 		x++;
 	}
 	*i = l;
-	return ((t_tube){NULL, NULL, 0, 0, 0, 0});
+	return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
 }
 
-int			make_tab_tube(t_objectif *obj, char *str, int *i)
+int			make_tab_edge(t_objectif *obj, char *str, int *i)
 {
-	t_tube	tube;
+	t_edge	edge;
 	int		index;
 	int		size;
 
 	index = 0;
 	size = obj->nb_node * obj->nb_node;
-	if (!(obj->lst_tube = malloc(sizeof(t_tube) * size)))
+	if (!(obj->lst_edge = malloc(sizeof(t_edge) * size)))
 		return (0);
-	while ((tube = next_tube(obj, str, i)).node1)
+	while ((edge = next_edge(obj, str, i)).node1)
 	{
-		if (index > size || !tube.node2)
+		if (index > size || !edge.node2)
 			return (0);
-		if (tube.node1 != tube.node2)
-			obj->lst_tube[index++] = tube;
+		if (edge.node1 != edge.node2)
+			obj->lst_edge[index++] = edge;
 		if (!str[*i])
 			break ;
 		*i += 1;
 	}
-	obj->nb_tube = index;
-	return (!(!index || (index != size && !ft_realloc((void**)&obj->lst_tube,
-		&index, index, sizeof(t_tube)))));
+	obj->nb_edge = index;
+	return (!(!index || (index != size && !ft_realloc((void**)&obj->lst_edge,
+		&index, index, sizeof(t_edge)))));
 }

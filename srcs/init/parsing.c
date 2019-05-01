@@ -128,7 +128,7 @@ int extract_info(t_objectif *obj, char *str)
 		}
 	}
 
-	if (var && !make_tab_tube(obj, str, &i))
+	if (var && !make_tab_edge(obj, str, &i))
 	{
 		exit(printf("ERROR\n"));
 	}

@@ -26,17 +26,17 @@ int				exec_command(t_objectif *obj, char *str, int *i);
 int				add_in_lst(t_node_link **link, t_node *node);
 int				make_tab_node(t_objectif *obj, char *str, int *i);
 
-//tubes_create
-t_tube			create_tube(t_node *node1, t_node *node2);
+//edges_create
+t_edge			create_edge(t_node *node1, t_node *node2);
 t_node			*find_in_lst(t_objectif *obj, char *name, int size);
-t_tube			next_tube(t_objectif *obj, char *str, int *i);
-int				make_tab_tube(t_objectif *obj, char *str, int *i);
+t_edge			next_edge(t_objectif *obj, char *str, int *i);
+int				make_tab_edge(t_objectif *obj, char *str, int *i);
 
 //resolv_init
-void			delete_this_tube(t_node *node, t_tube *tube, t_objectif *obj);
+void			delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj);
 void			delete_dead_end(t_objectif *obj);
-int				create_tab_tube_in_node(t_objectif *obj);
-int				link_node_and_tube(t_objectif *obj);
+int				create_tab_edge_in_node(t_objectif *obj);
+int				link_node_and_edge(t_objectif *obj);
 int				init_resolv(t_objectif *obj);
 
 //zap

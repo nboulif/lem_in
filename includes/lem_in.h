@@ -26,8 +26,8 @@
 
 #define SIZE_BUFF 150000
 
-#define UNIDIR1		2
-#define UNIDIR2		1
+#define UNIDIR1		1 // node1 to node2
+#define UNIDIR2		2
 #define BIDIR		3
 #define NODIR		0
 

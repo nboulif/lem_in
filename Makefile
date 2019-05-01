@@ -31,11 +31,11 @@ SOURCES_DIRECTORY = srcs/
 SOURCES_LIST = lem_in.c \
 				init/parsing.c \
 				init/nodes_create.c \
-				init/tubes_create.c \
+				init/edges_create.c \
 				init/resolv_init.c \
 				init/zap.c \
 				utils.c \
-				tubes_utils.c \
+				edges_utils.c \
 				print_utils.c \
 				resolv.c \
 				resolv_tmp.c \

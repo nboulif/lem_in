@@ -14,15 +14,16 @@
 # define __LEM_IN_S_H__
 
 typedef struct	s_node				t_node;
-typedef struct	s_tube				t_tube;
+typedef struct	s_edge				t_edge;
+typedef struct	s_solution			t_solution;
 
 // typedef struct				s_node_u_solve
 // {
 // 	int						D;
 // 	int						last_D;
-// 	t_tube					**father_tube;
+// 	t_edge					**father_edge;
 // 	t_node					**father_node;
-// 	t_tube					*in_a_way;
+// 	t_edge					*in_a_way;
 // 	int						nb_father_n;
 // 	int						nb_father_t;
 // 	int						i_nb_father;
@@ -35,17 +36,18 @@ typedef struct				s_node
 {
 	char					*name;
 	unsigned long			id;
-	int						nb_tube_o;
-	int						nb_tube_f;
-	t_tube					**tube;
+	int						nb_edge_o;
+	int						nb_edge_f;
+	t_edge					**edge;
 	int						range;
+	int						deja_vu_init;
 	int						deja_vu;
 
 	// t_node_u_solve			u_sol;
 
-	t_tube					**father_tube;
+	t_edge					**father_edge;
 	t_node					**father_node;
-	t_tube					*in_a_way;
+	t_edge					*in_a_way;
 	int						nb_father_n;
 	int						nb_father_t;
 	int						i_nb_father;
@@ -63,15 +65,22 @@ typedef struct				s_node_link
 	struct	s_node_link		*next;
 }							t_node_link;
 
-typedef struct				s_tube
+typedef struct				s_edge_link
+{
+	t_edge					*edge;
+	struct	s_edge_link		*next;
+}							t_edge_link;
+
+typedef struct				s_edge
 {
 	t_node					*node1;
 	t_node 					*node2;
-	int						w1;	// weight
+	int						w1;	// weight node_1 to node_2
 	int						w2;
 	int						direction;
 	int						deja_vu;
-}							t_tube;
+	int						deja_vu_init;
+}							t_edge;
 
 typedef struct				s_objectif
 {
@@ -79,23 +88,27 @@ typedef struct				s_objectif
 	t_node					*end_node;
 	t_node					**lst_node;
 	t_node_link				**lst_node_lk;
-	t_tube					*lst_tube;
+	t_edge					*lst_edge;
+	t_edge					**lst_edge_ord;
 	int						nb_node;
-	int						nb_tube;
+	int						nb_edge;
+	int						nb_edge_f;
 	int						nb_ants;
 	int 					max_way;
 	int						max_link;
 	int						changement;
+	t_solution				*sol;
 }							t_objectif;
 
 // SOLVE
 
 typedef struct 				s_way
 {
-	t_node					**node;
-	t_tube					**tube;
-	int						cost;
+	t_node_link				**nodes_lk;
+	t_edge_link				**edges_lk;
+
 	int						len;
+	int						cost;
 	int						nb_ants;
 }							t_way;
 

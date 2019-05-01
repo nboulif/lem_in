@@ -17,20 +17,21 @@ int			init_node(t_node *node, char *name, int nb_node)
 {
 	node->name = name;
 	node->id = hash((unsigned char*)name) % nb_node;
-	node->nb_tube_o = 0;
-	node->nb_tube_f = 0;
-	node->tube = NULL;
+	node->nb_edge_o = 0;
+	node->nb_edge_f = 0;
+	node->edge = NULL;
 	node->range = 0;
-	if (!(node->father_node = malloc(sizeof(t_node*))) ||
-		!(node->father_tube = malloc(sizeof(t_tube*))))
-		return (0);
-	// ft_memset(node->father_node, 0, 2 * sizeof(t_node*));
-	// ft_memset(node->father_tube, 0, 2 * sizeof(t_tube*));
+	// if (!(node->father_node = malloc(sizeof(t_node*))) ||
+	// 	!(node->father_edge = malloc(sizeof(t_edge*))))
+	// 	return (0);
+	// ft_memset(node->father_node, 0, 1 * sizeof(t_node*));
+	// ft_memset(node->father_edge, 0, 1 * sizeof(t_edge*));
 	node->nb_father_n = 1;
 	node->nb_father_t = 1;
 	node->i_nb_father = 0;
 	node->in_a_way = NULL;
 	node->deja_vu = 0;
+	node->deja_vu_init = 0;
 	node->nb_of_inway = -1;
 	return (1);
 }
@@ -123,10 +124,11 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 				return (-1);
 			}
 		}
-		else if (!(node = create_node(str, i, obj->nb_node)) ||
-			!add_in_lst(obj->lst_node_lk + node->id, node))
+		else 
 		{
-			return (-1);
+			if (!(node = create_node(str, i, obj->nb_node)) ||
+				!add_in_lst(obj->lst_node_lk + node->id, node))
+				return (-1);
 		}
 	}
 	return (1);

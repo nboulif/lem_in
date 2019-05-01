@@ -62,27 +62,27 @@ int		*dijksta(t_objectif *obj)
 		i = 0;
 		while (i < node->nb_links)
 		{
-			if (node->tube[i]->node_2 == node && (node->tube[i]->direction == 3 || node->tube[i]->direction == 2))
+			if (node->edge[i]->node_2 == node && (node->edge[i]->direction == 3 || node->edge[i]->direction == 2))
 			{
-				if (dist[node->tube[i]->node_2->id] > dist[node->id] + node->tube[i]->weight_2)
+				if (dist[node->edge[i]->node_2->id] > dist[node->id] + node->edge[i]->weight_2)
 				{
-					dist[node->tube[i]->node_2->id] = dist[node->id] + node->tube[i]->weight_2;
+					dist[node->edge[i]->node_2->id] = dist[node->id] + node->edge[i]->weight_2;
 					
-					prev[node->tube[i]->node_2->id] = node->id;
+					prev[node->edge[i]->node_2->id] = node->id;
 					
-					remove_node_from_queue(queue, node->tube[i]->node_2);
+					remove_node_from_queue(queue, node->edge[i]->node_2);
 				}
 			}
-			// same but the other node_1 instead of node_2 in tube
-			else if (node->tube[i]->node_1 == node && (node->tube[i]->direction == 3 || node->tube[i]->direction == 1))
+			// same but the other node_1 instead of node_2 in edge
+			else if (node->edge[i]->node_1 == node && (node->edge[i]->direction == 3 || node->edge[i]->direction == 1))
 			{
-				if (dist[node->tube[i]->node_1->id] > dist[node->id] + node->tube[i]->weight_1)
+				if (dist[node->edge[i]->node_1->id] > dist[node->id] + node->edge[i]->weight_1)
 				{
-					dist[node->tube[i]->node_1->id] = dist[node->id] + node->tube[i]->weight_1;
+					dist[node->edge[i]->node_1->id] = dist[node->id] + node->edge[i]->weight_1;
 					
-					prev[node->tube[i]->node_1->id] = node->id;
+					prev[node->edge[i]->node_1->id] = node->id;
 					
-					remove_node_from_queue(queue, node->tube[i]->node_1);
+					remove_node_from_queue(queue, node->edge[i]->node_1);
 				}
 			}
 		}

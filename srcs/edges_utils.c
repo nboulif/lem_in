@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tubes_utils.c                                      :+:      :+:    :+:   */
+/*   edges_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,19 @@
 
 #include "lem_in.h"
 
-int is_same_tube(t_tube tube1, t_tube tube2)
+int is_same_edge(t_edge edge1, t_edge edge2)
 {
-	return ((tube1.node1 == tube2.node1 || tube1.node1 == tube2.node2) &&
-		(tube1.node2 == tube2.node1 || tube1.node2 == tube2.node2));
+	return ((edge1.node1 == edge2.node1 || edge1.node1 == edge2.node2) &&
+		(edge1.node2 == edge2.node1 || edge1.node2 == edge2.node2));
 }
 
-int	is_in_tab_tube(t_tube **tab, t_tube *to_find, int size)
+int	is_in_tab_edge(t_edge **tab, t_edge *to_find, int size)
 {
 	int	i;
 
 	i = -1;
 	while (++i < size)
-		if (is_same_tube(*(tab[i]), *to_find))
+		if (is_same_edge(*(tab[i]), *to_find))
 			return (1);
 	return (0);
 }

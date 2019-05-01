@@ -12,7 +12,16 @@
 
 #include "lem_in.h"
 
-void			print_all_tube(t_objectif *obj)
+void 			print_node_and_edge(char *str, int size)
+{
+	write(1, str, size - 1);
+	if (str[size - 2] != '\n')
+		ft_putchar('\n');
+	free(str);
+	ft_putchar('\n');
+}
+
+void			print_all_edge(t_objectif *obj)
 {
 	int			i;
 	int			x;
@@ -26,9 +35,9 @@ void			print_all_tube(t_objectif *obj)
 		{
 			printf("link->name |%s|\n", link->node->name);
 			x = -1;
-			while (++x < link->node->nb_tube_f)
-				printf("|%s|-|%s|\n", link->node->tube[x]->node1->name,
-									link->node->tube[x]->node2->name);
+			while (++x < link->node->nb_edge_f)
+				printf("|%s|-|%s|\n", link->node->edge[x]->node1->name,
+									link->node->edge[x]->node2->name);
 			printf("\n");
 			sleep(1);
 			link = link->next;
@@ -36,23 +45,26 @@ void			print_all_tube(t_objectif *obj)
 	}
 }
 
-void 			print_way(t_objectif *obj, t_solution best)
+void 			print_way(t_objectif *obj)
 {
 	int 		i;
 	int 		x = -1;
+	
+	printf("\n\nend node name => |%s|\n", obj->end_node->name);
+	printf("nb way => |%d|\n\n", obj->sol->nb_way);
 
-	printf("end node name |%s|\n", obj->end_node->name);
-	while (++x < best.nb_way)
+	while (++x < obj->sol->nb_way)
 	{
 		printf("chemin %d\n", x);
-		i = 0;
-		while (1)
+		i = -1;
+		while (obj->sol->way[x].node[++i])
 		{
-			if (best.way[x].node[i++] == obj->end_node)
-				break ;
-			printf("%d. |%s|", i, best.way[x].node[i]->name);
-			printf(" |%s|-|%s|\n", best.way[x].tube[i]->node1->name, best.way[x].tube[i]->node2->name);
-		}
+			printf("%d. |%s|", i, obj->sol->way[x].node[i]->name);
+			printf(" |%s|-|%s|\n", obj->sol->way[x].edge[i]->node1->name, obj->sol->way[x].edge[i]->node2->name);
+
+		}	
 		printf("\n");
 	}
+
+
 }

@@ -30,7 +30,7 @@
 */
 
 /*
-** si une node n'a qu'un tube ou moins alors on peut le supprimer directement.
+** si une node n'a qu'un edge ou moins alors on peut le supprimer directement.
 */
 
 int		read_all(char **str)
@@ -75,17 +75,35 @@ void estimate_max_way(t_objectif *obj)
  		link = obj->lst_node_lk[i];
  		while (link)
  		{
-			if (link->node->nb_tube_f > obj->max_link)
-				obj->max_link = link->node->nb_tube_f;
+			if (link->node->nb_edge_f > obj->max_link)
+				obj->max_link = link->node->nb_edge_f;
 			link = link->next;
  		}
  	}
-	obj->max_way = ft_min(obj->start_node->nb_tube_f, obj->end_node->nb_tube_f,
+	obj->max_way = ft_min(obj->start_node->nb_edge_f, obj->end_node->nb_edge_f,
 						obj->max_link);
 	obj->max_way = (obj->max_way < obj->nb_ants) ? obj->max_way : obj->nb_ants;
 }
 
-#include <time.h>
+int init_max_father_in_node(t_objectif *obj)
+{
+	int i;
+	t_node *node;
+
+	i = -1;
+	while (++i < obj->nb_node)
+	{
+		node = obj->lst_node[i];
+		if (!(node->father_node = malloc(obj->max_way * sizeof(t_node*))) ||
+			!(node->father_edge = malloc(obj->max_way * sizeof(t_edge*))))
+			return (0);
+		ft_memset(node->father_node, 0, obj->max_way * sizeof(t_node*));
+		ft_memset(node->father_edge, 0, obj->max_way * sizeof(t_edge*));
+		
+	}
+	return (1);
+}
+
 
 int main(void)
 {
@@ -93,7 +111,7 @@ int main(void)
 	t_objectif		obj;
 	int				size;
 	int res;
-
+	
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||
@@ -102,17 +120,23 @@ int main(void)
 		printf("Error init\n");
 		return (0);
 	}
-	write(1, str, size - 1);
-	if (str[size - 2] != '\n')
-		ft_putchar('\n');
-	free(str);
-	ft_putchar('\n');
+
+	print_node_and_edge(str, size);
+
+	estimate_max_way(&obj);
 	
+	if (!(init_max_father_in_node(&obj)))
+	{
+		printf("Error Resolv\n");
+		return (0);
+	}
 	if ((res = resolv(&obj)) == -1)
 	{
 		printf("Error Resolv\n");
 		return (0);
 	}
+
+	print_way(&obj);
 	
 	return (1);
 }

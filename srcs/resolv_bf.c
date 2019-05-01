@@ -13,59 +13,6 @@
 #include "lem_in.h"
 
 
-int get_right_W_in_tube(t_node *node, int i)
-{
-	if (node == node->tube[i]->node1)
-		return (node->tube[i]->w1);
-	return (node->tube[i]->w2);
-}
-
-
-void init_dist_lst(t_objectif *obj, int **dist)
-{
-	for (int i = 0; i < obj->nb_node; i++)
-	{
-		if (obj->lst_node[i]->id == obj->start_node->id)
-			(*dist)[obj->lst_node[i]->id] = 0;
-		else
-			(*dist)[obj->lst_node[i]->id] = __INT_MAX__;	
-	}
-}
-
-void apply_algo(t_objectif *obj, int **dist)
-{
-	int i;
-	int j;
-
-	int u;
-	int v;
-
-	i = 0;
-	while (++i < obj->nb_node)
-	{
-		j = -1;
-		while (++j < obj->nb_tube)
-		{
-			u = obj->lst_tube[j].node1->id;
-			v = obj->lst_tube[j].node2->id;
-			if ((*dist)[u] != __INT_MAX__ && (*dist)[u] + obj->lst_tube[j].w1 < (*dist)[v]) 
-			{
-				(*dist)[v] = (*dist)[u] + obj->lst_tube[j].w1;
-				obj->lst_node[v]->father_node[0] = obj->lst_tube[j].node1;
-				obj->lst_node[v]->father_tube[0] = &obj->lst_tube[j];
-			}
-
-			if ((*dist)[v] != __INT_MAX__ && (*dist)[v] + obj->lst_tube[j].w2 < (*dist)[u]) 
-			{
-				(*dist)[u] = (*dist)[v] + obj->lst_tube[j].w2;
-				obj->lst_node[u]->father_node[0] = obj->lst_tube[j].node2;
-				obj->lst_node[u]->father_tube[0] = &obj->lst_tube[j];
-
-			}
-		}
-	}
-}
-
 void check_negative_cycle(t_objectif *obj, int **dist)
 {
 	int i;
@@ -73,75 +20,217 @@ void check_negative_cycle(t_objectif *obj, int **dist)
 	int v;
 
 	i = -1;
-	while (++i < obj->nb_tube)
+	while (++i < obj->nb_edge)
     {
-		u = obj->lst_tube[i].node1->id;
-		v = obj->lst_tube[i].node2->id;
-        if ((*dist)[u] != __INT_MAX__ && (*dist)[u] + obj->lst_tube[i].w1 < (*dist)[v]) 
-            printf("Graph contains negative weight cycle"); 
+		u = obj->lst_edge[i].node1->id;
+		v = obj->lst_edge[i].node2->id;
+        if ((*dist)[u] != __INT_MAX__ && (*dist)[u] + obj->lst_edge[i].w1 < (*dist)[v]) 
+            printf("Graph contains negative weight cycle\n"); 
     } 
 	
 }
-
-void reverse_way(t_objectif *obj, t_way *way)
+int init_dist_lst(t_objectif *obj, int **dist)
 {
-	(void)obj;
-
-	int i;
-	t_node		*tmp_node;
-	// t_tube		*tmp_tube;
-	
-	i = -1;
-	while (++i < way->len / 2 + way->len % 2)
+	(*dist) = (int *)malloc(sizeof(int) * obj->nb_node);
+	for (int i = 0; i < obj->nb_node; i++)
 	{
-		tmp_node = way->node[i];
-		way->node[i] = way->node[way->len - i];
-		way->node[way->len - i] = tmp_node;
-
-		// tmp_tube = way->tube[i];
-		// way->tube[i] = way->tube[way->len - i];
-		// way->tube[way->len - i] = tmp_tube;
+		if (obj->lst_node[i]->id == obj->start_node->id)
+			(*dist)[obj->lst_node[i]->id] = 0;
+		else
+			(*dist)[obj->lst_node[i]->id] = __INT_MAX__;	
 	}
-	
-	way->node[way->len] = obj->end_node;
-	
+	return (1);
 }
 
-t_way *find_way_bf(t_objectif *obj)
-{ 
-    int			*dist; 
-	int			i;
-	t_way		*way;
 
-	dist = (int *)malloc(sizeof(int) * obj->nb_node);
-	way = (t_way *)malloc(sizeof(t_way));
-	way->node = (t_node **)malloc(sizeof(t_node *) * obj->nb_node);
-	way->tube = (t_tube **)malloc(sizeof(t_tube *) * obj->nb_tube);
+int make_way(t_objectif *obj, t_way *way)
+{
+	int i;
+	int dir;
+	int *w;
+	t_node *u;
+	t_node *v;
 
-	init_dist_lst(obj, &dist);
-	apply_algo(obj, &dist);
-	check_negative_cycle(obj, &dist);
-
-	
-	i = 0;
-	way->cost = dist[obj->nb_node - 1];
+	i = way->len - 1;
 	way->node[i] = obj->end_node;
-	while (way->node[i]->id != obj->start_node->id)
-	{
-		printf("%s  --  %s\n", way->node[i]->father_tube[0]->node1->name,  
-			way->node[i]->father_tube[0]->node2->name);
-		++i;
-		way->node[i] = way->node[i - 1]->father_node[0];
-		way->tube[i] = way->node[i - 1]->father_tube[0];
-	}
-	printf("\nlen => %d \n\n", i);
-	way->len = i;
 
-	reverse_way(obj, way);
+
+	while (i + 1)
+	{
+		// printf("name %s \n", way->node[i]->name);
+
+		way->edge[i] = way->node[i]->father_edge[obj->sol->nb_way];
+
+		if (way->edge[i]->node1->id == way->node[i]->id)
+		{
+			u = way->edge[i]->node1;
+			v = way->edge[i]->node2;
+			dir = UNIDIR1;
+			w = &way->edge[i]->w1;
+		}
+		else
+		{
+			u = way->edge[i]->node2;
+			v = way->edge[i]->node1;
+			dir = UNIDIR2;
+			w = &way->edge[i]->w2;
+		}
+
+		if (way->edge[i]->direction == BIDIR)
+		{
+			way->edge[i]->direction = dir;
+			*w = -(*w);					
+		}
+		else
+		{
+			way->edge[i]->direction = NODIR;
+			*w = 0;		
+		}
+
+		// printf("name %s -- %s, weight %d -- %d, dir %d\n", way->edge[i]->node1->name, way->edge[i]->node2->name, way->edge[i]->w1, way->edge[i]->w2,  way->edge[i]->direction);
+		
+		way->node[i - 1] = way->node[i]->father_node[obj->sol->nb_way];
+		way->node[i - 1]->deja_vu += 1;
+
+		if (way->node[i - 1]->deja_vu > 1)
+		{
+			
+		}
+
+		--i;
+	}
 
 	i = -1;
-	while (++i < way->len + 1)
-		printf("%s \n", way->node[i]->name);
+	while (++i < way->len)
+	{
+		printf("%d %s   %s -- %s   / w  %d -- %d  / d  %d \n", way->node[i]->deja_vu, way->node[i]->name, 
+			way->edge[i]->node1->name, way->edge[i]->node2->name, 
+			way->edge[i]->w1, way->edge[i]->w2,			
+			way->edge[i]->direction			
+			);
+	}
+	return(1);
+}
+
+void check_bellman_ford(t_objectif *obj, int **dist, t_edge *e, int mode)
+{
+	t_node *u;
+	t_node *v;
+	int 	w;
+	int 	dir;
 	
-    return (way);
+	if (mode == 1)
+	{
+		u = e->node1;
+		v = e->node2;
+		w = e->w1;
+		dir = UNIDIR1;
+	}
+	else
+	{
+		u = e->node2;
+		v = e->node1;
+		w = e->w2;
+		dir = UNIDIR2;
+	}
+	
+	if (
+		(e->direction == BIDIR || e->direction == dir) &&
+		u->id != obj->end_node->id &&
+		(
+			!u->deja_vu || !u->father_node[obj->sol->nb_way] ||
+			( 
+				u->father_node[obj->sol->nb_way] 
+				&&
+				( 
+					(!v->deja_vu && u->father_node[obj->sol->nb_way]->deja_vu) 
+					|| 
+					(v->deja_vu && !u->father_node[obj->sol->nb_way]->deja_vu) 
+				)
+			)
+		) &&
+		(*dist)[u->id] != __INT_MAX__ && (*dist)[u->id] + w < (*dist)[v->id]
+		) 
+	{
+		printf("2 ");
+
+		(*dist)[v->id] = (*dist)[u->id] + w;
+		// if (
+		// 	(
+		// 		(!u->deja_vu) || 
+		// 		( 
+		// 			(u->father_node[obj->sol->nb_way]) 
+		// 			&&
+		// 			( 
+		// 				(!v->deja_vu && u->father_node[obj->sol->nb_way]->deja_vu) 
+		// 				|| 
+		// 				(v->deja_vu && !u->father_node[obj->sol->nb_way]->deja_vu) 
+		// 			)
+		// 		)
+		// 	)
+		// )
+		// {
+			v->father_node[obj->sol->nb_way] = u;
+			v->father_edge[obj->sol->nb_way] = e;
+		// }
+	}
+}
+
+void apply_algo_bellman_ford(t_objectif *obj, int **dist)
+{
+	int i;
+	int j;
+
+	t_edge *e;
+
+	i = 0;
+	while (++i < obj->nb_node)
+	{
+		j = -1;
+		while (++j < obj->nb_edge_f)
+		{
+			e = obj->lst_edge_ord[j];
+			check_bellman_ford(obj, dist, e, 1);
+			check_bellman_ford(obj, dist, e, 2);
+			
+		}
+	}
+	printf("- \n");
+	check_negative_cycle(obj, dist);
+}
+
+
+int find_way(t_objectif *obj)
+{ 
+    int			*dist; 
+	t_way 		*way;
+
+	way = &obj->sol->way[obj->sol->nb_way];
+
+	if (!(init_dist_lst(obj, &dist)) || !(init_way(obj, way)))
+	    return (-1);
+
+	apply_algo_bellman_ford(obj, &dist);
+	// apply_algo_bfs(obj, &dist);
+	if (dist[obj->nb_node - 1] == __INT_MAX__)
+		return(0);
+
+	way->cost = dist[obj->nb_node - 1];
+	
+	t_node *curr;
+
+	way->len = -1;
+	curr = obj->end_node;
+	while (curr)
+	{
+		way->len++;
+		// printf("name => %s\n", curr->name);
+		curr = curr->father_node[obj->sol->nb_way];
+	}
+	printf("cost => %d\n", way->cost);
+	printf("len => %d\n", way->len);
+
+	make_way(obj, way);
+
+    return (1);
 } 

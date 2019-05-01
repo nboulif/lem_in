@@ -12,23 +12,23 @@
 
 #include "lem_in.h"
 
-void delete_this_tube(t_node *node, t_tube *tube, t_objectif *obj)
+void delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
 {
 	int				x;
 
 	x = -1;
-	while (++x < node->nb_tube_f)
-		if (node->tube[x] == tube)
+	while (++x < node->nb_edge_f)
+		if (node->edge[x] == edge)
 		{
-			node->tube[x] = node->tube[--node->nb_tube_f];
-			if (node->nb_tube_f == 1 &&
+			node->edge[x] = node->edge[--node->nb_edge_f];
+			if (node->nb_edge_f == 1 &&
 				node != obj->start_node &&
 				node != obj->end_node)
 			{
-				if (node == node->tube[0]->node2)
-					delete_this_tube(node->tube[0]->node1, node->tube[0], obj);
+				if (node == node->edge[0]->node2)
+					delete_this_edge(node->edge[0]->node1, node->edge[0], obj);
 				else
-					delete_this_tube(node->tube[0]->node2, node->tube[0], obj);
+					delete_this_edge(node->edge[0]->node2, node->edge[0], obj);
 			}
 			return ;
 		}
@@ -45,23 +45,23 @@ void delete_dead_end(t_objectif *obj)
  		link = obj->lst_node_lk[i];
  		while (link)
  		{
-			if (link->node->nb_tube_f == 1 &&
+			if (link->node->nb_edge_f == 1 &&
 				link->node != obj->start_node &&
 				link->node != obj->end_node)
 			{
-				if (link->node == link->node->tube[0]->node2)
-					delete_this_tube(link->node->tube[0]->node1,
-									link->node->tube[0], obj);
+				if (link->node == link->node->edge[0]->node2)
+					delete_this_edge(link->node->edge[0]->node1,
+									link->node->edge[0], obj);
 				else
-					delete_this_tube(link->node->tube[0]->node2,
-									link->node->tube[0], obj);
+					delete_this_edge(link->node->edge[0]->node2,
+									link->node->edge[0], obj);
 			}
 			link = link->next;
  		}
  	}
 }
 
-int create_tab_tube_in_node(t_objectif *obj)
+int create_tab_edge_in_node(t_objectif *obj)
 {
 	int			i;
 	t_node_link	*link;
@@ -72,7 +72,7 @@ int create_tab_tube_in_node(t_objectif *obj)
 		link = obj->lst_node_lk[i];
 		while (link)
 		{
-			if (!(link->node->tube = malloc(link->node->nb_tube_o * sizeof(t_tube*))))
+			if (!(link->node->edge = malloc(link->node->nb_edge_o * sizeof(t_edge*))))
 				return (0);
 			link = link->next;
 		}
@@ -80,32 +80,99 @@ int create_tab_tube_in_node(t_objectif *obj)
 	return (1);
 }
 
-int link_node_and_tube(t_objectif *obj)
+int rec_init_lst_edge_ord(t_objectif *obj)
+{
+	t_queue queue;
+	t_node *node;
+	t_edge *edge;
+
+	int j;
+	int k;
+
+	
+	obj->lst_edge_ord = (t_edge**)malloc(sizeof(t_edge*) * obj->nb_edge);
+
+	if (!(queue.node = ft_memalloc(sizeof(t_node*) * obj->nb_node)))
+			return (0);
+
+	ft_memset(obj->lst_edge_ord, 0, obj->nb_edge);
+	ft_memset(queue.node, 0, obj->nb_node);
+
+	queue.node[0] = obj->start_node;
+	obj->start_node->deja_vu_init = 1;
+
+	k = 0;
+	queue.size_queue = 0;
+	queue.index = -1;
+	while(++queue.index <= queue.size_queue)
+	{
+		// printf("node %s \n", queue.node[queue.index]->name);
+
+		j = -1;
+		while(++j < queue.node[queue.index]->nb_edge_f)
+		{	
+			edge = queue.node[queue.index]->edge[j];
+
+			if (queue.node[queue.index]->id == edge->node1->id)
+				node = edge->node2;
+			else
+				node = edge->node1;
+			
+
+			if (!node->deja_vu_init)
+			{
+				node->deja_vu_init = 1;
+				queue.node[++queue.size_queue] = node;
+			}
+
+			if (!edge->deja_vu_init)
+			{
+				edge->deja_vu_init = 1;
+				obj->lst_edge_ord[k++] = edge;
+				printf("--- %s-%s\n", edge->node1->name, edge->node2->name);
+			}
+
+
+		}
+	}
+	obj->nb_edge_f = k;
+	printf("hhhhhhh %d %d %d %d \n", queue.index , queue.size_queue, k, obj->nb_edge);
+	// exit(0);
+	return (1);
+}
+
+int link_node_and_edge(t_objectif *obj)
 {
 	int			i;
 	t_node		*node1;
 	t_node		*node2;
 
 	i = -1;
-	if (!create_tab_tube_in_node(obj))
+	if (!create_tab_edge_in_node(obj))
 		return (0);
-	while (++i < obj->nb_tube)
+	while (++i < obj->nb_edge)
 	{
-		node1 = obj->lst_tube[i].node1;
-		node2 = obj->lst_tube[i].node2;
-		if (!is_in_tab_tube(node1->tube, obj->lst_tube + i, node1->nb_tube_f))
+		node1 = obj->lst_edge[i].node1;
+		node2 = obj->lst_edge[i].node2;
+		if (!is_in_tab_edge(node1->edge, obj->lst_edge + i, node1->nb_edge_f))
 		{
-			node1->tube[node1->nb_tube_f++] = obj->lst_tube + i;
-			node2->tube[node2->nb_tube_f++] = obj->lst_tube + i;
+			node1->edge[node1->nb_edge_f++] = obj->lst_edge + i;
+			node2->edge[node2->nb_edge_f++] = obj->lst_edge + i;
 		}
 	}
+
 	return (1);
 }
 
 int init_resolv(t_objectif *obj)
 {	
-	if (!link_node_and_tube(obj))
+	if (!link_node_and_edge(obj))
 		return (0);
+
+	
 	delete_dead_end(obj);
+
+	rec_init_lst_edge_ord(obj);
+
 	return (1);
 }

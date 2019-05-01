@@ -12,58 +12,31 @@
 
 #include "lem_in.h"
 
-void 		make_way(t_objectif *obj, t_solution *sol)
-{
-	t_node	*node;
-	t_tube	*l_tube;
-	int		x;
-	int		i;
-
-	x = -1;
-	i = -1;
-	node = obj->end_node;
-	sol->way[sol->nb_way - 1].len = 0;
-	while (node != obj->start_node)
-	{
-		sol->way[sol->nb_way - 1].node[sol->way[sol->nb_way - 1].len] = node;
-		sol->way[sol->nb_way - 1].tube[sol->way[sol->nb_way - 1].len++] = node->father_tube[0];
-		//node->nb_of_inway = 0;
-		l_tube = node->father_tube[0];
-		if (node->name == node->father_tube[0]->node1->name)
-		{
-			node->father_tube[0]->direction -= UNIDIR1;
-			node->father_tube[0]->w2 = -1;
-			node = node->father_tube[0]->node2;
-		}
-		else
-		{
-			node->father_tube[0]->direction -= UNIDIR2;
-			node->father_tube[0]->w1 = -1;
-			node = node->father_tube[0]->node1;
-		}
-		node->in_a_way = l_tube;
-		node->nb_of_inway = sol->nb_way;
-	}
-}
 
 int		resolv(t_objectif *obj)
 {
-	t_solution	best_sol;
-	t_solution	next_sol;
-	t_way				*way;
+	int res;
 
-	best_sol = (t_solution){NULL, 0, 0, 0};
-	next_sol = (t_solution){NULL, 0, 0, 0};
+	obj->sol = (t_solution*)malloc(sizeof(t_solution));
+	obj->sol->way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
+	obj->sol->nb_way = 0;
+	
+	printf("max_way => %d \n\n", obj->max_way);
+	int count_iter = 1;
+	while (1)
+	{
+		printf(" \n\nSTART ITERATION ONE => %d\n\n", count_iter);
 
-    if (//!(first_way(obj, &first))
-		!(way = find_way_bf(obj)))
-			return (-1);
-			// exit(printf("ERROR\n"));
-	best_sol.nb_way = 1;
-	best_sol.way = (t_way*)malloc(sizeof(t_way) * best_sol.nb_way);
-	best_sol.way[0] = *way;
+		res = find_way(obj);
+		printf("\nEND ITERATION ONE => %d \n", count_iter++);
+		if (!(res) || res == -1)
+		{
+			return (res);
+		}
+		++obj->sol->nb_way;
 
-	print_way(obj, best_sol);
+	}
 
+	// obj->sol->nb_way++;
 	return (1);
 }
