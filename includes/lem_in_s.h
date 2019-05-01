@@ -104,8 +104,8 @@ typedef struct				s_objectif
 
 typedef struct 				s_way
 {
-	t_node_link				**nodes_lk;
-	t_edge_link				**edges_lk;
+	t_node_link				*nodes_lk;
+	t_edge_link				*edges_lk;
 
 	int						len;
 	int						cost;

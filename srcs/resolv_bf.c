@@ -50,65 +50,118 @@ int make_way(t_objectif *obj, t_way *way)
 	int *w;
 	t_node *u;
 	t_node *v;
+	t_node_link *n_ln;
+	t_edge *e;
 
 	i = way->len - 1;
-	way->node[i] = obj->end_node;
-
-
+	way->nodes_lk[i].node = obj->end_node;
+	way->nodes_lk[i].next = NULL;
+	
 	while (i + 1)
 	{
-		// printf("name %s \n", way->node[i]->name);
-
-		way->edge[i] = way->node[i]->father_edge[obj->sol->nb_way];
-
-		if (way->edge[i]->node1->id == way->node[i]->id)
-		{
-			u = way->edge[i]->node1;
-			v = way->edge[i]->node2;
-			dir = UNIDIR1;
-			w = &way->edge[i]->w1;
-		}
-		else
-		{
-			u = way->edge[i]->node2;
-			v = way->edge[i]->node1;
-			dir = UNIDIR2;
-			w = &way->edge[i]->w2;
-		}
-
-		if (way->edge[i]->direction == BIDIR)
-		{
-			way->edge[i]->direction = dir;
-			*w = -(*w);					
-		}
-		else
-		{
-			way->edge[i]->direction = NODIR;
-			*w = 0;		
-		}
-
-		// printf("name %s -- %s, weight %d -- %d, dir %d\n", way->edge[i]->node1->name, way->edge[i]->node2->name, way->edge[i]->w1, way->edge[i]->w2,  way->edge[i]->direction);
+		n_ln = &way->nodes_lk[i];
+		printf("name %s \n", n_ln->node->name);
+		e = n_ln->node->father_edge[obj->sol->nb_way];
 		
-		way->node[i - 1] = way->node[i]->father_node[obj->sol->nb_way];
-		way->node[i - 1]->deja_vu += 1;
+		
+		way->edges_lk[i].edge = e;
+		way->edges_lk[i].edge->deja_vu += 1;
+		if (way->nodes_lk[i].node == obj->end_node)
+			way->edges_lk[i].next = NULL;
+		else
+			way->edges_lk[i].next = &way->edges_lk[i + 1];
 
-		if (way->node[i - 1]->deja_vu > 1)
+		way->nodes_lk[i - 1].node = n_ln->node->father_node[obj->sol->nb_way];
+		way->nodes_lk[i - 1].next = n_ln;
+
+		if(way->nodes_lk[i - 1].node->id != obj->start_node->id)
+			way->nodes_lk[i - 1].node->deja_vu += 1;
+		
+		if (e->node1->id == n_ln->node->id)
 		{
-			
+			u = e->node1;
+			v = e->node2;
+			dir = UNIDIR1;
+			w = &e->w1;
+		}
+		else
+		{
+			u = e->node2;
+			v = e->node1;
+			dir = UNIDIR2;
+			w = &e->w2;
 		}
 
+		if (e->direction == BIDIR)
+		{
+			e->direction = dir;
+			*w = -(*w);
+		}
+		else if (e->direction != NODIR)
+		{
+			e->direction = NODIR;
+			*w = 0;
+		}
 		--i;
+
 	}
+
 
 	i = -1;
 	while (++i < way->len)
 	{
-		printf("%d %s   %s -- %s   / w  %d -- %d  / d  %d \n", way->node[i]->deja_vu, way->node[i]->name, 
-			way->edge[i]->node1->name, way->edge[i]->node2->name, 
-			way->edge[i]->w1, way->edge[i]->w2,			
-			way->edge[i]->direction			
+		printf("%d %s   %s -- %s   / w  %d -- %d  / d  %d \n", 
+			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
+			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
+			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			
+			way->edges_lk[i].edge->direction			
 			);
 	}
+
+	int z;
+	t_edge_link *tmp;
+
+	t_edge_link *e_ln_1;
+	t_edge_link *e_ln_2;
+
+	i = -1;
+	while (++i < way->len)
+	{
+		// printf("nameDEBUG 0\n");
+		e_ln_2 = &way->edges_lk[i];
+		n_ln = &way->nodes_lk[i];
+		// printf("nameDEBUG 1\n");
+
+		if (e_ln_2->next && e_ln_2->next->edge->direction == NODIR)
+		{
+			printf("nameDEBUG 2\n");
+
+			z = obj->sol->nb_way;
+
+			while(z-- > 0)
+			{
+				e_ln_1 = &obj->sol->way[z].edges_lk[0];
+				// e_ln_1 = obj->sol->way[z].edges_lk;
+
+				while(e_ln_1->next && (e_ln_1->next->edge != e_ln_2->next->edge))
+					e_ln_1 = e_ln_1->next;
+				
+				if(e_ln_1->next && (e_ln_1->next->edge == e_ln_2->next->edge))
+				{
+					printf("nameDEBUG 3\n");
+
+					tmp = e_ln_2->next->next;
+					e_ln_2->next = e_ln_1->next->next;
+					e_ln_1->next = tmp;
+					break;
+				}
+			}
+		}
+		// printf("nameDEBUG 3\n");
+	}
+	
+	printf("nameDEBUG 4\n");
+
 	return(1);
 }
 

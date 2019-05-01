@@ -44,8 +44,8 @@ void 		init_graph_bf(t_objectif *obj, int first_time)
 
 int 		init_way(t_objectif *obj, t_way *way)
 {
-	if (!(way->node = malloc(sizeof(t_node*) * (obj->nb_node))) ||
-		!(way->edge = malloc(sizeof(t_edge*) * (obj->nb_node))))
+	if (!(way->nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node))) ||
+		!(way->edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node))))
 		return (0);
 	return (1);
 }
@@ -62,20 +62,20 @@ int			init_solution(t_objectif *obj, t_solution  *sol, t_queue *queue)
 int			clone_way(t_objectif *obj, t_solution *sol, t_solution *cur)
 {
 	int		i;
-	t_node	**node;
-	t_edge	**edge;
+	t_node_link	*nodes_lk;
+	t_edge_link	*edges_lk;
 
 	ft_memcpy(sol->way, cur->way, (sol->nb_way-1) * sizeof(t_way));
 	i = -1;
 	while (++i < cur->nb_way)
 	{
-		if (!(node = malloc(sizeof(t_node*) * (obj->nb_node))) ||
-		!(edge = malloc(sizeof(t_edge*) * (obj->nb_node))))
+		if (!(nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node))) ||
+			!(edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node))))
 			return (0);
-		ft_memcpy(edge, cur->way[i].edge, (obj->nb_node) * sizeof(t_edge*));
-		ft_memcpy(node, cur->way[i].node, (obj->nb_node) * sizeof(t_node*));
-		sol->way[i].edge = edge;
-		sol->way[i].node = node;
+		ft_memcpy(nodes_lk, cur->way[i].nodes_lk, (obj->nb_node) * sizeof(t_node_link*));
+		ft_memcpy(edges_lk, cur->way[i].edges_lk, (obj->nb_node) * sizeof(t_edge_link*));
+		sol->way[i].edges_lk = edges_lk;
+		sol->way[i].nodes_lk = nodes_lk;
 	}
 	return (1);
 }

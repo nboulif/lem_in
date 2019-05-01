@@ -48,20 +48,33 @@ void			print_all_edge(t_objectif *obj)
 void 			print_way(t_objectif *obj)
 {
 	int 		i;
-	int 		x = -1;
-	
+	int 		x;
+	// t_node_link		*n_ln;
+	t_edge_link		*e_ln;
+
 	printf("\n\nend node name => |%s|\n", obj->end_node->name);
 	printf("nb way => |%d|\n\n", obj->sol->nb_way);
 
+
+	x = -1;
 	while (++x < obj->sol->nb_way)
 	{
 		printf("chemin %d\n", x);
-		i = -1;
-		while (obj->sol->way[x].node[++i])
+		i = 0;
+		// n_ln = &obj->sol->way[x].nodes_lk[0];
+		e_ln = &obj->sol->way[x].edges_lk[0];
+		while (e_ln)
 		{
-			printf("%d. |%s|", i, obj->sol->way[x].node[i]->name);
-			printf(" |%s|-|%s|\n", obj->sol->way[x].edge[i]->node1->name, obj->sol->way[x].edge[i]->node2->name);
 
+			printf("%d. ", i);
+			// printf("|%s|", n_ln->node->name);
+			printf(" |%s|-|%s|\n", 
+				e_ln->edge->node1->name, 
+				e_ln->edge->node2->name
+			);
+			i++;
+			// n_ln = n_ln->next;
+			e_ln = e_ln->next;
 		}	
 		printf("\n");
 	}
