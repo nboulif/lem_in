@@ -242,14 +242,19 @@ void print_way_status_before_merge(t_way *way)
 	}
 }
 
-void set_way_len_with_node_lk(t_way *way)
+void update_ways_len_with_node_lk(t_solution *sol)
 {
 	t_edge_link		*e_ln;
+	int 			i;
 
-	way->len = 1;
-	e_ln = &way->edges_lk[0];
-	while ((e_ln = e_ln->next))
-		way->len++;
+	i = -1;
+	while (++i < sol->nb_way)
+	{
+		sol->way[i].len = 1;
+		e_ln = &sol->way[i].edges_lk[0];
+		while ((e_ln = e_ln->next))
+			sol->way[i].len++;
+	}
 }
 
 
@@ -275,6 +280,6 @@ int find_way(t_objectif *obj, t_solution *sol)
 	print_way_status_before_merge(way);
 
 	merge_way(sol);	
-	set_way_len_with_node_lk(way);
+	update_ways_len_with_node_lk(sol);
     return (1);
 } 

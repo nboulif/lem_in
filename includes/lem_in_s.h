@@ -97,7 +97,6 @@ typedef struct				s_objectif
 	int 					max_way;
 	int						max_link;
 	int						dist_up;
-	t_solution				*sol;
 }							t_objectif;
 
 // SOLVE
