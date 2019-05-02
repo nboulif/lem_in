@@ -37,10 +37,12 @@ SOURCES_LIST = lem_in.c \
 				utils.c \
 				edges_utils.c \
 				print_utils.c \
+				bellmanford.c \
 				resolv.c \
 				resolv_tmp.c \
 				resolv_bf.c \
 				resolv_init.c
+
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objs/

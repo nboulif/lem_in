@@ -104,6 +104,15 @@ int init_max_father_in_node(t_objectif *obj)
 	return (1);
 }
 
+void print_main_info(t_objectif obj)
+{
+// print_node_and_edge(str, size);
+	printf("nb_node => %d\n", obj.nb_node);
+	printf("nb_edge => %d\n", obj.nb_edge);
+	printf("nb_edge_f => %d\n", obj.nb_edge_f);
+	printf("max_way => %d\n", obj.max_way);
+	sleep(1);
+}
 
 int main(void)
 {
@@ -120,14 +129,19 @@ int main(void)
 		printf("Error init\n");
 		return (0);
 	}
-
-	// print_node_and_edge(str, size);
-
 	estimate_max_way(&obj);
+
+	if (!obj.max_way)
+	{
+		printf("NO WAY AVAILABLE\n");
+		return (0);
+	}
+	
+	print_main_info(obj);
 	
 	if (!(init_max_father_in_node(&obj)))
 	{
-		printf("Error Resolv\n");
+		printf("Error init_max_father\n");
 		return (0);
 	}
 	if ((res = resolv(&obj)) == -1)

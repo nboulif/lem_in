@@ -135,7 +135,8 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 		}
 	}
 	obj->nb_edge_f = k;
-	printf("hhhhhhh %d %d %d %d \n", queue.index , queue.size_queue, k, obj->nb_edge);
+	
+
 	// exit(0);
 	return (1);
 }
@@ -167,11 +168,7 @@ int init_resolv(t_objectif *obj)
 {	
 	if (!link_node_and_edge(obj))
 		return (0);
-
-	
 	delete_dead_end(obj);
-
 	rec_init_lst_edge_ord(obj);
-
 	return (1);
 }

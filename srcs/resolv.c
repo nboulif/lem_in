@@ -129,6 +129,7 @@ void	evaluate_turn_solution(t_objectif *obj, t_solution *sol)
 int		resolv(t_objectif *obj)
 {
 	int res;
+	int best_turn;
 	
 	t_solution best_sol;
 	t_solution next_sol;
@@ -141,7 +142,6 @@ int		resolv(t_objectif *obj)
 	next_sol.way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
 	next_sol.nb_way = 0;
 	
-	int best_turn;
 
 	printf("max_way => %d \n\n", obj->max_way);
 
@@ -155,7 +155,7 @@ int		resolv(t_objectif *obj)
 		
 		if (!(res))
 		{
-			printf("NO MORE WAY\n");
+			// printf("NO MORE WAY\n");
 			break;
 		}
 		else if (res == -1)
@@ -168,11 +168,11 @@ int		resolv(t_objectif *obj)
 		++next_sol.nb_way;
 		evaluate_turn_solution(obj, &next_sol);
 
-		printf("next_turn %d vs best_turn %d\n", next_sol.nb_turn, best_turn);
+		printf("turn best vs current  |%d|-|%d| v2\n", best_turn, next_sol.nb_turn);
 		// sleep(1);
 		if (best_sol.nb_way && best_turn < next_sol.nb_turn)
 		{
-			printf("MORE TURN\n");
+			// printf("MORE TURN\n");
 			break ;
 		}
 

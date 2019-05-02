@@ -42,40 +42,28 @@ int init_dist_lst(t_objectif *obj, int **dist)
 	return (1);
 }
 
-
 void  merge_way(t_solution *sol)
 {
-
 	int z;
 	t_edge_link *tmp;
 	int i;
-	t_way *way;
-
 	t_edge_link *e_ln_1;
 	t_edge_link *e_ln_2;
 
-	way = &sol->way[sol->nb_way];
-
 	i = -1;
-	while (++i < way->len)
+	while (++i < sol->way[sol->nb_way].len)
 	{
-		e_ln_2 = &way->edges_lk[i];
-
+		e_ln_2 = &sol->way[sol->nb_way].edges_lk[i];
 		if (e_ln_2->next && e_ln_2->next->edge->direction == NODIR)
 		{
-
 			z = sol->nb_way;
-
 			while(z-- > 0)
 			{
 				e_ln_1 = sol->way[z].edges_lk;
-
 				while(e_ln_1->next && (e_ln_1->next->edge != e_ln_2->next->edge))
 					e_ln_1 = e_ln_1->next;
-				
 				if(e_ln_1->next && (e_ln_1->next->edge == e_ln_2->next->edge))
 				{
-
 					tmp = e_ln_2->next->next;
 					e_ln_2->next = e_ln_1->next->next;
 					e_ln_1->next = tmp;
@@ -98,6 +86,20 @@ void set_way_len_with_father_node(t_solution *sol, t_node *end_node)
 		way->len++;
 }
 
+void update_ways_len_with_node_lk(t_solution *sol)
+{
+	t_edge_link		*e_ln;
+	int 			i;
+
+	i = -1;
+	while (++i < sol->nb_way)
+	{
+		sol->way[i].len = 1;
+		e_ln = &sol->way[i].edges_lk[0];
+		while ((e_ln = e_ln->next))
+			sol->way[i].len++;
+	}
+}
 
 int make_way(t_objectif *obj, t_solution *sol)
 {
@@ -105,6 +107,7 @@ int make_way(t_objectif *obj, t_solution *sol)
 	int dir;
 	int *w;
 	t_node_link *n_ln;
+	t_edge_link *e_ln;
 	t_edge *e;
 	t_way *way;
 
@@ -119,17 +122,20 @@ int make_way(t_objectif *obj, t_solution *sol)
 	while (i + 1)
 	{
 		n_ln = &way->nodes_lk[i];
+		e_ln = &way->edges_lk[i];
 		// printf("name %s \n", n_ln->node->name);
-		e = n_ln->node->father_edge[sol->nb_way];
-		way->edges_lk[i].edge = e;
-		way->edges_lk[i].next = way->nodes_lk[i].node == obj->end_node ? NULL : &way->edges_lk[i + 1];
-		way->edges_lk[i].edge->deja_vu += 1;
+		
+		e_ln->edge = n_ln->node->father_edge[sol->nb_way];
+		e_ln->next = n_ln->node == obj->end_node ? NULL : &way->edges_lk[i + 1];
+		e_ln->edge->deja_vu += 1;
 
 		way->nodes_lk[i - 1].node = n_ln->node->father_node[sol->nb_way];
 		way->nodes_lk[i - 1].next = n_ln;
 		if(way->nodes_lk[i - 1].node->id != obj->start_node->id)
 			way->nodes_lk[i - 1].node->deja_vu += 1;
 		
+		e = n_ln->node->father_edge[sol->nb_way];
+
 		dir = e->node1->id == n_ln->node->id ? UNIDIR1 : UNIDIR2;
 		w = e->node1->id == n_ln->node->id ? &e->w1 : &e->w2;
 
@@ -142,84 +148,9 @@ int make_way(t_objectif *obj, t_solution *sol)
 		--i;
 	}
 
-
-
 	return(1);
 }
 
-void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, t_edge *e, int mode)
-{
-	t_node *u;
-	t_node *v;
-	int 	w;
-	int 	dir;
-	
-	if (mode == 1)
-	{
-		u = e->node1;
-		v = e->node2;
-		w = e->w1;
-		dir = UNIDIR1;
-	}
-	else
-	{
-		u = e->node2;
-		v = e->node1;
-		w = e->w2;
-		dir = UNIDIR2;
-	}
-	
-	if (
-		u != v && u != obj->end_node &&
-		(e->direction == BIDIR || e->direction == dir) &&
-		(
-			!u->deja_vu || !u->father_node[sol->nb_way] || 
-			( 
-				( 
-					(!v->deja_vu && u->father_node[sol->nb_way]->deja_vu) 
-					|| 
-					(v->deja_vu && !u->father_node[sol->nb_way]->deja_vu) 
-				)
-			)
-		) &&
-		(*dist)[u->id] != __INT_MAX__ && (*dist)[u->id] + w < (*dist)[v->id]
-		) 
-	{
-		obj->dist_up = 1;
-		(*dist)[v->id] = (*dist)[u->id] + w;
-		v->father_node[sol->nb_way] = u;
-		v->father_edge[sol->nb_way] = e;
-	}
-}
-
-void apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist)
-{
-	int i;
-	int j;
-
-	t_edge *e;
-	
-	obj->dist_up = 0;
-
-	i = 0;
-	while (++i < obj->nb_node)
-	{
-		
-		j = obj->nb_edge_f;
-		// j = -1;
-		while (--j >= 0)
-		// while (++j < obj->nb_edge_f)
-		{
-			e = obj->lst_edge_ord[j];
-			check_bellman_ford(obj, sol, dist, e, 1);
-			check_bellman_ford(obj, sol, dist, e, 2);
-		}
-		if (!obj->dist_up)
-			break;
-	}
-	printf("- \n");
-	// check_negative_cycle(obj, dist);
-}
 
 void print_way_status_before_merge(t_way *way)
 {
@@ -240,22 +171,6 @@ void print_way_status_before_merge(t_way *way)
 	}
 }
 
-void update_ways_len_with_node_lk(t_solution *sol)
-{
-	t_edge_link		*e_ln;
-	int 			i;
-
-	i = -1;
-	while (++i < sol->nb_way)
-	{
-		sol->way[i].len = 1;
-		e_ln = &sol->way[i].edges_lk[0];
-		while ((e_ln = e_ln->next))
-			sol->way[i].len++;
-	}
-}
-
-
 int find_way(t_objectif *obj, t_solution *sol)
 { 
     int			*dist; 
@@ -274,9 +189,7 @@ int find_way(t_objectif *obj, t_solution *sol)
 
 	
 	make_way(obj, sol);
-	
 	print_way_status_before_merge(way);
-
 	merge_way(sol);	
 	update_ways_len_with_node_lk(sol);
     return (1);
