@@ -94,11 +94,11 @@ int init_max_father_in_node(t_objectif *obj)
 	while (++i < obj->nb_node)
 	{
 		node = obj->lst_node[i];
-		if (!(node->father_node = malloc(obj->max_way * sizeof(t_node*))) ||
-			!(node->father_edge = malloc(obj->max_way * sizeof(t_edge*))))
+		if (!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
+			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*))))
 			return (0);
-		ft_memset(node->father_node, 0, obj->max_way * sizeof(t_node*));
-		ft_memset(node->father_edge, 0, obj->max_way * sizeof(t_edge*));
+		ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
+		ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
 		
 	}
 	return (1);
