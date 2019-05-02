@@ -28,3 +28,22 @@ int	is_in_tab_edge(t_edge **tab, t_edge *to_find, int size)
 			return (1);
 	return (0);
 }
+
+
+t_node 		*get_right_node_in_edge(t_edge *edge, t_node *node, int verif)
+{
+	if (verif && edge->deja_vu)
+		return (NULL);
+	if (node->name == edge->node1->name)
+	{
+		if (verif && !(edge->direction & UNIDIR2))
+			return (NULL);
+		return (edge->node2);
+	}
+	else
+	{
+		if (verif && !(edge->direction & UNIDIR1))
+			return (NULL);
+		return (edge->node1);
+	}
+}

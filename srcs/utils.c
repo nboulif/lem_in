@@ -73,20 +73,3 @@ int 		check_need_realloc(t_node *next)
 	return (1);
 }
 
-t_node 		*get_right_node_in_edge(t_node *node, int i)
-{
-	if (node->edge[i]->deja_vu)
-		return (NULL);
-	if (node->name == node->edge[i]->node1->name)
-	{
-		if (!(node->edge[i]->direction & UNIDIR2))
-			return (NULL);
-		return (node->edge[i]->node2);
-	}
-	else
-	{
-		if (!(node->edge[i]->direction & UNIDIR1))
-			return (NULL);
-		return (node->edge[i]->node1);
-	}
-}

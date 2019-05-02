@@ -129,7 +129,6 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 			{
 				edge->deja_vu_init = 1;
 				obj->lst_edge_ord[k++] = edge;
-				printf("--- %s-%s\n", edge->node1->name, edge->node2->name);
 			}
 
 

@@ -22,13 +22,14 @@ int		resolv(t_objectif *obj)
 	obj->sol->nb_way = 0;
 	
 	printf("max_way => %d \n\n", obj->max_way);
-	int count_iter = 1;
-	while (1)
+
+	while (obj->sol->nb_way < 13)
+	// while (1)
 	{
-		printf(" \n\nSTART ITERATION ONE => %d\n\n", count_iter);
+		printf(" \n\nSTART ITERATION => %d\n\n", obj->sol->nb_way);
 
 		res = find_way(obj);
-		printf("\nEND ITERATION ONE => %d \n", count_iter++);
+		printf("\nEND ITERATION => %d \n", obj->sol->nb_way);
 		if (!(res) || res == -1)
 		{
 			return (res);

@@ -121,7 +121,7 @@ int main(void)
 		return (0);
 	}
 
-	print_node_and_edge(str, size);
+	// print_node_and_edge(str, size);
 
 	estimate_max_way(&obj);
 	

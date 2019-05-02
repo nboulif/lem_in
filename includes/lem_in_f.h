@@ -16,6 +16,7 @@
 //edges_utils
 int				is_same_edge(t_edge edge1, t_edge edge2);
 int				is_in_tab_edge(t_edge **tab, t_edge *to_find, int size);
+t_node 		    *get_right_node_in_edge(t_edge *edge, t_node *node, int verif);
 
 //utils
 unsigned long	hash(unsigned char *str);
@@ -23,7 +24,6 @@ int				line_len(char *str, int *i);
 int				ft_min(int a, int b, int c);
 int				ft_realloc(void **tab, int *size, int new_size, size_t type_size);
 int 		    check_need_realloc(t_node *next);
-t_node 			*get_right_node_in_edge(t_node* node, int i);
 
 //print_utils
 void 			print_node_and_edge(char *str, int size);

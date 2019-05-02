@@ -55,6 +55,7 @@ void 			print_way(t_objectif *obj)
 	printf("\n\nend node name => |%s|\n", obj->end_node->name);
 	printf("nb way => |%d|\n\n", obj->sol->nb_way);
 
+	t_node		*node;
 
 	x = -1;
 	while (++x < obj->sol->nb_way)
@@ -63,11 +64,13 @@ void 			print_way(t_objectif *obj)
 		i = 0;
 		// n_ln = &obj->sol->way[x].nodes_lk[0];
 		e_ln = &obj->sol->way[x].edges_lk[0];
+		node = obj->start_node;
 		while (e_ln)
 		{
 
 			printf("%d. ", i);
-			// printf("|%s|", n_ln->node->name);
+			node = get_right_node_in_edge(e_ln->edge, node, 0);
+			printf("|%s|", node->name);
 			printf(" |%s|-|%s|\n", 
 				e_ln->edge->node1->name, 
 				e_ln->edge->node2->name
