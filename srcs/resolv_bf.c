@@ -122,24 +122,22 @@ int make_way(t_objectif *obj, t_solution *sol)
 		// printf("name %s \n", n_ln->node->name);
 		e = n_ln->node->father_edge[sol->nb_way];
 		way->edges_lk[i].edge = e;
-		way->edges_lk[i].edge->deja_vu += 1;
-
 		way->edges_lk[i].next = way->nodes_lk[i].node == obj->end_node ? NULL : &way->edges_lk[i + 1];
+		way->edges_lk[i].edge->deja_vu += 1;
 
 		way->nodes_lk[i - 1].node = n_ln->node->father_node[sol->nb_way];
 		way->nodes_lk[i - 1].next = n_ln;
-
 		if(way->nodes_lk[i - 1].node->id != obj->start_node->id)
 			way->nodes_lk[i - 1].node->deja_vu += 1;
 		
 		dir = e->node1->id == n_ln->node->id ? UNIDIR1 : UNIDIR2;
 		w = e->node1->id == n_ln->node->id ? &e->w1 : &e->w2;
 
-		e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
 		e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
+		e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
 		
-		e->direction == BIDIR ? e->direction = dir : 0;
 		e->direction == BIDIR ? *w = -(*w) : 0;
+		e->direction == BIDIR ? e->direction = dir : 0;
 
 		--i;
 	}
@@ -172,11 +170,10 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, t_edge *e,
 	}
 	
 	if (
-		u != v &&
+		u != v && u != obj->end_node &&
 		(e->direction == BIDIR || e->direction == dir) &&
-		u->id != obj->end_node->id &&
 		(
-			!u->deja_vu || !u->father_node[sol->nb_way] ||
+			!u->deja_vu || !u->father_node[sol->nb_way] || 
 			( 
 				( 
 					(!v->deja_vu && u->father_node[sol->nb_way]->deja_vu) 
@@ -188,7 +185,6 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, t_edge *e,
 		(*dist)[u->id] != __INT_MAX__ && (*dist)[u->id] + w < (*dist)[v->id]
 		) 
 	{
-
 		obj->dist_up = 1;
 		(*dist)[v->id] = (*dist)[u->id] + w;
 		v->father_node[sol->nb_way] = u;
@@ -208,13 +204,15 @@ void apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist)
 	i = 0;
 	while (++i < obj->nb_node)
 	{
+		
 		j = obj->nb_edge_f;
+		// j = -1;
 		while (--j >= 0)
+		// while (++j < obj->nb_edge_f)
 		{
 			e = obj->lst_edge_ord[j];
 			check_bellman_ford(obj, sol, dist, e, 1);
 			check_bellman_ford(obj, sol, dist, e, 2);
-			
 		}
 		if (!obj->dist_up)
 			break;
@@ -233,7 +231,7 @@ void print_way_status_before_merge(t_way *way)
 	i = -1;
 	while (++i < way->len)
 	{
-		printf("%d %s   %s -- %s   / w  %d -- %d  / d  %d \n", 
+		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
 			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
 			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
 			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			

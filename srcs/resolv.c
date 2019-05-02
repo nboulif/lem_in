@@ -141,6 +141,8 @@ int		resolv(t_objectif *obj)
 	next_sol.way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
 	next_sol.nb_way = 0;
 	
+	int best_turn;
+
 	printf("max_way => %d \n\n", obj->max_way);
 
 	// while (best_sol.nb_way < 13)
@@ -152,17 +154,31 @@ int		resolv(t_objectif *obj)
 		printf("\nEND ITERATION => %d \n", best_sol.nb_way);
 		
 		if (!(res))
+		{
+			printf("NO MORE WAY\n");
 			break;
+		}
 		else if (res == -1)
-			return (res);
+		{
+			printf("ERROR RESOLV\n");
+			return (-1);
+		}
 
 		
 		++next_sol.nb_way;
 		evaluate_turn_solution(obj, &next_sol);
 
-		if (best_sol.nb_way && best_sol.nb_turn < next_sol.nb_turn)
+		printf("next_turn %d vs best_turn %d\n", next_sol.nb_turn, best_turn);
+		// sleep(1);
+		if (best_sol.nb_way && best_turn < next_sol.nb_turn)
+		{
+			printf("MORE TURN\n");
 			break ;
+		}
+
 		best_sol = next_sol;
+		best_turn = best_sol.nb_turn;
+
 		if (best_sol.nb_way == obj->nb_ants)
 			break ;
 			
@@ -172,9 +188,9 @@ int		resolv(t_objectif *obj)
 	{
 		print_way(obj, &best_sol);
 		// print_ants(obj, &best_sol);
-		printf("nb_turn %d\n", best_sol.nb_turn);
+		printf("nb_turn %d\n", best_turn);
 		return (1);
 	}
-	return (res);
+	return (0);
 	
 }
