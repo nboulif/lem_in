@@ -28,7 +28,7 @@ int 		    check_need_realloc(t_node *next);
 //print_utils
 void 			print_node_and_edge(char *str, int size);
 void			print_all_edge(t_objectif *obj);
-void 			print_way(t_objectif *obj);
+void 			print_way(t_objectif *obj, t_solution *sol);
 
 //resolv_init
 int 			init_way(t_objectif *obj, t_way *way);
@@ -37,7 +37,7 @@ int				clone_way(t_objectif *obj, t_solution *sol, t_solution *cur);
 void 			init_graph_bf(t_objectif *obj, int first_time);
 
 //resolv_bf
-int             find_way(t_objectif *obj);
+int             find_way(t_objectif *obj, t_solution *sol);
 
 //resolv
 int				resolv(t_objectif *obj);

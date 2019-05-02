@@ -136,7 +136,6 @@ int main(void)
 		return (0);
 	}
 
-	print_way(&obj);
 	
 	return (1);
 }

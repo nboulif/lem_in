@@ -129,17 +129,17 @@ typedef struct 				s_queue
 
 // PRINT SOLVE
 
-// typedef struct 				s_string
-// {
-// 	char					*chaine;
-// 	int						index;
-// 	int						size;
-// }							t_string;
+typedef struct 				s_string
+{
+	char					*chaine;
+	int						index;
+	int						size;
+}							t_string;
 
-// typedef struct				s_t_int
-// {
-// 	int						i;
-// 	int						x;
-// 	int						i_ants;
-// }							t_t_int;
+typedef struct				s_t_int
+{
+	int						i;
+	int						x;
+	int						i_ants;
+}							t_t_int;
 #endif
