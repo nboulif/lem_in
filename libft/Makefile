@@ -12,7 +12,7 @@
 
 NAME = libft.a 
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -O3
 
 SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	  ft_isdigit.c ft_isprint.c ft_itoa.c ft_memalloc.c ft_memccpy.c \
@@ -34,7 +34,7 @@ OBJ = $(SRC:.c=.o)
 
 $(NAME):
 	gcc $(FLAGS) -c $(SRC) -I libft.h
-	ar rc $(NAME) $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 all: $(NAME)
 

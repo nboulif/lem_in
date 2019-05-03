@@ -82,7 +82,7 @@
 // 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 // 		exit(1);
 // 	current_ants.chaine[0] = 'L';
-// 	while (++x < sol->nb_way && obj->nb_ants >= 0)
+// 	while (++x <= sol->nb_way && obj->nb_ants >= 0)
 // 	{
 // 		i = -1;
 // 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;

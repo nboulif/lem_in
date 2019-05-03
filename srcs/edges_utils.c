@@ -34,16 +34,17 @@ t_node 		*get_right_node_in_edge(t_edge *edge, t_node *node, int verif)
 {
 	if (verif && edge->deja_vu)
 		return (NULL);
-	if (node->name == edge->node1->name)
+	if (node == edge->node1)
 	{
 		if (verif && !(edge->direction & UNIDIR2))
 			return (NULL);
 		return (edge->node2);
 	}
-	else
+	else if (node == edge->node2)
 	{
 		if (verif && !(edge->direction & UNIDIR1))
 			return (NULL);
 		return (edge->node1);
 	}
+	return (NULL);
 }

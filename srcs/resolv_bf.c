@@ -131,7 +131,7 @@ int make_way(t_objectif *obj, t_solution *sol)
 
 		way->nodes_lk[i - 1].node = n_ln->node->father_node[sol->nb_way];
 		way->nodes_lk[i - 1].next = n_ln;
-		if(way->nodes_lk[i - 1].node->id != obj->start_node->id)
+		if (way->nodes_lk[i - 1].node->id != obj->start_node->id)
 			way->nodes_lk[i - 1].node->deja_vu += 1;
 		
 		e = n_ln->node->father_edge[sol->nb_way];
@@ -141,7 +141,10 @@ int make_way(t_objectif *obj, t_solution *sol)
 
 		e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
 		e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
-		
+
+		// e->direction == BIDIR ? obj->offset = 1 : 0;
+		// e->direction == BIDIR ? *w = -(*w) : 0;
+		// e->direction == BIDIR ? *w = 0 : 0;
 		e->direction == BIDIR ? *w = -(*w) : 0;
 		e->direction == BIDIR ? e->direction = dir : 0;
 

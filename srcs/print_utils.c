@@ -45,6 +45,31 @@ void			print_all_edge(t_objectif *obj)
 	}
 }
 
+
+
+void check(t_objectif *obj, t_solution *sol, t_node *node, int x)
+{
+	t_edge_link		*e_check;
+	int 			z;
+
+	z = x;
+
+	while(++z < sol->nb_way)
+	{
+		e_check = sol->way[z].edges_lk;
+		t_node *node_checker = obj->start_node;
+		while (e_check)
+		{
+			node_checker = get_right_node_in_edge(e_check->edge, node_checker, 0);
+			if (node_checker == node && node != obj->end_node && node)
+				printf("CROISEMENT way %d&%d : |%s|\n", x, z, node->name);
+			e_check = e_check->next;
+		}
+	}
+
+}
+
+
 void 			print_way(t_objectif *obj, t_solution *sol)
 {
 	int 		i;
@@ -67,14 +92,23 @@ void 			print_way(t_objectif *obj, t_solution *sol)
 		node = obj->start_node;
 		while (e_ln)
 		{
-
+			
 			printf("%d. ", i);
 			node = get_right_node_in_edge(e_ln->edge, node, 0);
-			printf("|%s|", node->name);
-			printf(" |%s|-|%s|\n", 
-				e_ln->edge->node1->name, 
-				e_ln->edge->node2->name
-			);
+			if (node) 
+			{
+				printf("|%s|", node->name);
+				printf(" |%s|-|%s|\n", 
+					e_ln->edge->node1->name, 
+					e_ln->edge->node2->name
+				);
+			}
+			if (node)
+				check(obj, sol, node, x);
+			
+			if (e_ln->next && !get_right_node_in_edge(e_ln->next->edge, node, 0))
+				printf("DISCONTINUE\n");
+
 			i++;
 			// n_ln = n_ln->next;
 			e_ln = e_ln->next;
