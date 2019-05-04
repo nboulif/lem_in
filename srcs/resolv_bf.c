@@ -21,10 +21,19 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 	way->len = 0;
 	curr = end_node;
 	while ((curr = curr->fathers[sol->nb_way].node))
+	{
+		// printf("name => %s\n", curr->name);
+		// if (curr->fathers[sol->nb_way].edge)
+		// {
+		// 	printf("|%s|-|%s| => |%d|-|%d|\n", 
+		// 		curr->fathers[sol->nb_way].edge->node1->name, curr->fathers[sol->nb_way].edge->node2->name,
+		// 		curr->fathers[sol->nb_way].edge->w1, curr->fathers[sol->nb_way].edge->w2);
+		// }
+		
 		way->len++;
+	}
 	
 }
-
 
 void update_ways_len_with_node_lk(t_solution *sol)
 {
@@ -39,20 +48,6 @@ void update_ways_len_with_node_lk(t_solution *sol)
 		while ((e_ln = e_ln->next))
 			sol->way[i].len++;
 	}
-}
-
-
-int init_dist_lst(t_objectif *obj, int **dist)
-{
-	(*dist) = (int *)malloc(sizeof(int) * obj->nb_node);
-	for (int i = 0; i < obj->nb_node; i++)
-	{
-		if (obj->lst_node[i]->id == obj->start_node->id)
-			(*dist)[obj->lst_node[i]->id] = 0;
-		else
-			(*dist)[obj->lst_node[i]->id] = __INT_MAX__;	
-	}
-	return (1);
 }
 
 void  merge_way(t_solution *sol)
@@ -90,6 +85,7 @@ void  merge_way(t_solution *sol)
 						{
 							e_ln_last_b = e_ln_last_b->next;
 							e_ln_old_b = e_ln_old_b->prev;
+							i++;
 						}
 					}
 					e_ln_old_a->next->prev = e_ln_last_a->prev;
@@ -103,7 +99,6 @@ void  merge_way(t_solution *sol)
 	}
 	update_ways_len_with_node_lk(sol);
 }
-
 
 int make_way(t_objectif *obj, t_solution *sol)
 {
@@ -161,53 +156,22 @@ int make_way(t_objectif *obj, t_solution *sol)
 }
 
 
-int check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
+void print_way_status_before_merge(t_way *way)
 {
-	t_edge_link		*e_check;
-	int 			z;
+	int i;
 	
-	t_edge_link 	*e_ln;
-	t_node			*node;
-	int 			check;
-	
-	check = 1;
 	printf("len => %d\n", way->len);
 
-	e_ln = &way->edges_lk[0];
-	node = obj->start_node;
-	while (e_ln)
+	i = -1;
+	while (++i < way->len)
 	{
-		node = get_right_node_in_edge(e_ln->edge, node, 0);
-
-		if (e_ln->next && !node)
-		{
-			printf("DISCONTINUE\n");
-			check = 0;
-		}
-		if (node)
-		{
-			z = -1;
-			while(++z < sol->nb_way)
-			{
-				e_check = sol->way[z].edges_lk;
-				t_node *node_checker = obj->start_node;
-				while (e_check)
-				{
-					node_checker = get_right_node_in_edge(e_check->edge, node_checker, 0);
-					if (node_checker == node && node != obj->end_node && node)
-					{
-						printf("CROISEMENT way %d&%d : |%s|\n", sol->nb_way, z, node->name);
-						check = 0;
-					}
-					e_check = e_check->next;
-				}
-			}
-		
-		}
-		e_ln = e_ln->next;
+		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
+			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
+			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
+			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			
+			way->edges_lk[i].edge->direction			
+			);
 	}
-	
-	return (check);
 }
 
 void print_way_status_after_merge(t_objectif *obj, t_way *way)
@@ -233,54 +197,86 @@ void print_way_status_after_merge(t_objectif *obj, t_way *way)
 	}
 }
 
-void print_way_status_before_merge(t_way *way)
+int check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 {
-	int i;
+	t_edge_link		*e_check;
+	int 			z;
 	
+	t_edge_link 	*e_ln;
+	t_node			*node;
+	int 			check;
+	
+	check = 1;
 	printf("len => %d\n", way->len);
 
-	i = -1;
-	while (++i < way->len)
+	e_ln = &way->edges_lk[0];
+	node = obj->start_node;
+	while (e_ln)
 	{
-		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
-			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
-			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
-			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			
-			way->edges_lk[i].edge->direction			
-			);
+		node = get_right_node_in_edge(e_ln->edge, node, 0);
+
+		if (e_ln->next && !node)
+		{
+			printf("DISCONTINUE\n");
+			return (0);
+		}
+		if (node)
+		{
+			z = -1;
+			while(++z < sol->nb_way)
+			{
+				e_check = sol->way[z].edges_lk;
+				t_node *node_checker = obj->start_node;
+				while (e_check)
+				{
+					node_checker = get_right_node_in_edge(e_check->edge, node_checker, 0);
+					if (node_checker == node && node != obj->end_node && node)
+					{	
+
+						printf("CROISEMENT  |%s| : way %d |%s|-|%s| & %d |%s|-|%s|\n",node->name,
+							sol->nb_way, 
+							e_ln->edge->node1->name, e_ln->edge->node2->name,
+							z, 
+							e_check->edge->node1->name, e_check->edge->node2->name
+						);
+						check = 0;
+					}
+					e_check = e_check->next;
+				}
+			}
+		
+		}
+		e_ln = e_ln->next;
 	}
+	
+	return (check);
 }
 
 int find_way(t_objectif *obj, t_solution *sol)
 { 
-    int			*dist; 
 	t_way 		*way;
 
 	way = &sol->way[sol->nb_way];
 
-	if (!(init_dist_lst(obj, &dist)) || !(init_way(obj, way)))
+	if (!(init_way(obj, way)))
 	    return (-1);
 
-	apply_algo_bellman_ford(obj, sol, &dist);
-	if (dist[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
+	if (!apply_algo_bellman_ford(obj, sol))
 		return(0);
-
-	way->cost = dist[obj->nb_node - 1];
 
 	printf("cost => %d\n", way->cost);
 	
 	make_way(obj, sol);
 	print_way_status_before_merge(way);
-	merge_way(sol);	
-	if (check_atomic(obj, sol, way))
-	{
-		print_way_status_after_merge(obj, way);
-		return (1);
-	}
-	else
+	merge_way(sol);
+	int check;
+	check = check_atomic(obj, sol, way);
+	if (!check)
 	{
 		printf("\n\nCROSSSSSSSSSSSSSSSSSSING\n\n");	
-		return (0);
+		return (check);
 	}
+	print_way_status_after_merge(obj, way);
+	return (check);
 	
 } 

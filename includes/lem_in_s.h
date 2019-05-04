@@ -75,6 +75,7 @@ typedef struct				s_node_link
 	t_node					*node;
 	struct	s_node_link		*prev;
 	struct	s_node_link		*next;
+	int						check;
 }							t_node_link;
 
 typedef struct				s_edge_link

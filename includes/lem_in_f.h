@@ -43,7 +43,7 @@ int             find_way(t_objectif *obj, t_solution *sol);
 int				resolv(t_objectif *obj);
 
 //Bellman Ford
-void 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist);
+int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
 
 //resolv_tmp
 // int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);

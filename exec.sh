@@ -1,7 +1,7 @@
 # MODE="--flow-ten" 
 # MODE="--flow-thousand" 
-MODE="--big" 
-# MODE="--big-superposition" 
+# MODE="--big" 
+MODE="--big-superposition" 
 make
 total=0
 res_min=0
@@ -9,20 +9,24 @@ res_equal=0
 res_plus_0=0
 res_plus_2=0
 res_plus_10=0
+echo "MODE = $MODE"
 echo "expected vs us (res/total)"
 echo "min | equal | plus_0 | plus_2 | plus_10"
 for INDICE in {1..100}
 do
 	TMPFFF1="test_files/$INDICE\_mapp" 
 	TMPFFF2="test_files/$INDICE\_ress" 
+	TMPFFF_HV="test_files/$INDICE\_ress_hv" 
 	echo "------ $INDICE --------"
 	./generator $MODE > $TMPFFF1
 	./lem-in < $TMPFFF1 > $TMPFFF2
+	./divers/lem-in_hv < $TMPFFF1 > $TMPFFF_HV
 	e1=`sed '2q;d' $TMPFFF1 | grep -o "[0-9][0-9]*"`
 	e2=`tail -n 1 $TMPFFF2 | grep -o "[0-9][0-9]*"`
+	e_hv=`cat $TMPFFF_HV | grep "^L" | wc -l | bc -l`
 	e3=`echo "$e2-$e1" | bc -l`
 	total=`echo "$total+$e3" | bc -l`	
-	echo "$e1-$e2 ($e3/$total)"
+	echo "$e1-$e2(-$e_hv) ($e3/$total)"
 	if (($e3 < 0)); then
 	let res_min++
 	elif (($e3 == 0)); then
