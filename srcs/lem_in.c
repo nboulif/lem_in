@@ -133,6 +133,7 @@ int main(void)
 		return (0);
 	}
 	estimate_max_way(&obj);
+	printf("max_way => %d \n\n", obj.max_way);
 
 	if (!obj.max_way)
 	{

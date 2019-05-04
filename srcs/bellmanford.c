@@ -12,20 +12,28 @@
 
 #include "lem_in.h"
 
-int init_dist_lst(t_objectif *obj, int **dist)
+int init_dist_deja_vu_lst(t_objectif *obj)
 {
-	(*dist) = (int *)malloc(sizeof(int) * obj->nb_node);
-	for (int i = 0; i < obj->nb_node; i++)
+	int i;
+	int j;
+
+	obj->dists[0] = 0;
+	i = 1;
+	while (i < obj->nb_node)
+		obj->dists[i++] = __INT_MAX__;
+
+	i = -1;
+	while (i++ < obj->nb_node)
 	{
-		if (obj->lst_node[i]->id == obj->start_node->id)
-			(*dist)[obj->lst_node[i]->id] = 0;
-		else
-			(*dist)[obj->lst_node[i]->id] = __INT_MAX__;	
+		j = 0;
+		while (j < obj->nb_node)
+			obj->deja_vus[i][j++] = -1;
+
 	}
 	return (1);
 }
 
-void check_negative_cycle(t_objectif *obj, int **dist)
+void check_negative_cycle(t_objectif *obj)
 {
 	int i;
 	int u;
@@ -36,13 +44,13 @@ void check_negative_cycle(t_objectif *obj, int **dist)
     {
 		u = obj->lst_edge[i].node1->id;
 		v = obj->lst_edge[i].node2->id;
-        if ((*dist)[u] != __INT_MAX__ && (*dist)[u] + obj->lst_edge[i].w1 < (*dist)[v]) 
+        if (obj->dists[u] != __INT_MAX__ && obj->dists[u] + obj->lst_edge[i].w1 < obj->dists[v])
             printf("Graph contains negative weight cycle\n"); 
     } 
 	
 }
 
-void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, int*** deja_vu, t_edge *e, int mode)
+void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
@@ -80,25 +88,28 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, int*** dej
 			|| (
 				!v->deja_vu 
 				&& u->fathers[sol->nb_way].node 
-				&& (*deja_vu)[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
-				// && u->fathers[sol->nb_way].mode == IN_MODE
+				// && v->fathers[sol->nb_way].node 
+				&& (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
+				|| v->fathers[sol->nb_way].mode == OUT_MODE)
 			) 
 		) 
 		// && (!u->deja_vu || v->deja_vu || 
 		// (u->fathers[sol->nb_way].node && u->fathers[sol->nb_way].node->deja_vu)) 
-		&& (*dist)[u->id] != __INT_MAX__ && 
+		&& obj->dists[u->id] != __INT_MAX__ && 
 		(
-			(*dist)[u->id] + w < (*dist)[v->id] 
-			// || 
-			// ((*dist)[u->id] + w == (*dist)[v->id] && u->deja_vu)
-			// ((*dist)[u->id] + w == (*dist)[v->id] && u->deja_vu && v->deja_vu)
+			obj->dists[u->id] + w < obj->dists[v->id] 
+			// || (obj->dists[u->id] + w == obj->dists[v->id])
+			|| (obj->dists[u->id] + w == obj->dists[v->id] && u->deja_vu && v->deja_vu)
 		)
 		)
 	{
+		// printf("|%s|-|%s| : %d -> %d \n", u->name, v->name,
+		// 	obj->dists[v->id],
+		// 	obj->dists[u->id] + w
+		// );
 		
 		obj->dist_up = 1;
-		(*dist)[v->id] = (*dist)[u->id] + w ;
-		//printf("|%s|-|%s| -> %d\n", u->name, v->name,(*dist)[v->id]);
+		obj->dists[v->id] = obj->dists[u->id] + w ;
 
 		v->fathers[sol->nb_way].node = u;
 		v->fathers[sol->nb_way].edge = e;
@@ -107,18 +118,18 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, int*** dej
 		{
 			v->fathers[sol->nb_way].mode = NO_MODE;
 			if (v->deja_vu)
-				(*deja_vu)[v->id][u->id] = IN_MODE;
+				obj->deja_vus[v->id][u->id] = IN_MODE;
 			else
-				(*deja_vu)[v->id][u->id] = NO_MODE;
+				obj->deja_vus[v->id][u->id] = NO_MODE;
 		}
 		else if (!v->deja_vu)
 		{
-			(*deja_vu)[v->id][u->id] = NO_MODE;
+			obj->deja_vus[v->id][u->id] = NO_MODE;
 			v->fathers[sol->nb_way].mode = OUT_MODE;
 		}
 		else
 		{
-			(*deja_vu)[v->id][u->id] = OUT_MODE;
+			obj->deja_vus[v->id][u->id] = OUT_MODE;
 			v->fathers[sol->nb_way].mode = IN_MODE;
 		}
 
@@ -131,21 +142,9 @@ int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 	int 		j;
 
 	t_edge 		*e;
-    int			*dist; 
 	
-	int			**deja_vu; 
+	init_dist_deja_vu_lst(obj);
 
-	if (!(init_dist_lst(obj, &dist)))
-	    return (-1);
-
-	deja_vu = (int**)malloc(sizeof(int*) * obj->nb_node + 1);
-	i = 0;
-	while (i < obj->nb_node)
-	{
-		deja_vu[i] = (int*)malloc(sizeof(int) * obj->nb_node + 1);
-		ft_memset(deja_vu[i++], -1, obj->nb_node + 1);
-	}
-	
 	i = -1;
 	while (++i < obj->nb_node)
 	{
@@ -159,18 +158,18 @@ int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 			// printf("---%d   %d\n", i, j);
 			e = obj->lst_edge_ord[j];
 			if (e->direction & UNIDIR1)
-				check_bellman_ford(obj, sol, &dist, &deja_vu, e, 1);
+				check_bellman_ford(obj, sol, e, 1);
 			if (e->direction & UNIDIR2)
-				check_bellman_ford(obj, sol, &dist, &deja_vu, e, 2);
+				check_bellman_ford(obj, sol, e, 2);
 		}
 
 		if (!obj->dist_up)
 			break;
 	}
 	
-	sol->way[sol->nb_way].cost = dist[obj->nb_node - 1];
+	sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
 
-	if (dist[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
+	if (obj->dists[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
 		return(0);
 	return(1);
 	// printf("- \n");

@@ -130,6 +130,7 @@ int		resolv(t_objectif *obj)
 {
 	int res;
 	int best_turn;
+	int i;
 	
 	t_solution best_sol;
 	t_solution next_sol;
@@ -142,8 +143,12 @@ int		resolv(t_objectif *obj)
 	next_sol.way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
 	next_sol.nb_way = 0;
 	
-
-	printf("max_way => %d \n\n", obj->max_way);
+	obj->dists = (int *)malloc(sizeof(int) * obj->nb_node + 1);
+	obj->deja_vus = (int**)malloc(sizeof(int*) * obj->nb_node + 1);
+	i = 0;
+	while (i < obj->nb_node + 1)
+		obj->deja_vus[i++] = (int *)malloc(sizeof(int) * obj->nb_node + 1);
+	
 
 	// while (best_sol.nb_way < 13)
 	while (1)
