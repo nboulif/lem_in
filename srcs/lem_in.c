@@ -94,9 +94,13 @@ int init_max_father_in_node(t_objectif *obj)
 	while (++i < obj->nb_node)
 	{
 		node = obj->lst_node[i];
-		if (!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
-			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*))))
+		if (
+			!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
+			!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
+			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
+			)
 			return (0);
+		ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
 		ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
 		ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
 		
@@ -111,7 +115,6 @@ void print_main_info(t_objectif obj)
 	printf("nb_edge => %d\n", obj.nb_edge);
 	printf("nb_edge_f => %d\n", obj.nb_edge_f);
 	printf("max_way => %d\n", obj.max_way);
-	sleep(1);
 }
 
 int main(void)

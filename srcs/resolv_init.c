@@ -33,6 +33,7 @@ void 		init_graph_bf(t_objectif *obj, int first_time)
 				link->node->last_D = __INT_MAX__;
 			}
 			link->node->deja_vu = 0;
+			ft_memset(link->node->fathers, 0, 1 * sizeof(t_father));
 			ft_memset(link->node->father_node, 0, 1 * sizeof(t_node*));
 			ft_memset(link->node->father_edge, 0, 1 * sizeof(t_edge*));
 			link = link->next;
