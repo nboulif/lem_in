@@ -95,11 +95,14 @@ int init_max_father_in_node(t_objectif *obj)
 	{
 		node = obj->lst_node[i];
 		if (!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
-			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*))))
+			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*))) ||
+			!(node->father_node_out = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
+			!(node->father_edge_out = malloc((obj->max_way + 1) * sizeof(t_edge*))))
 			return (0);
+		ft_memset(node->father_node_out, 0, (obj->max_way + 1) * sizeof(t_node*));
+		ft_memset(node->father_edge_out, 0, (obj->max_way + 1) * sizeof(t_edge*));
 		ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
 		ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
-		
 	}
 	return (1);
 }
@@ -111,7 +114,7 @@ void print_main_info(t_objectif obj)
 	printf("nb_edge => %d\n", obj.nb_edge);
 	printf("nb_edge_f => %d\n", obj.nb_edge_f);
 	printf("max_way => %d\n", obj.max_way);
-	sleep(1);
+	//sleep(1);
 }
 
 int main(void)
@@ -119,8 +122,8 @@ int main(void)
 	char			*str;
 	t_objectif		obj;
 	int				size;
-	int res;
-	
+	int				res;
+
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||
@@ -130,7 +133,7 @@ int main(void)
 		return (0);
 	}
 	estimate_max_way(&obj);
-
+	write(1, str, size - 1);
 	if (!obj.max_way)
 	{
 		printf("NO WAY AVAILABLE\n");

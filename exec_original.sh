@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ -z $1 ]];then
-q=50
+q=20
 else
 q=$1
 fi
@@ -10,9 +10,9 @@ h=0
 for ((i=1; i <= $q; i++)); do
 ./generator --big-superposition > b$i
 time ./lem-in < b$i > f$i
-if ((`echo $?` != 0)); then
-exit
-fi
+# if ((`echo $?` != 0)); then
+# exit
+# fi
 printf "%-9s: " "expected"
 e=`cat f$i | grep -m 1 "required:" | grep -o "[0-9][0-9]*"`
 echo $e

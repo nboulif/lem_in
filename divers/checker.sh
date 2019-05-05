@@ -5,5 +5,5 @@ else
 	q=$1
 fi
 for ((i=1; i <= $q; i++)) do
-cat f45 | grep "^L" | grep "L$i-" | wc -l
+cat f4 | grep "^L" | grep "L$i-" | wc -l
 done

@@ -47,7 +47,11 @@ typedef struct				s_node
 
 	t_edge					**father_edge;
 	t_node					**father_node;
+	t_edge					**father_edge_out;
+	t_node					**father_node_out;
 	t_edge					*in_a_way;
+	int						father_mode;
+	int						father_mode_out;
 	int						nb_father_n;
 	int						nb_father_t;
 	int						i_nb_father;
@@ -141,4 +145,13 @@ typedef struct				s_t_int
 	int						x;
 	int						i_ants;
 }							t_t_int;
+
+typedef struct				s_father
+{
+	int					dist;
+	int					node;
+	int					father_mode;
+}							t_father;
+
+
 #endif

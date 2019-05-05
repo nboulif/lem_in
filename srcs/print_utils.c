@@ -53,7 +53,6 @@ void check(t_objectif *obj, t_solution *sol, t_node *node, int x)
 	int 			z;
 
 	z = x;
-
 	while(++z < sol->nb_way)
 	{
 		e_check = sol->way[z].edges_lk;
