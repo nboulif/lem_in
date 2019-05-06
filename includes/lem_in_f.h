@@ -29,6 +29,8 @@ int 		    check_need_realloc(t_node *next);
 void 			print_node_and_edge(char *str, int size);
 void			print_all_edge(t_objectif *obj);
 void 			print_way(t_objectif *obj, t_solution *sol);
+void            print_way_status_before_merge(t_way *way);
+void            print_way_status_after_merge(t_objectif *obj, t_way *way);
 
 //resolv_init
 int 			init_way(t_objectif *obj, t_way *way);
@@ -44,6 +46,12 @@ int				resolv(t_objectif *obj);
 
 //Bellman Ford
 int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
+
+//way
+void            set_way_len_with_fathers(t_solution *sol, t_node *end_node);
+void            update_ways_len_with_node_lk(t_solution *sol);
+void            merge_way(t_solution *sol);
+int             make_way(t_objectif *obj, t_solution *sol);
 
 //resolv_tmp
 // int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);

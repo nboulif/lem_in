@@ -104,7 +104,7 @@
 // 	}
 // }
 
-void	evaluate_turn_solution(t_objectif *obj, t_solution *sol)
+void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
 {
 	int i;
 	int sum;
@@ -126,7 +126,7 @@ void	evaluate_turn_solution(t_objectif *obj, t_solution *sol)
 					!!(nb_ants % i);
 }
 
-int		resolv(t_objectif *obj)
+int			resolv(t_objectif *obj)
 {
 	int res;
 	int best_turn;
@@ -151,7 +151,9 @@ int		resolv(t_objectif *obj)
 	
 
 	// while (best_sol.nb_way < 13)
-	while (1)
+	
+	i = 0;
+	while (i++ < obj->max_way)
 	{
 		printf(" \n\nSTART ITERATION => %d\n\n", best_sol.nb_way);
 

@@ -41,8 +41,8 @@ SOURCES_LIST = lem_in.c \
 				resolv.c \
 				resolv_tmp.c \
 				resolv_bf.c \
-				resolv_init.c
-
+				resolv_init.c \
+				way.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objs/

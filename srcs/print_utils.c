@@ -12,7 +12,48 @@
 
 #include "lem_in.h"
 
-void 			print_node_and_edge(char *str, int size)
+void 		print_way_status_before_merge(t_way *way)
+{
+	int i;
+	
+	printf("len => %d\n", way->len);
+
+	i = -1;
+	while (++i < way->len)
+	{
+		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
+			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
+			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
+			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			
+			way->edges_lk[i].edge->direction			
+			);
+	}
+}
+
+void 		print_way_status_after_merge(t_objectif *obj, t_way *way)
+{
+	t_edge_link *e_ln;
+	t_node		*node;
+	
+	printf("len => %d\n", way->len);
+
+	e_ln = &way->edges_lk[0];
+	node = obj->start_node;
+	while (e_ln)
+	{
+		node = get_right_node_in_edge(e_ln->edge, node, 0);
+
+		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
+			node->deja_vu, node->name,
+			e_ln->edge->node1->name, e_ln->edge->node2->name, 
+			e_ln->edge->w1, e_ln->edge->w2,			
+			e_ln->edge->direction			
+			);
+		e_ln = e_ln->next;
+	}
+}
+
+void 		print_node_and_edge(char *str, int size)
 {
 	write(1, str, size - 1);
 	if (str[size - 2] != '\n')
@@ -21,7 +62,7 @@ void 			print_node_and_edge(char *str, int size)
 	ft_putchar('\n');
 }
 
-void			print_all_edge(t_objectif *obj)
+void		print_all_edge(t_objectif *obj)
 {
 	int			i;
 	int			x;
@@ -45,9 +86,7 @@ void			print_all_edge(t_objectif *obj)
 	}
 }
 
-
-
-void 			print_way(t_objectif *obj, t_solution *sol)
+void 		print_way(t_objectif *obj, t_solution *sol)
 {
 	int 		i;
 	int 		x;
