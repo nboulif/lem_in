@@ -3,3 +3,4 @@
 *.o
 *.a
 lem-in
+test_files/*

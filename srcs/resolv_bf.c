@@ -151,12 +151,13 @@ void set_way_len_with_father_node(t_solution *sol, t_node *end_node)
 	}
 }
 
-void update_ways_len_with_node_lk(t_solution *sol)
+void update_ways_len_with_node_lk(t_objectif *obj, t_solution *sol)
 {
 	t_edge_link		*e_ln;
 	t_node_link		*n_ln;
 	int 			i;
 
+	(void)obj;
 	i = -1;
 	while (++i <= sol->nb_way)
 	{
@@ -166,11 +167,11 @@ void update_ways_len_with_node_lk(t_solution *sol)
 		while ((e_ln = e_ln->next))
 		{
 			n_ln = n_ln->next;
-			e_ln->edge->deja_vu = i + 1;
-			if (n_ln->node->deja_vu)
-				n_ln->node->deja_vu = 0;
-			else
-				n_ln->node->deja_vu = i + 1;
+			// if (n_ln->node != obj->end_node)
+			// {
+			// 	e_ln->edge->deja_vu = i + 1;
+			// 	n_ln->node->deja_vu = i + 1;
+			// }
 			sol->way[i].len++;
 		}
 	}
@@ -225,9 +226,10 @@ l_node = NULL;
 			way->nodes_lk[i - 1].node = n_ln->node->father_node_out[sol->nb_way];
 		}
 		way->nodes_lk[i - 1].next = n_ln;
-		if (way->nodes_lk[i - 1].node->id != obj->start_node->id)
-			//way->nodes_lk[i - 1].node->deja_vu += 1;
-			way->nodes_lk[i - 1].node->passage--;
+		if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
+			way->nodes_lk[i - 1].node->id != obj->end_node->id)
+			way->nodes_lk[i - 1].node->deja_vu += 1;
+			// way->nodes_lk[i - 1].node->passage--;
 		// e = n_ln->node->father_edge[sol->nb_way];
 		e = e_ln->edge;
 
@@ -287,6 +289,6 @@ int find_way(t_objectif *obj, t_solution *sol)
 	print_way_status_before_merge(way);
 	merge_way(obj, sol, sol->nb_way);
 	//print_way(obj, sol);
-	update_ways_len_with_node_lk(sol);
+	update_ways_len_with_node_lk(obj, sol);
     return (1);
 } 
