@@ -46,11 +46,10 @@ void check_negative_cycle(t_objectif *obj)
 		v = obj->lst_edge[i].node2->id;
         if (obj->dists[u] != __INT_MAX__ && obj->dists[u] + obj->lst_edge[i].w1 < obj->dists[v])
             printf("Graph contains negative weight cycle\n"); 
-    } 
-	
+    }
 }
 
-void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode, int **dist)
 {
 	t_node *u;
 	t_node *v;
@@ -133,14 +132,16 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 	}
 }
 
-int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
+
+
+int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist)
 {
 	int 		i;
 	int 		j;
 
 	t_edge 		*e;
 	
-	init_dist_deja_vu_lst(obj);
+	//init_dist_deja_vu_lst(obj);
 
 	i = -1;
 	while (++i < obj->nb_node)
@@ -153,21 +154,50 @@ int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 		{
 			// printf("---%d   %d\n", i, j);
 			e = obj->lst_edge_ord[j];
+			// printf("check_direction\n");
 			if (e->direction & UNIDIR1)
-				check_bellman_ford(obj, sol, e, 1);
+				check_bellman_ford(obj, sol, e, 1, dist);
 			if (e->direction & UNIDIR2)
-				check_bellman_ford(obj, sol, e, 2);
+				check_bellman_ford(obj, sol, e, 2, dist);
+			// printf("OK \n");
 		}
-
 		if (!obj->dist_up)
 			break;
 	}
-	
-	sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
-
-	if (obj->dists[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
+	printf("apres boucle\n");
+	sol->way[sol->nb_way].cost = (*dist)[obj->nb_node - 1];
+	//sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
+	if ((*dist)[obj->nb_node - 1] == __INT_MAX__ || (*dist)[obj->nb_node - 1] < 0)
+	//(obj->dists[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
 		return(0);
-	return(1);
+	return (1);
 	// printf("- \n");
 	// check_negative_cycle(obj, dist);
+}
+
+void suurballe_formule(t_objectif *obj,	int **dist, t_solution *sol)
+{
+	int i;
+	//int			x;
+	t_node *node;
+
+ 	i = 0;
+	while (i < obj->nb_node)
+	{
+		node = obj->lst_node[i++];
+		if (node->father_edge[sol->nb_way])
+		{
+			node->father_edge[sol->nb_way]->w1 = node->father_edge[sol->nb_way]->w1 -
+												(*dist)[node->father_edge[sol->nb_way]->node2->id] + (*dist)[node->father_edge[sol->nb_way]->node1->id];
+			node->father_edge[sol->nb_way]->w2 = node->father_edge[sol->nb_way]->w2 -
+												(*dist)[node->father_edge[sol->nb_way]->node1->id] + (*dist)[node->father_edge[sol->nb_way]->node2->id];
+		}
+		if (node->father_edge_out[sol->nb_way])
+		{
+			node->father_edge_out[sol->nb_way]->w1 = node->father_edge[sol->nb_way]->w1 -
+												(*dist)[node->father_edge[sol->nb_way]->node2->id + obj->nb_node] + (*dist)[node->father_edge[sol->nb_way]->node1->id + obj->nb_node];
+			node->father_edge_out[sol->nb_way]->w2 = node->father_edge[sol->nb_way]->w2 -
+												(*dist)[node->father_edge[sol->nb_way]->node1->id + obj->nb_node] + (*dist)[node->father_edge[sol->nb_way]->node2->id + obj->nb_node];
+		}
+	}
 }

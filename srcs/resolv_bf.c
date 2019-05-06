@@ -12,24 +12,10 @@
 
 #include "lem_in.h"
 
-void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
-{
-	t_node 	*curr;
-	t_way 	*way;
-
-	i = -1;
-	while (++i < obj->nb_edge)
-    {
-		u = obj->lst_edge[i].node1->id;
-		v = obj->lst_edge[i].node2->id;
-        if ((*dist)[u] != __INT_MAX__ && (*dist)[u] + obj->lst_edge[i].w1 < (*dist)[v]) 
-            printf("Graph contains negative weight cycle\n"); 
-    } 
-}
-
 int init_dist_lst(t_objectif *obj, int **dist)
 {
-	(*dist) = (int *)malloc(sizeof(int) * obj->nb_node * 2);
+	if (!((*dist) = (int *)malloc(sizeof(int) * obj->nb_node * 2)))
+		return (0);
 	for (int i = 0; i < obj->nb_node; i++)
 	{
 		(*dist)[obj->lst_node[i]->id + obj->nb_node] = __INT_MAX__;
@@ -99,8 +85,6 @@ int	check_in_tab(t_node *new_element)
 
 	if (!fin)
 		return (0);
-	if (index == 0)
-
 	for (int i = 0; i < index; i++)
 	{
 		if (tab[i].name == new_element->name)
@@ -116,7 +100,6 @@ void set_way_len_with_father_node(t_solution *sol, t_node *end_node)
 	t_way 	*way;
 	t_node	*from;
 
-
 	way = &sol->way[sol->nb_way];
 	way->len = 0;
 	curr = end_node;
@@ -124,14 +107,14 @@ void set_way_len_with_father_node(t_solution *sol, t_node *end_node)
 	{
 		//if (!curr->deja_vu)
 			way->len++;
-if (check_in_tab(curr)) // debug
+//if (check_in_tab(curr)) // debug
 	printf("boucle infiniiii |%s|\n", curr->name);
 		while (curr->father_node_out[sol->nb_way] &&
 			(from->father_mode))// || curr->father_node_out[sol->nb_way] == curr->father_node[sol->nb_way]))
 		{
 			from = curr;
 			curr = curr->father_node_out[sol->nb_way];
-if (check_in_tab(curr)) // debug
+//if (check_in_tab(curr)) // debug
 	printf("boucle infiniiii |%s|\n", curr->name);
 		//	if (!curr->deja_vu)
 			way->len++;
@@ -170,9 +153,9 @@ t_edge		*l_edge;
 
 	way = &sol->way[sol->nb_way];
 
-	set_way_len_with_fathers(sol, obj->end_node);
-	// set_way_len_with_father_node(sol, obj->end_node);
-	
+	// set_way_len_with_fathers(sol, obj->end_node);
+	set_way_len_with_father_node(sol, obj->end_node);
+
 	i = way->len - 1;
 	way->nodes_lk[i].node = obj->end_node;
 	way->nodes_lk[i].next = NULL;
@@ -216,7 +199,7 @@ l_node = NULL;
 
 		// e->direction == BIDIR ? obj->offset = 1 : 0;
 		// e->direction == BIDIR ? *w = -1 : 0;
-		e->direction == BIDIR ? *w = 0 : 0;
+		// e->direction == BIDIR ? *w = 0 : 0;
 		// e->direction == BIDIR ? *w = -(*w) : 0;
 		e->direction == BIDIR ? e->direction = dir : 0;
 		l_edge = e_ln->edge;
@@ -326,13 +309,15 @@ int check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 int find_way(t_objectif *obj, t_solution *sol)
 { 
 	t_way 		*way;
+	int			*dist;
 
 	way = &sol->way[sol->nb_way];
 
-	if (!(init_way(obj, way)))
+	if (!(init_dist_lst(obj, &dist)) || !(init_way(obj, way)))
 	    return (-1);
 
 	apply_algo_bellman_ford(obj, sol, &dist);
+	//suurballe_formule(obj, &dist, sol);
 	if (dist[obj->nb_node - 1] == __INT_MAX__)
 		return (0);
 

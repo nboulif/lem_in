@@ -38,12 +38,16 @@ void 			init_graph_bf(t_objectif *obj, int first_time);
 
 //resolv_bf
 int             find_way(t_objectif *obj, t_solution *sol);
+void set_way_len_with_father_node(t_solution *sol, t_node *end_node);
+
 
 //resolv
 int				resolv(t_objectif *obj);
 
 //Bellman Ford
-int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
+int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist);
+void            suurballe_formule(t_objectif *obj,	int **dist, t_solution *sol);
+
 
 //resolv_tmp
 // int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);

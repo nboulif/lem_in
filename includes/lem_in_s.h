@@ -33,12 +33,12 @@ typedef struct	s_solution			t_solution;
 
 // NODE && EDGE REPRESENTATION
 
-typedef struct				s_father
-{
-	t_node					*node;
-	t_edge					*edge;
-	int						mode;
-}							t_father;
+// typedef struct				s_father
+// {
+// 	t_node					*node;
+// 	t_edge					*edge;
+// 	int						mode;
+// }							t_father;
 
 typedef struct				s_node
 {
@@ -53,16 +53,12 @@ typedef struct				s_node
 
 	// t_node_u_solve			u_sol;
 
-	t_father				*fathers;
+	//t_father				*fathers;
 
 	t_edge					**father_edge;
 	t_node					**father_node;
-<<<<<<< HEAD
 	t_edge					**father_edge_out;
 	t_node					**father_node_out;
-=======
-	
->>>>>>> baef4029335e5d19b4b86880992175bbf4ec8091
 	t_edge					*in_a_way;
 	int						father_mode;
 	int						father_mode_out;
