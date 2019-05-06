@@ -42,6 +42,7 @@ typedef struct				s_node
 	int						range;
 	int						deja_vu_init;
 	int						deja_vu;
+	int						passage;
 
 	// t_node_u_solve			u_sol;
 

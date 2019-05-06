@@ -5,10 +5,12 @@ else
 	q=$1
 fi
 for ((x=1; x <= 20; x++)) do
-for ((i=1; i <= $q; i++)) do
 echo $x
-cat f$x | grep "^L" | grep "L$i-" | wc -l
+
+# for ((i=1; i <= $q; i++)) do
+# echo -n "L$i-"
+# cat f$x | grep "L$i-" | wc -l
+# done
 cat f$x | grep "CROIS"
 cat f$x | grep "DIS"
-done
 done

@@ -33,6 +33,7 @@ int			init_node(t_node *node, char *name, int nb_node)
 	node->deja_vu = 0;
 	node->deja_vu_init = 0;
 	node->nb_of_inway = -1;
+	node->passage = 2;
 	return (1);
 }
 

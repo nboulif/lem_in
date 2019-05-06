@@ -107,12 +107,13 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	x = -1;
 	//if (obj->nb_ants)
 	//	exit(printf("rest %d ant in obj->nb_ants \n", obj->nb_ants));
-	
+
 	while (++x < sol->nb_turn)
 	{
-		write(1, output[x].chaine, output[x].index - 1);
+		printf("%.*s\n", output[x].index - 1, output[x].chaine);
+		//write(1, output[x].chaine, output[x].index - 1);
 		free(output[x].chaine);
-		write(1, "\n", 1);
+		//write(1, "\n", 1);
 	}
 }
 
@@ -153,7 +154,6 @@ int		resolv(t_objectif *obj)
 	next_sol = (t_solution){NULL, 0, 0, 0};
 	next_sol.way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
 	next_sol.nb_way = 0;
-	
 
 	//printf("max_way => %d \n\n", obj->max_way);
 
@@ -176,7 +176,6 @@ int		resolv(t_objectif *obj)
 			return (-1);
 		}
 
-		
 		++next_sol.nb_way;
 		// print_way(obj, &next_sol);
 		evaluate_turn_solution(obj, &next_sol);
@@ -188,7 +187,6 @@ int		resolv(t_objectif *obj)
 			// printf("MORE TURN\n");
 			break ;
 		}
-
 		best_sol = next_sol;
 		best_turn = best_sol.nb_turn;
 
