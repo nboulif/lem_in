@@ -31,6 +31,11 @@
 #define BIDIR		3
 #define NODIR		0
 
+#define NO_MODE		0
+#define IN_MODE		1
+#define OUT_MODE	2
+
+
 #define START		1
 #define END			2
 #define SIZE_DEPART 2000

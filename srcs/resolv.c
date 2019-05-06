@@ -142,6 +142,7 @@ int		resolv(t_objectif *obj)
 {
 	int res;
 	int best_turn;
+	int i;
 	
 	t_solution best_sol;
 	t_solution next_sol;
@@ -183,6 +184,7 @@ int		resolv(t_objectif *obj)
 
 		// printf("turn best vs current  |%d|-|%d| v2\n", best_turn, next_sol.nb_turn);
 		// sleep(1);
+		printf("\nEND ITERATION => %d \n", best_sol.nb_way);
 		if (best_sol.nb_way && best_turn < next_sol.nb_turn)
 		{
 			// printf("MORE TURN\n");
@@ -194,7 +196,6 @@ int		resolv(t_objectif *obj)
 
 		if (best_sol.nb_way == obj->nb_ants)
 			break ;
-			
 	}
 
 	if (best_sol.nb_way)

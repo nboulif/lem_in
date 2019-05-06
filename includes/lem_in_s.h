@@ -15,6 +15,7 @@
 
 typedef struct	s_node				t_node;
 typedef struct	s_edge				t_edge;
+typedef struct	s_father			t_father;
 typedef struct	s_solution			t_solution;
 
 // typedef struct				s_node_u_solve
@@ -32,6 +33,13 @@ typedef struct	s_solution			t_solution;
 
 // NODE && EDGE REPRESENTATION
 
+typedef struct				s_father
+{
+	t_node					*node;
+	t_edge					*edge;
+	int						mode;
+}							t_father;
+
 typedef struct				s_node
 {
 	char					*name;
@@ -45,10 +53,16 @@ typedef struct				s_node
 
 	// t_node_u_solve			u_sol;
 
+	t_father				*fathers;
+
 	t_edge					**father_edge;
 	t_node					**father_node;
+<<<<<<< HEAD
 	t_edge					**father_edge_out;
 	t_node					**father_node_out;
+=======
+	
+>>>>>>> baef4029335e5d19b4b86880992175bbf4ec8091
 	t_edge					*in_a_way;
 	int						father_mode;
 	int						father_mode_out;
@@ -66,12 +80,15 @@ typedef struct				s_node
 typedef struct				s_node_link
 {
 	t_node					*node;
+	struct	s_node_link		*prev;
 	struct	s_node_link		*next;
+	int						check;
 }							t_node_link;
 
 typedef struct				s_edge_link
 {
 	t_edge					*edge;
+	struct	s_edge_link		*prev;
 	struct	s_edge_link		*next;
 }							t_edge_link;
 
@@ -101,6 +118,8 @@ typedef struct				s_objectif
 	int 					max_way;
 	int						max_link;
 	int						dist_up;
+	int						*dists;
+	int						**deja_vus;
 }							t_objectif;
 
 // SOLVE

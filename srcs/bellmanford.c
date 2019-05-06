@@ -12,7 +12,45 @@
 
 #include "lem_in.h"
 
-void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, t_edge *e, int mode)
+int init_dist_deja_vu_lst(t_objectif *obj)
+{
+	int i;
+	int j;
+
+	obj->dists[0] = 0;
+	i = 1;
+	while (i < obj->nb_node)
+		obj->dists[i++] = __INT_MAX__;
+
+	i = -1;
+	while (i++ < obj->nb_node)
+	{
+		j = 0;
+		while (j < obj->nb_node)
+			obj->deja_vus[i][j++] = -1;
+
+	}
+	return (1);
+}
+
+void check_negative_cycle(t_objectif *obj)
+{
+	int i;
+	int u;
+	int v;
+
+	i = -1;
+	while (++i < obj->nb_edge)
+    {
+		u = obj->lst_edge[i].node1->id;
+		v = obj->lst_edge[i].node2->id;
+        if (obj->dists[u] != __INT_MAX__ && obj->dists[u] + obj->lst_edge[i].w1 < obj->dists[v])
+            printf("Graph contains negative weight cycle\n"); 
+    } 
+	
+}
+
+void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
@@ -95,13 +133,14 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, int **dist, t_edge *e,
 	}
 }
 
-void apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist)
+int apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 {
-	int i;
-	int j;
+	int 		i;
+	int 		j;
 
-	t_edge *e;
+	t_edge 		*e;
 	
+	init_dist_deja_vu_lst(obj);
 
 	i = -1;
 	while (++i < obj->nb_node)
@@ -112,15 +151,23 @@ void apply_algo_bellman_ford(t_objectif *obj, t_solution *sol, int **dist)
 		// while (--j >= 0)
 		while (++j < obj->nb_edge_f)
 		{
+			// printf("---%d   %d\n", i, j);
 			e = obj->lst_edge_ord[j];
 			if (e->direction & UNIDIR1)
-				check_bellman_ford(obj, sol, dist, e, 1);
+				check_bellman_ford(obj, sol, e, 1);
 			if (e->direction & UNIDIR2)
-				check_bellman_ford(obj, sol, dist, e, 2);
+				check_bellman_ford(obj, sol, e, 2);
 		}
+
 		if (!obj->dist_up)
 			break;
 	}
+	
+	sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
+
+	if (obj->dists[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)
+		return(0);
+	return(1);
 	// printf("- \n");
 	// check_negative_cycle(obj, dist);
 }
