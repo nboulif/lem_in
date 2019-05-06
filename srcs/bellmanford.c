@@ -12,25 +12,36 @@
 
 #include "lem_in.h"
 
-int 		init_dist_deja_vu_lst(t_objectif *obj)
+int init_dist_deja_vu_lst(t_objectif *obj)
 {
-	int i;
-	int j;
-
-	obj->dists[0] = 0;
-	i = 1;
-	while (i < obj->nb_node)
-		obj->dists[i++] = __INT_MAX__;
-	i = -1;
-	while (i++ < obj->nb_node)
+	for (int i = 0; i < obj->nb_node; i++)
 	{
-		j = 0;
-		while (j < obj->nb_node)
-			obj->deja_vus[i][j++] = -1;
+		obj->dists[obj->lst_node[i]->id + obj->nb_node] = __INT_MAX__;
+		obj->dists[obj->lst_node[i]->id] = __INT_MAX__;
 	}
+	obj->dists[obj->start_node->id] = 0;
+	obj->dists[obj->start_node->id + obj->nb_node] = 0;
 	return (1);
 }
+// pour debug uniquement
+int	check_in_tab(t_node *new_element)
+{
+	static t_node	tab[50000];
+	static int		index;
+	static int		fin = 1;
 
+	if (!fin)
+		return (0);
+	if (index == 0)
+
+	for (int i = 0; i < index; i++)
+	{
+		if (tab[i].name == new_element->name)
+			return ((fin = 0));
+	}
+	tab[index++] = *new_element;
+	return (1);
+}
 void 		check_negative_cycle(t_objectif *obj)
 {
 	int i;
@@ -48,108 +59,194 @@ void 		check_negative_cycle(t_objectif *obj)
 	
 }
 
-void 		check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+// void 		old_check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+// {
+// 	t_node *u;
+// 	t_node *v;
+// 	int 	w;
+	
+// 	if (mode == 1)
+// 	{
+// 		u = e->node1;
+// 		v = e->node2;
+// 		w = e->w1;
+// 	}
+// 	else
+// 	{
+// 		u = e->node2;
+// 		v = e->node1;
+// 		w = e->w2;
+// 	}
+
+// 	if (
+// 		u != v && u != obj->end_node && v != obj->start_node
+// 		// && (
+// 		// 	!u->deja_vu
+// 		// 	|| (
+// 		// 		u->fathers[sol->nb_way].node
+// 		// 		// && (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] =! -1)
+// 		// 		&& (
+// 		// 			(
+// 		// 				v->deja_vu
+// 		// 				&& u->fathers[sol->nb_way].node
+// 		// 				&& (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
+// 		// 				|| obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == IN_MODE)
+
+// 		// 			)
+// 		// 			||
+// 		// 			(
+// 		// 				!v->deja_vu
+// 		// 				&& u->fathers[sol->nb_way].node
+// 		// 				&& u->fathers[sol->nb_way].node->deja_vu
+// 		// 				&& obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
+// 		// 			)
+// 		// 		)
+// 		// 	)
+// 		// )
+// 		&& (!u->deja_vu || 
+// 			// (
+// 			// 	u->fathers[sol->nb_way].node &&
+// 			// 	(*deja_vu)[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
+// 			// )
+// 			(
+// 				v->deja_vu 
+// 				&& (
+// 					e->deja_vu 
+// 				)
+// 			) 
+// 			|| (
+// 				!v->deja_vu 
+// 				&& u->fathers[sol->nb_way].node
+// 				&& (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE)
+// 			) 
+// 		) 
+// 		// && (!u->deja_vu || v->deja_vu || 
+// 		// (u->fathers[sol->nb_way].node && u->fathers[sol->nb_way].node->deja_vu)) 
+// 		&& obj->dists[u->id] != __INT_MAX__ && 
+// 		(
+// 			obj->dists[u->id] + w < obj->dists[v->id] 
+// 			// || (obj->dists[u->id] + w == obj->dists[v->id])
+// 			// || (obj->dists[u->id] + w == obj->dists[v->id] && e->deja_vu)
+// 		)
+// 		)
+// 	{
+// 		// printf("|%s|-|%s| : %d -> %d \n", u->name, v->name,
+// 		// 	obj->dists[v->id],
+// 		// 	obj->dists[u->id] + w
+// 		// );
+		
+// 		obj->dist_up = 1;
+// 		obj->dists[v->id] = obj->dists[u->id] + w ;
+
+// 		v->fathers[sol->nb_way].node = u;
+// 		v->fathers[sol->nb_way].edge = e;
+
+// 		if (!u->deja_vu)
+// 			v->fathers[sol->nb_way].mode = NO_MODE;
+// 		else if (!v->deja_vu)
+// 			v->fathers[sol->nb_way].mode = OUT_MODE;
+// 		else
+// 			v->fathers[sol->nb_way].mode = IN_MODE;
+// 		if (obj->deja_vus[v->id][u->id] == -1)
+// 		{
+// 			if (!u->deja_vu && v->deja_vu)
+// 				obj->deja_vus[v->id][u->id] = IN_MODE;
+// 			else if (!u->deja_vu && !v->deja_vu)
+// 				obj->deja_vus[v->id][u->id] = NO_MODE;
+// 			else if (u->deja_vu && !v->deja_vu)
+// 				obj->deja_vus[v->id][u->id] = NO_MODE;
+// 			else if (u->deja_vu && v->deja_vu)
+// 				obj->deja_vus[v->id][u->id] = OUT_MODE;
+// 		}
+// 	}
+// }
+
+void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
 	int 	w;
-	
+	//int 	dir;
+
 	if (mode == 1)
 	{
 		u = e->node1;
 		v = e->node2;
 		w = e->w1;
+	//	dir = UNIDIR1;
 	}
 	else
 	{
 		u = e->node2;
 		v = e->node1;
 		w = e->w2;
+	//	dir = UNIDIR2;
 	}
-
+	// if (!v->passage)
+	// {
+	// if (u->deja_vu)
+	// 	printf("UH->deja_vu |%s|\n", u->name);
+	// if (v->deja_vu)
+	// 	printf("VE->deja_vu |%s|\n", u->name);
+	// if (v->deja_vu && u->deja_vu)
+	// 	printf("LES 2\n");
+	// 	return ;
+	// }
+	//printf("checking --> (%d)|%s|-(%d)|%s|\n", u->deja_vu, u->name,v->deja_vu, v->name);
 	if (
-		u != v && u != obj->end_node && v != obj->start_node
-		// && (
-		// 	!u->deja_vu
-		// 	|| (
-		// 		u->fathers[sol->nb_way].node
-		// 		// && (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] =! -1)
-		// 		&& (
-		// 			(
-		// 				v->deja_vu
-		// 				&& u->fathers[sol->nb_way].node
-		// 				&& (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
-		// 				|| obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == IN_MODE)
-
-		// 			)
-		// 			||
-		// 			(
-		// 				!v->deja_vu
-		// 				&& u->fathers[sol->nb_way].node
-		// 				&& u->fathers[sol->nb_way].node->deja_vu
-		// 				&& obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
-		// 			)
-		// 		)
-		// 	)
-		// )
-		&& (!u->deja_vu || 
-			// (
-			// 	u->fathers[sol->nb_way].node &&
-			// 	(*deja_vu)[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE
-			// )
-			(
-				v->deja_vu 
-				&& (
-					e->deja_vu 
-				)
-			) 
-			|| (
-				!v->deja_vu 
-				&& u->fathers[sol->nb_way].node
-				&& (obj->deja_vus[u->id][u->fathers[sol->nb_way].node->id] == OUT_MODE)
-			) 
-		) 
-		// && (!u->deja_vu || v->deja_vu || 
-		// (u->fathers[sol->nb_way].node && u->fathers[sol->nb_way].node->deja_vu)) 
-		&& obj->dists[u->id] != __INT_MAX__ && 
-		(
-			obj->dists[u->id] + w < obj->dists[v->id] 
-			// || (obj->dists[u->id] + w == obj->dists[v->id])
-			// || (obj->dists[u->id] + w == obj->dists[v->id] && e->deja_vu)
-		)
+		u != v && u != obj->end_node// && v->passage
+		&& v != obj->start_node
+		&& (!u->deja_vu || v->deja_vu ||
+		(u->fathers[sol->nb_way].node_out))// && u->father_node[sol->nb_way]->deja_vu)) &&
 		)
 	{
-		// printf("|%s|-|%s| : %d -> %d \n", u->name, v->name,
-		// 	obj->dists[v->id],
-		// 	obj->dists[u->id] + w
-		// );
-		
-		obj->dist_up = 1;
-		obj->dists[v->id] = obj->dists[u->id] + w ;
-
-		v->fathers[sol->nb_way].node = u;
-		v->fathers[sol->nb_way].edge = e;
-
-		if (!u->deja_vu)
-			v->fathers[sol->nb_way].mode = NO_MODE;
-		else if (!v->deja_vu)
-			v->fathers[sol->nb_way].mode = OUT_MODE;
-		else
-			v->fathers[sol->nb_way].mode = IN_MODE;
-		if (obj->deja_vus[v->id][u->id] == -1)
+		// obj->dist_up = 1; A REFAIRE
+		if (u->deja_vu && v->deja_vu)
 		{
-			if (!u->deja_vu && v->deja_vu)
-				obj->deja_vus[v->id][u->id] = IN_MODE;
-			else if (!u->deja_vu && !v->deja_vu)
-				obj->deja_vus[v->id][u->id] = NO_MODE;
-			else if (u->deja_vu && !v->deja_vu)
-				obj->deja_vus[v->id][u->id] = NO_MODE;
-			else if (u->deja_vu && v->deja_vu)
-				obj->deja_vus[v->id][u->id] = OUT_MODE;
+			//printf("DEJA_VU_NODE --> |%s|-|%s|\n", u->name, v->name);
+			if (v->deja_vu == u->deja_vu &&
+				obj->dists[u->id] != __INT_MAX__ && obj->dists[u->id] + w < obj->dists[v->id + obj->nb_node])
+			{
+				//printf("BEM BEM\n");
+				obj->dist_up = 1;
+				obj->dists[v->id + obj->nb_node] = obj->dists[u->id] + w;
+				v->fathers[sol->nb_way].node_out = u;
+				v->fathers[sol->nb_way].edge_out = e;
+				v->father_mode = 0;
+				if (obj->dists[v->id + obj->nb_node] < obj->dists[v->id] || obj->dists[v->id] == __INT_MAX__)
+				{
+					obj->dists[v->id] = obj->dists[v->id + obj->nb_node];
+					v->fathers[sol->nb_way].node = u;
+					v->fathers[sol->nb_way].edge = e;
+				}
+			}
+		}
+		else
+		{
+			if (u->deja_vu && !v->deja_vu)
+			{
+				if (obj->dists[u->id + obj->nb_node] == __INT_MAX__ ||
+					obj->dists[v->id] <= obj->dists[u->id + obj->nb_node] + w)
+					return ;
+				obj->dists[v->id] = obj->dists[u->id + obj->nb_node] + w;
+				v->father_mode = 1;
+				//printf("father |%s|\n", u->name);
+			}
+			else
+			{
+				if (obj->dists[u->id] == __INT_MAX__ || obj->dists[u->id] + w >= obj->dists[v->id])
+					return ;
+				//printf("ici\n");
+				obj->dists[v->id] = obj->dists[u->id] + w;
+				v->father_mode = 0;
+			}
+			obj->dist_up = 1;
+				//printf("|%s|-|%s| -> %d\n", u->name, v->name,(*dist)[v->id]);
+			v->fathers[sol->nb_way].node = u;
+			v->fathers[sol->nb_way].edge = e;
 		}
 	}
 }
-
 int 		apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 {
 	int 		i;

@@ -39,7 +39,6 @@ SOURCES_LIST = lem_in.c \
 				print_utils.c \
 				bellmanford.c \
 				resolv.c \
-				resolv_tmp.c \
 				resolv_bf.c \
 				resolv_init.c \
 				way.c

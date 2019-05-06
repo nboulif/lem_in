@@ -36,8 +36,9 @@ typedef struct	s_solution			t_solution;
 typedef struct				s_father
 {
 	t_node					*node;
+	t_node					*node_out;
 	t_edge					*edge;
-	int						mode;
+	t_edge					*edge_out;
 }							t_father;
 
 typedef struct				s_node
@@ -50,6 +51,8 @@ typedef struct				s_node
 	int						range;
 	int						deja_vu_init;
 	int						deja_vu;
+
+	int						father_mode;
 
 	// t_node_u_solve			u_sol;
 
