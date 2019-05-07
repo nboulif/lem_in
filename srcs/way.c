@@ -29,7 +29,8 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 //if (check_in_tab(curr)) // debug
 //	printf("boucle infiniiii |%s|\n", curr->name);
 		while (curr->fathers[sol->nb_way].node_out &&
-			(from->father_mode))// || curr->fathers[sol->nb_way].node_out == curr->father_node[sol->nb_way]))
+			(from->fathers[sol->nb_way].mode))
+			// (from->father_mode))// || curr->fathers[sol->nb_way].node_out == curr->father_node[sol->nb_way]))
 		{
 			from = curr;
 			curr = curr->fathers[sol->nb_way].node_out;
@@ -57,8 +58,6 @@ void 		update_ways_len_with_node_lk(t_solution *sol)
 		while ((e_ln = e_ln->next))
 		{
 			n_ln = n_ln->next;
-			e_ln->edge->deja_vu = i + 1;
-			n_ln->node->deja_vu = i + 1;
 			sol->way[i].len++;
 		}
 	}
@@ -97,15 +96,15 @@ void  	    merge_way(t_solution *sol)
 					{
 						while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
 						{
-							// if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
-							// 	e_ln_last_b->edge->node1->deja_vu -= 2;
-							// else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
-							// 	e_ln_last_b->edge->node1->deja_vu -= 2;
-							// else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
-							// 	e_ln_last_b->edge->node2->deja_vu -= 2;
-							// else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
-							// 	e_ln_last_b->edge->node2->deja_vu -= 2;
-							
+							if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
+								e_ln_last_b->edge->node1->deja_vu = 0;
+							else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
+								e_ln_last_b->edge->node1->deja_vu = 0;
+							else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
+								e_ln_last_b->edge->node2->deja_vu = 0;
+							else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
+								e_ln_last_b->edge->node2->deja_vu = 0;
+
 							e_ln_last_b = e_ln_last_b->next;
 							e_ln_old_b = e_ln_old_b->prev;
 							i++;
@@ -157,14 +156,15 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 			printf("\n");
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge_out;
 		}
-
+		e_ln->edge->deja_vu += 1;
 		e_ln->next = n_ln->node == obj->end_node ? NULL : &way->edges_lk[i + 1];
 		e_ln->prev = i == 0 ? NULL : &way->edges_lk[i - 1];
 		
 		if (!mode)
 		{
 			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node;
-			mode = n_ln->node->father_mode;
+			mode = n_ln->node->fathers[sol->nb_way].mode;
+			// mode = n_ln->node->father_mode;
 		}
 		else
 		{
@@ -172,21 +172,26 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node_out;
 		}
 		way->nodes_lk[i - 1].next = n_ln;
-		way->nodes_lk[i - 1].node->deja_vu = 0;
-		e_ln->edge->deja_vu = 0;
+		
+		if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
+			way->nodes_lk[i - 1].node->id != obj->end_node->id)
+			way->nodes_lk[i - 1].node->deja_vu += 1;
+
 		e = e_ln->edge;
 
-		dir = e->node1->id == n_ln->node->id ? UNIDIR1 : UNIDIR2;
+		dir = e->node1->id == n_ln->node->id ? UNIDIR2 : UNIDIR1;
 		w = e->node1->id == n_ln->node->id ? &e->w1 : &e->w2;
 
-		e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
-		e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
+		
+		// e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
+		// e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
 
 		// e->direction == BIDIR ? obj->offset = 1 : 0;
-		// e->direction == BIDIR ? *w = -(*w) : 0;
-		// e->direction == BIDIR ? *w = 0 : 0;
 		e->direction == BIDIR ? *w = -(*w) : 0;
-		e->direction == BIDIR ? e->direction = dir : 0;
+		e->direction -= dir;
+		// e->direction == BIDIR ? *w = 0 : 0;
+		// e->direction == BIDIR ? *w = -1 : 0;
+		//e->direction == BIDIR ? e->direction = dir : 0;
 
 		--i;
 	}

@@ -97,3 +97,135 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 	return (check);
 	
 }
+
+void	reset_graph(t_objectif *obj, int nb_way)
+{
+	int		i;
+	t_node	*node;
+
+	i = 0;
+	while (i < obj->nb_node)
+	{
+		node = obj->lst_node[i++];
+		node->fathers[nb_way] = (t_father){NULL, NULL, NULL, NULL, 0};
+	}
+}
+
+void check_bfs(t_objectif *obj, t_solution *sol, t_edge *e, int mode, t_queue *queue)
+{
+	t_node *u;
+	t_node *v;
+
+	if (mode == 1)
+	{
+		u = e->node1;
+		v = e->node2;
+	}
+	else
+	{
+		u = e->node2;
+		v = e->node1;
+	}
+	//printf("checking --> (%d)|%s|-(%d)|%s|\n", u->deja_vu, u->name,v->deja_vu, v->name);
+	if (u != v && u != obj->end_node
+		&& v != obj->start_node &&
+		(u->fathers[sol->nb_way].node || u->fathers[sol->nb_way].node_out)
+		&& (!u->deja_vu || v->deja_vu ||
+		(u->fathers[sol->nb_way].node_out))
+		)
+	{
+
+		queue->node[queue->size_queue++] = v;
+		if (queue->size_queue > obj->nb_node)
+			queue->size_queue = 0;
+
+		if (u->deja_vu && v->deja_vu)
+		{
+			if (v->fathers[sol->nb_way].node_out)
+				v->fathers[sol->nb_way].node_out = u;
+				v->fathers[sol->nb_way].edge_out = e;
+				if (!v->fathers[sol->nb_way].node)
+				{
+					v->fathers[sol->nb_way].node = u;
+					v->fathers[sol->nb_way].edge = e;
+					v->fathers[sol->nb_way].mode = 0;
+					queue->node[queue->size_queue++] = v;
+					if (queue->size_queue > obj->nb_node)
+						queue->size_queue = 0;
+					t_node *node2;
+					for (int i = 0; i < v->nb_edge_f; i++)
+					{
+						int tmp = v->edge[i]->deja_vu;
+						v->edge[i]->deja_vu = 0;
+						node2 = get_right_node_in_edge(v->edge[i], v, 1);
+						v->edge[i]->deja_vu = tmp;
+						if (node2 && node2->deja_vu)
+						{
+							if (queue->node[queue->index] == v->edge[i]->node1 &&
+								v->edge[i]->direction & UNIDIR1)
+								check_bfs(obj, sol, v->edge[i], 1, queue);
+							else if (queue->node[queue->index] == v->edge[i]->node2 &&
+								v->edge[i]->direction & UNIDIR2)
+								check_bfs(obj, sol, v->edge[i], 2, queue);
+						}
+					}
+				}
+		}
+		else
+		{
+			if (u->deja_vu && !v->deja_vu)
+			{
+				if (v->fathers[sol->nb_way].node)
+					return ;
+				v->fathers[sol->nb_way].mode = 1;
+			}
+			else
+			{
+				if (v->fathers[sol->nb_way].node)
+					return ;
+				v->fathers[sol->nb_way].mode = 0;
+			}
+			v->fathers[sol->nb_way].node = u;
+			v->fathers[sol->nb_way].edge = e;
+		}
+	}
+}
+
+int bfs(t_objectif *obj, t_solution *sol)
+{
+	// int 		i;
+	int 		j;
+	t_queue		queue;
+	t_edge 		*e;
+
+	reset_graph(obj, sol->nb_way);
+	//init_dist_deja_vu_lst(obj);
+	queue = (t_queue){.index = 0, .node = NULL, .size_queue = 1};
+	queue.node = malloc(sizeof(t_node*) * (obj->nb_node + 1));
+	//i = -1;
+	int o;
+	o = -1;
+
+	// o = obj->nb_node;
+	// while (--o >= 0)
+	queue.node[queue.size_queue] = obj->start_node;
+	while (queue.index == queue.size_queue)
+	{
+		j = -1;
+		while (++j < queue.node[queue.index]->nb_edge_f)
+		{
+			e = queue.node[queue.index]->edge[j];
+			if (queue.node[queue.index] == e->node1 && e->direction & UNIDIR1)
+				check_bfs(obj, sol, e, 1, &queue);
+			else if (queue.node[queue.index] == e->node2 && e->direction & UNIDIR2)
+				check_bfs(obj, sol, e, 2, &queue);
+		}
+		queue.index++;
+	}
+	//suurballe_formule(obj, sol->nb_way);
+	sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
+	free(queue.node);
+	if (!obj->end_node->fathers[sol->nb_way].node) //|| dist[obj->nb_node - 1] < 0)
+		return(0);
+	return(1);
+}

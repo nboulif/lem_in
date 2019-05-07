@@ -39,6 +39,7 @@ typedef struct				s_father
 	t_node					*node_out;
 	t_edge					*edge;
 	t_edge					*edge_out;
+	int						mode;
 }							t_father;
 
 typedef struct				s_node

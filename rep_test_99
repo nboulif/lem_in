@@ -1,0 +1,1027 @@
+max_way => 52 
+
+nb_node => 6067
+nb_edge => 6167
+nb_edge_f => 6006
+max_way => 52
+ 
+
+START ITERATION => 0
+
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+|Aql2|-|Giu9| |0|-|0|
+|Aql2|-|Qpt1| |0|-|0|
+|Aql2|-|U_p6| |0|-|0|
+|Aql2|-|J__2| |0|-|0|
+cost => 5
+len => 5
+dv 1 U_p6   Ubv2 -- U_p6   / w  1 -- -1  / dir  2 
+dv 1 Aql2   U_p6 -- Aql2   / w  1 -- -1  / dir  2 
+dv 1 Giu9   Aql2 -- Giu9   / w  1 -- -1  / dir  2 
+dv 1 Wpk1   Giu9 -- Wpk1   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   Wpk1 -- Fnx1   / w  1 -- -1  / dir  2 
+len => 5
+len => 5
+dv 1 U_p6   Ubv2 -- U_p6   / w  1 -- -1  / dir  2 
+dv 1 Aql2   U_p6 -- Aql2   / w  1 -- -1  / dir  2 
+dv 1 Giu9   Aql2 -- Giu9   / w  1 -- -1  / dir  2 
+dv 1 Wpk1   Giu9 -- Wpk1   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   Wpk1 -- Fnx1   / w  1 -- -1  / dir  2 
+turn best vs current  |1664|-|428| v2
+
+END ITERATION => 0 
+ 
+
+START ITERATION => 1
+
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+BEM BEM
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+cost => 24
+len => 24
+dv 1 Kq_5   Ubv2 -- Kq_5   / w  1 -- -1  / dir  2 
+dv 1 Plk6   Kq_5 -- Plk6   / w  1 -- -1  / dir  2 
+dv 1 Ily3   Plk6 -- Ily3   / w  1 -- -1  / dir  2 
+dv 1 Uih3   Ily3 -- Uih3   / w  1 -- -1  / dir  2 
+dv 1 Jzq2   Uih3 -- Jzq2   / w  1 -- -1  / dir  2 
+dv 1 Rio9   Jzq2 -- Rio9   / w  1 -- -1  / dir  2 
+dv 1 Tbm5   Rio9 -- Tbm5   / w  1 -- -1  / dir  2 
+dv 1 Qot2   Tbm5 -- Qot2   / w  1 -- -1  / dir  2 
+dv 1 Gcx9   Qot2 -- Gcx9   / w  1 -- -1  / dir  2 
+dv 1 Okh2   Gcx9 -- Okh2   / w  1 -- -1  / dir  2 
+dv 1 Elp9   Okh2 -- Elp9   / w  1 -- -1  / dir  2 
+dv 1 Jik1   Elp9 -- Jik1   / w  1 -- -1  / dir  2 
+dv 1 Ih_6   Jik1 -- Ih_6   / w  1 -- -1  / dir  2 
+dv 1 Hls4   Ih_6 -- Hls4   / w  1 -- -1  / dir  2 
+dv 1 Dkq3   Hls4 -- Dkq3   / w  1 -- -1  / dir  2 
+dv 1 Vtx4   Dkq3 -- Vtx4   / w  1 -- -1  / dir  2 
+dv 1 Azh5   Vtx4 -- Azh5   / w  1 -- -1  / dir  2 
+dv 1 E_n4   Azh5 -- E_n4   / w  1 -- -1  / dir  2 
+dv 1 Ujw7   E_n4 -- Ujw7   / w  1 -- -1  / dir  2 
+dv 1 Pgn9   Ujw7 -- Pgn9   / w  1 -- -1  / dir  2 
+dv 1 Kfw4   Pgn9 -- Kfw4   / w  1 -- -1  / dir  2 
+dv 1 Doq8   Kfw4 -- Doq8   / w  1 -- -1  / dir  2 
+dv 1 H_m1   Doq8 -- H_m1   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   H_m1 -- Fnx1   / w  1 -- -1  / dir  2 
+len => 24
+len => 24
+dv 1 Kq_5   Ubv2 -- Kq_5   / w  1 -- -1  / dir  2 
+dv 1 Plk6   Kq_5 -- Plk6   / w  1 -- -1  / dir  2 
+dv 1 Ily3   Plk6 -- Ily3   / w  1 -- -1  / dir  2 
+dv 1 Uih3   Ily3 -- Uih3   / w  1 -- -1  / dir  2 
+dv 1 Jzq2   Uih3 -- Jzq2   / w  1 -- -1  / dir  2 
+dv 1 Rio9   Jzq2 -- Rio9   / w  1 -- -1  / dir  2 
+dv 1 Tbm5   Rio9 -- Tbm5   / w  1 -- -1  / dir  2 
+dv 1 Qot2   Tbm5 -- Qot2   / w  1 -- -1  / dir  2 
+dv 1 Gcx9   Qot2 -- Gcx9   / w  1 -- -1  / dir  2 
+dv 1 Okh2   Gcx9 -- Okh2   / w  1 -- -1  / dir  2 
+dv 1 Elp9   Okh2 -- Elp9   / w  1 -- -1  / dir  2 
+dv 1 Jik1   Elp9 -- Jik1   / w  1 -- -1  / dir  2 
+dv 1 Ih_6   Jik1 -- Ih_6   / w  1 -- -1  / dir  2 
+dv 1 Hls4   Ih_6 -- Hls4   / w  1 -- -1  / dir  2 
+dv 1 Dkq3   Hls4 -- Dkq3   / w  1 -- -1  / dir  2 
+dv 1 Vtx4   Dkq3 -- Vtx4   / w  1 -- -1  / dir  2 
+dv 1 Azh5   Vtx4 -- Azh5   / w  1 -- -1  / dir  2 
+dv 1 E_n4   Azh5 -- E_n4   / w  1 -- -1  / dir  2 
+dv 1 Ujw7   E_n4 -- Ujw7   / w  1 -- -1  / dir  2 
+dv 1 Pgn9   Ujw7 -- Pgn9   / w  1 -- -1  / dir  2 
+dv 1 Kfw4   Pgn9 -- Kfw4   / w  1 -- -1  / dir  2 
+dv 1 Doq8   Kfw4 -- Doq8   / w  1 -- -1  / dir  2 
+dv 1 H_m1   Doq8 -- H_m1   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   H_m1 -- Fnx1   / w  1 -- -1  / dir  2 
+turn best vs current  |428|-|226| v2
+
+END ITERATION => 1 
+ 
+
+START ITERATION => 2
+
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+BEM BEM
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+BEM BEM
+BEM BEM
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+cost => 31
+len => 31
+dv 1 Efy0   Ubv2 -- Efy0   / w  1 -- -1  / dir  2 
+dv 1 Bfs2   Efy0 -- Bfs2   / w  1 -- -1  / dir  2 
+dv 1 Qfd8   Bfs2 -- Qfd8   / w  1 -- -1  / dir  2 
+dv 1 Dtu8   Qfd8 -- Dtu8   / w  1 -- -1  / dir  2 
+dv 1 Msq0   Dtu8 -- Msq0   / w  1 -- -1  / dir  2 
+dv 1 Udg1   Msq0 -- Udg1   / w  1 -- -1  / dir  2 
+dv 1 Ktc4   Udg1 -- Ktc4   / w  1 -- -1  / dir  2 
+dv 1 Ynv5   Ktc4 -- Ynv5   / w  1 -- -1  / dir  2 
+dv 1 Zux3   Ynv5 -- Zux3   / w  1 -- -1  / dir  2 
+dv 1 Sak9   Zux3 -- Sak9   / w  1 -- -1  / dir  2 
+dv 1 Qfw4   Qfw4 -- Sak9   / w  -1 -- 1  / dir  1 
+dv 1 Dgn3   Dgn3 -- Qfw4   / w  -1 -- 1  / dir  1 
+dv 1 J__2   J__2 -- Dgn3   / w  -1 -- 1  / dir  1 
+dv 1 Ojd5   J__2 -- Ojd5   / w  1 -- -1  / dir  2 
+dv 1 Yws6   Ojd5 -- Yws6   / w  1 -- -1  / dir  2 
+dv 1 On_0   Yws6 -- On_0   / w  1 -- -1  / dir  2 
+dv 1 Zvb1   On_0 -- Zvb1   / w  1 -- -1  / dir  2 
+dv 1 Ucu8   Zvb1 -- Ucu8   / w  1 -- -1  / dir  2 
+dv 1 Gzs3   Ucu8 -- Gzs3   / w  1 -- -1  / dir  2 
+dv 1 T_a8   Gzs3 -- T_a8   / w  1 -- -1  / dir  2 
+dv 1 Xbj6   T_a8 -- Xbj6   / w  1 -- -1  / dir  2 
+dv 1 Acb0   Xbj6 -- Acb0   / w  1 -- -1  / dir  2 
+dv 1 Gii6   Acb0 -- Gii6   / w  1 -- -1  / dir  2 
+dv 1 Uvp2   Gii6 -- Uvp2   / w  1 -- -1  / dir  2 
+dv 1 Gju7   Uvp2 -- Gju7   / w  1 -- -1  / dir  2 
+dv 1 Gx_2   Gju7 -- Gx_2   / w  1 -- -1  / dir  2 
+dv 1 Dsb2   Gx_2 -- Dsb2   / w  1 -- -1  / dir  2 
+dv 1 Oty6   Dsb2 -- Oty6   / w  1 -- -1  / dir  2 
+dv 1 Hbr4   Oty6 -- Hbr4   / w  1 -- -1  / dir  2 
+dv 1 Dzg9   Hbr4 -- Dzg9   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   Dzg9 -- Fnx1   / w  1 -- -1  / dir  2 
+len => 31
+len => 31
+dv 1 Efy0   Ubv2 -- Efy0   / w  1 -- -1  / dir  2 
+dv 1 Bfs2   Efy0 -- Bfs2   / w  1 -- -1  / dir  2 
+dv 1 Qfd8   Bfs2 -- Qfd8   / w  1 -- -1  / dir  2 
+dv 1 Dtu8   Qfd8 -- Dtu8   / w  1 -- -1  / dir  2 
+dv 1 Msq0   Dtu8 -- Msq0   / w  1 -- -1  / dir  2 
+dv 1 Udg1   Msq0 -- Udg1   / w  1 -- -1  / dir  2 
+dv 1 Ktc4   Udg1 -- Ktc4   / w  1 -- -1  / dir  2 
+dv 1 Ynv5   Ktc4 -- Ynv5   / w  1 -- -1  / dir  2 
+dv 1 Zux3   Ynv5 -- Zux3   / w  1 -- -1  / dir  2 
+dv 1 Sak9   Zux3 -- Sak9   / w  1 -- -1  / dir  2 
+dv 1 Qfw4   Qfw4 -- Sak9   / w  -1 -- 1  / dir  1 
+dv 1 Dgn3   Dgn3 -- Qfw4   / w  -1 -- 1  / dir  1 
+dv 1 J__2   J__2 -- Dgn3   / w  -1 -- 1  / dir  1 
+dv 1 Ojd5   J__2 -- Ojd5   / w  1 -- -1  / dir  2 
+dv 1 Yws6   Ojd5 -- Yws6   / w  1 -- -1  / dir  2 
+dv 1 On_0   Yws6 -- On_0   / w  1 -- -1  / dir  2 
+dv 1 Zvb1   On_0 -- Zvb1   / w  1 -- -1  / dir  2 
+dv 1 Ucu8   Zvb1 -- Ucu8   / w  1 -- -1  / dir  2 
+dv 1 Gzs3   Ucu8 -- Gzs3   / w  1 -- -1  / dir  2 
+dv 1 T_a8   Gzs3 -- T_a8   / w  1 -- -1  / dir  2 
+dv 1 Xbj6   T_a8 -- Xbj6   / w  1 -- -1  / dir  2 
+dv 1 Acb0   Xbj6 -- Acb0   / w  1 -- -1  / dir  2 
+dv 1 Gii6   Acb0 -- Gii6   / w  1 -- -1  / dir  2 
+dv 1 Uvp2   Gii6 -- Uvp2   / w  1 -- -1  / dir  2 
+dv 1 Gju7   Uvp2 -- Gju7   / w  1 -- -1  / dir  2 
+dv 1 Gx_2   Gju7 -- Gx_2   / w  1 -- -1  / dir  2 
+dv 1 Dsb2   Gx_2 -- Dsb2   / w  1 -- -1  / dir  2 
+dv 1 Oty6   Dsb2 -- Oty6   / w  1 -- -1  / dir  2 
+dv 1 Hbr4   Oty6 -- Hbr4   / w  1 -- -1  / dir  2 
+dv 1 Dzg9   Hbr4 -- Dzg9   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   Dzg9 -- Fnx1   / w  1 -- -1  / dir  2 
+turn best vs current  |226|-|161| v2
+
+END ITERATION => 2 
+ 
+
+START ITERATION => 3
+
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|U_p6| |1|-|1|
+BEM BEM
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+BEM BEM
+BEM BEM
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+|Aql2|-|Qpt1| |1|-|0|
+|Aql2|-|U_p6| |1|-|1|
+|Aql2|-|J__2| |1|-|1|
+cost => 41
+
+len => 47
+dv 1 Bec3   Ubv2 -- Bec3   / w  1 -- -1  / dir  2 
+dv 1 Avk4   Bec3 -- Avk4   / w  1 -- -1  / dir  2 
+dv 1 Eoi2   Avk4 -- Eoi2   / w  1 -- -1  / dir  2 
+dv 1 Zay0   Eoi2 -- Zay0   / w  1 -- -1  / dir  2 
+dv 1 Oxw9   Zay0 -- Oxw9   / w  1 -- -1  / dir  2 
+dv 1 Qyu2   Oxw9 -- Qyu2   / w  1 -- -1  / dir  2 
+dv 1 Wwd2   Qyu2 -- Wwd2   / w  1 -- -1  / dir  2 
+dv 1 Kof8   Wwd2 -- Kof8   / w  1 -- -1  / dir  2 
+dv 1 U_v6   Kof8 -- U_v6   / w  1 -- -1  / dir  2 
+dv 1 Kto1   U_v6 -- Kto1   / w  1 -- -1  / dir  2 
+dv 1 Kjd0   Kto1 -- Kjd0   / w  1 -- -1  / dir  2 
+dv 1 Bl_9   Kjd0 -- Bl_9   / w  1 -- -1  / dir  2 
+dv 1 Qnz7   Bl_9 -- Qnz7   / w  1 -- -1  / dir  2 
+dv 1 Cex7   Qnz7 -- Cex7   / w  1 -- -1  / dir  2 
+dv 1 Xpw3   Cex7 -- Xpw3   / w  1 -- -1  / dir  2 
+dv 1 Ptr3   Xpw3 -- Ptr3   / w  1 -- -1  / dir  2 
+dv 1 V_g9   Ptr3 -- V_g9   / w  1 -- -1  / dir  2 
+dv 1 Dyn8   V_g9 -- Dyn8   / w  1 -- -1  / dir  2 
+dv 1 Mqy6   Dyn8 -- Mqy6   / w  1 -- -1  / dir  2 
+dv 1 Qpt1   Mqy6 -- Qpt1   / w  1 -- -1  / dir  2 
+dv 2 Aql2   Qpt1 -- Aql2   / w  1 -- -1  / dir  2 
+dv 2 J__2   Aql2 -- J__2   / w  1 -- -1  / dir  2 
+dv 2 Dgn3   J__2 -- Dgn3   / w  -1 -- 1  / dir  0 
+dv 2 Qfw4   Dgn3 -- Qfw4   / w  -1 -- 1  / dir  0 
+dv 2 Sak9   Qfw4 -- Sak9   / w  -1 -- 1  / dir  0 
+dv 1 Jrh5   Sak9 -- Jrh5   / w  1 -- -1  / dir  2 
+dv 1 Tja1   Jrh5 -- Tja1   / w  1 -- -1  / dir  2 
+dv 1 Rho9   Tja1 -- Rho9   / w  1 -- -1  / dir  2 
+dv 1 Tpn7   Rho9 -- Tpn7   / w  1 -- -1  / dir  2 
+dv 1 Idk1   Tpn7 -- Idk1   / w  1 -- -1  / dir  2 
+dv 1 Xcm5   Idk1 -- Xcm5   / w  1 -- -1  / dir  2 
+dv 1 Nfv8   Xcm5 -- Nfv8   / w  1 -- -1  / dir  2 
+dv 1 Wv_0   Nfv8 -- Wv_0   / w  1 -- -1  / dir  2 
+dv 1 Oeo3   Wv_0 -- Oeo3   / w  1 -- -1  / dir  2 
+dv 1 Yki9   Oeo3 -- Yki9   / w  1 -- -1  / dir  2 
+dv 1 Qgc0   Yki9 -- Qgc0   / w  1 -- -1  / dir  2 
+dv 1 Ala4   Qgc0 -- Ala4   / w  1 -- -1  / dir  2 
+dv 1 Rwy2   Ala4 -- Rwy2   / w  1 -- -1  / dir  2 
+dv 1 Yo_7   Rwy2 -- Yo_7   / w  1 -- -1  / dir  2 
+dv 1 Kdw5   Yo_7 -- Kdw5   / w  1 -- -1  / dir  2 
+dv 1 Zzf1   Kdw5 -- Zzf1   / w  1 -- -1  / dir  2 
+dv 1 Iug5   Zzf1 -- Iug5   / w  1 -- -1  / dir  2 
+dv 1 Zt_8   Iug5 -- Zt_8   / w  1 -- -1  / dir  2 
+dv 1 M_j2   Zt_8 -- M_j2   / w  1 -- -1  / dir  2 
+dv 1 Xct6   M_j2 -- Xct6   / w  1 -- -1  / dir  2 
+dv 1 Tkx8   Xct6 -- Tkx8   / w  1 -- -1  / dir  2 
+dv 0 Fnx1   Tkx8 -- Fnx1   / w  1 -- -1  / dir  2 
+len => 40
+CROISEMENT  way  3 & 0   |Qpt1|-|Aql2|  |U_p6|-|Aql2|
+node dv		|1|-|2| & |1|-|2|
+weight		|1|-|-1| & |1|-|-1|
+dir				 |2| & |2|
+edge dv			 |0| & |0|
+
+
+CROSSSSSSSSSSSSSSSSSSING
+
+
+
+end node name => |Fnx1|
+nb way => |3|
+
+chemin 0
+0. |U_p6| |Ubv2|-|U_p6|
+1. |Aql2| |U_p6|-|Aql2|
+2. |Giu9| |Aql2|-|Giu9|
+3. |Wpk1| |Giu9|-|Wpk1|
+4. |Fnx1| |Wpk1|-|Fnx1|
+
+chemin 1
+0. |Kq_5| |Ubv2|-|Kq_5|
+1. |Plk6| |Kq_5|-|Plk6|
+2. |Ily3| |Plk6|-|Ily3|
+3. |Uih3| |Ily3|-|Uih3|
+4. |Jzq2| |Uih3|-|Jzq2|
+5. |Rio9| |Jzq2|-|Rio9|
+6. |Tbm5| |Rio9|-|Tbm5|
+7. |Qot2| |Tbm5|-|Qot2|
+8. |Gcx9| |Qot2|-|Gcx9|
+9. |Okh2| |Gcx9|-|Okh2|
+10. |Elp9| |Okh2|-|Elp9|
+11. |Jik1| |Elp9|-|Jik1|
+12. |Ih_6| |Jik1|-|Ih_6|
+13. |Hls4| |Ih_6|-|Hls4|
+14. |Dkq3| |Hls4|-|Dkq3|
+15. |Vtx4| |Dkq3|-|Vtx4|
+16. |Azh5| |Vtx4|-|Azh5|
+17. |E_n4| |Azh5|-|E_n4|
+18. |Ujw7| |E_n4|-|Ujw7|
+19. |Pgn9| |Ujw7|-|Pgn9|
+20. |Kfw4| |Pgn9|-|Kfw4|
+21. |Doq8| |Kfw4|-|Doq8|
+22. |H_m1| |Doq8|-|H_m1|
+23. |Fnx1| |H_m1|-|Fnx1|
+
+chemin 2
+0. |Efy0| |Ubv2|-|Efy0|
+1. |Bfs2| |Efy0|-|Bfs2|
+2. |Qfd8| |Bfs2|-|Qfd8|
+3. |Dtu8| |Qfd8|-|Dtu8|
+4. |Msq0| |Dtu8|-|Msq0|
+5. |Udg1| |Msq0|-|Udg1|
+6. |Ktc4| |Udg1|-|Ktc4|
+7. |Ynv5| |Ktc4|-|Ynv5|
+8. |Zux3| |Ynv5|-|Zux3|
+9. |Sak9| |Zux3|-|Sak9|
+10. |Jrh5| |Sak9|-|Jrh5|
+11. |Tja1| |Jrh5|-|Tja1|
+12. |Rho9| |Tja1|-|Rho9|
+13. |Tpn7| |Rho9|-|Tpn7|
+14. |Idk1| |Tpn7|-|Idk1|
+15. |Xcm5| |Idk1|-|Xcm5|
+16. |Nfv8| |Xcm5|-|Nfv8|
+17. |Wv_0| |Nfv8|-|Wv_0|
+18. |Oeo3| |Wv_0|-|Oeo3|
+19. |Yki9| |Oeo3|-|Yki9|
+20. |Qgc0| |Yki9|-|Qgc0|
+21. |Ala4| |Qgc0|-|Ala4|
+22. |Rwy2| |Ala4|-|Rwy2|
+23. |Yo_7| |Rwy2|-|Yo_7|
+24. |Kdw5| |Yo_7|-|Kdw5|
+25. |Zzf1| |Kdw5|-|Zzf1|
+26. |Iug5| |Zzf1|-|Iug5|
+27. |Zt_8| |Iug5|-|Zt_8|
+28. |M_j2| |Zt_8|-|M_j2|
+29. |Xct6| |M_j2|-|Xct6|
+30. |Tkx8| |Xct6|-|Tkx8|
+31. |Fnx1| |Tkx8|-|Fnx1|
+
+nb_turn 161
