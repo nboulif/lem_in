@@ -82,10 +82,14 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 		return(0);
 
 	printf("cost => %d\n", way->cost);
-	
+
 	make_way(obj, sol);
+	printf("make way ok\n");
 	print_way_status_before_merge(way);
+	printf("print before ok\n");
 	merge_way(sol);
+	printf("merge ok\n");
+
 	int check;
 	check = check_atomic(obj, sol, way);
 	if (!check)

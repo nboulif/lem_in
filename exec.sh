@@ -75,7 +75,7 @@ do
 	RES1="test_files/$INDICE\_ress1" 
 	RES2="test_files/$INDICE\_ress2" 
 	echo "------ $INDICE --------"
-	./generator --$MODE > $MAPS
+	# ./generator --$MODE > $MAPS
 	nb_turn_expected=`sed '2q;d' $MAPS | grep -o "[0-9][0-9]*"`
 	./$lem_in_1 < $MAPS > $RES1
 	nb_turn_1=`tail -n 1 $RES1 | grep -o "[0-9][0-9]*"`
