@@ -1,0 +1,328 @@
+max_way => 3 
+
+nb_node => 21
+nb_edge => 40
+nb_edge_f => 26
+max_way => 3
+ 
+
+START ITERATION => 0
+
+|D| to |F|
+CHECK |D|-|F| |0|-|0|
+NOT DEJA_VU
+|F| to |D|
+CHECK |F|-|D| |0|-|0|
+|F| to |H|
+CHECK |F|-|H| |0|-|0|
+NOT DEJA_VU
+|F| to |J|
+CHECK |F|-|J| |0|-|0|
+NOT DEJA_VU
+|F| to |P|
+CHECK |F|-|P| |0|-|0|
+NOT DEJA_VU
+|F| to |Q|
+CHECK |F|-|Q| |0|-|0|
+NOT DEJA_VU
+|H| to |F|
+CHECK |H|-|F| |0|-|0|
+|J| to |F|
+CHECK |J|-|F| |0|-|0|
+|P| to |F|
+CHECK |P|-|F| |0|-|0|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|0|
+|D| to |F|
+CHECK |D|-|F| |0|-|0|
+|F| to |D|
+CHECK |F|-|D| |0|-|0|
+|F| to |H|
+CHECK |F|-|H| |0|-|0|
+|F| to |J|
+CHECK |F|-|J| |0|-|0|
+|F| to |P|
+CHECK |F|-|P| |0|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |0|-|0|
+|H| to |F|
+CHECK |H|-|F| |0|-|0|
+|J| to |F|
+CHECK |J|-|F| |0|-|0|
+|P| to |F|
+CHECK |P|-|F| |0|-|0|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|0|
+|D| to |F|
+CHECK |D|-|F| |0|-|0|
+|F| to |D|
+CHECK |F|-|D| |0|-|0|
+|F| to |H|
+CHECK |F|-|H| |0|-|0|
+|F| to |J|
+CHECK |F|-|J| |0|-|0|
+|F| to |P|
+CHECK |F|-|P| |0|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |0|-|0|
+|H| to |F|
+CHECK |H|-|F| |0|-|0|
+|J| to |F|
+CHECK |J|-|F| |0|-|0|
+|P| to |F|
+CHECK |P|-|F| |0|-|0|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|0|
+cost => 4
+make way ok
+len => 4
+dv 1 D   A -- D   / w  1 -- -1  / dir  2 
+dv 1 F   D -- F   / w  1 -- -1  / dir  2 
+dv 1 H   F -- H   / w  1 -- -1  / dir  2 
+dv 0 K   H -- K   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 4
+len => 4
+dv 1 D   A -- D   / w  1 -- -1  / dir  2 
+dv 1 F   D -- F   / w  1 -- -1  / dir  2 
+dv 1 H   F -- H   / w  1 -- -1  / dir  2 
+dv 0 K   H -- K   / w  1 -- -1  / dir  2 
+turn best vs current  |96|-|503| v2
+
+END ITERATION => 0 
+ici 1
+ 
+
+START ITERATION => 1
+
+|F| to |D|
+CHECK |F|-|D| |1|-|1|
+|F| to |J|
+|F| to |P|
+|F| to |Q|
+|H| to |F|
+CHECK |H|-|F| |1|-|1|
+|J| to |F|
+CHECK |J|-|F| |0|-|1|
+|P| to |F|
+CHECK |P|-|F| |0|-|1|
+NOT DEJA_VU
+|Q| to |F|
+CHECK |Q|-|F| |0|-|1|
+|F| to |D|
+CHECK |F|-|D| |1|-|1|
+|U & V|->DEJA_VU OK e->deja_vu -> |1| |D|-|F|
+|F| to |J|
+|F| to |P|
+|F| to |Q|
+|H| to |F|
+CHECK |H|-|F| |1|-|1|
+|U & V|->DEJA_VU OK e->deja_vu -> |1| |F|-|H|
+|J| to |F|
+CHECK |J|-|F| |0|-|1|
+|P| to |F|
+CHECK |P|-|F| |0|-|1|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|1|
+|F| to |D|
+CHECK |F|-|D| |1|-|1|
+|U & V|->DEJA_VU OK e->deja_vu -> |1| |D|-|F|
+|F| to |J|
+CHECK |F|-|J| |1|-|0|
+U->DEJA_VU ONLY
+|F| to |P|
+CHECK |F|-|P| |1|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |1|-|0|
+U->DEJA_VU ONLY
+|H| to |F|
+CHECK |H|-|F| |1|-|1|
+|J| to |F|
+CHECK |J|-|F| |0|-|1|
+|P| to |F|
+CHECK |P|-|F| |0|-|1|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|1|
+|F| to |D|
+CHECK |F|-|D| |1|-|1|
+|F| to |J|
+CHECK |F|-|J| |1|-|0|
+|F| to |P|
+CHECK |F|-|P| |1|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |1|-|0|
+|H| to |F|
+CHECK |H|-|F| |1|-|1|
+|J| to |F|
+CHECK |J|-|F| |0|-|1|
+|P| to |F|
+CHECK |P|-|F| |0|-|1|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|1|
+|F| to |D|
+CHECK |F|-|D| |1|-|1|
+|F| to |J|
+CHECK |F|-|J| |1|-|0|
+|F| to |P|
+CHECK |F|-|P| |1|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |1|-|0|
+|H| to |F|
+CHECK |H|-|F| |1|-|1|
+|J| to |F|
+CHECK |J|-|F| |0|-|1|
+|P| to |F|
+CHECK |P|-|F| |0|-|1|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|1|
+cost => 5
+make way ok
+len => 7
+dv 1 B   A -- B   / w  1 -- -1  / dir  2 
+dv 1 Y   B -- Y   / w  1 -- -1  / dir  2 
+dv 1 C   Y -- C   / w  1 -- -1  / dir  2 
+dv 2 H   C -- H   / w  1 -- -1  / dir  2 
+dv 2 F   F -- H   / w  1 -- -1  / dir  0 
+dv 1 J   F -- J   / w  1 -- -1  / dir  2 
+dv 0 K   J -- K   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 5
+len => 5
+dv 1 B   A -- B   / w  1 -- -1  / dir  2 
+dv 1 Y   B -- Y   / w  1 -- -1  / dir  2 
+dv 1 C   Y -- C   / w  1 -- -1  / dir  2 
+dv 2 H   C -- H   / w  1 -- -1  / dir  2 
+dv 0 K   H -- K   / w  1 -- -1  / dir  2 
+turn best vs current  |503|-|254| v2
+
+END ITERATION => 1 
+ici 2
+ 
+
+START ITERATION => 2
+
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|F| to |P|
+|F| to |Q|
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+NOT DEJA_VU
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|U & V|->DEJA_VU OK e->deja_vu -> |1| |D|-|F|
+|F| to |P|
+|F| to |Q|
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|F| to |P|
+|F| to |Q|
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|U & V|->DEJA_VU OK e->deja_vu -> |1| |F|-|J|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|F| to |P|
+CHECK |F|-|P| |2|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |2|-|0|
+U->DEJA_VU ONLY
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|F| to |P|
+CHECK |F|-|P| |2|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |2|-|0|
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+|F| to |D|
+CHECK |F|-|D| |2|-|1|
+|F| to |P|
+CHECK |F|-|P| |2|-|0|
+|F| to |Q|
+CHECK |F|-|Q| |2|-|0|
+|J| to |F|
+CHECK |J|-|F| |1|-|2|
+|P| to |F|
+CHECK |P|-|F| |0|-|2|
+|Q| to |F|
+CHECK |Q|-|F| |0|-|2|
+cost => 13
+make way ok
+len => 17
+dv 1 M   A -- M   / w  1 -- -1  / dir  2 
+dv 1 N   M -- N   / w  1 -- -1  / dir  2 
+dv 1 O   N -- O   / w  1 -- -1  / dir  2 
+dv 1 P   O -- P   / w  1 -- -1  / dir  2 
+dv 4 F   F -- P   / w  -1 -- 1  / dir  1 
+dv 2 D   D -- F   / w  1 -- -1  / dir  0 
+dv 1 E   D -- E   / w  1 -- -1  / dir  2 
+dv 1 G   E -- G   / w  1 -- -1  / dir  2 
+dv 1 I   G -- I   / w  1 -- -1  / dir  2 
+dv 2 J   I -- J   / w  1 -- -1  / dir  2 
+dv 4 F   F -- J   / w  1 -- -1  / dir  0 
+dv 1 Q   F -- Q   / w  1 -- -1  / dir  2 
+dv 1 R   Q -- R   / w  1 -- -1  / dir  2 
+dv 1 S   R -- S   / w  1 -- -1  / dir  2 
+dv 1 T   S -- T   / w  1 -- -1  / dir  2 
+dv 1 U   T -- U   / w  1 -- -1  / dir  2 
+dv 0 K   K -- U   / w  -1 -- 1  / dir  1 
+print before ok
+merge ok
+len => 7
+CROISEMENT  way  2 & 0   |F|-|J|  |I|-|J|
+node dv		|4|-|2| & |1|-|2|
+weight		|1|-|-1| & |1|-|-1|
+dir				 |0| & |2|
+edge dv			 |2| & |1|
+
+
+CROSSSSSSSSSSSSSSSSSSING
+
+NO MORE WAY
+
+
+end node name => |K|
+nb way => |2|
+
+chemin 0
+0. |D| |A|-|D|
+1. |E| |D|-|E|
+2. |G| |E|-|G|
+3. |I| |G|-|I|
+4. |J| |I|-|J|
+5. 6. 7. 8. 9. 10. 
+chemin 1
+0. |B| |A|-|B|
+1. |Y| |B|-|Y|
+2. |C| |Y|-|C|
+3. |H| |C|-|H|
+4. |K| |H|-|K|
+
+nb_turn 254

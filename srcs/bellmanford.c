@@ -21,6 +21,8 @@ int init_dist_deja_vu_lst(t_objectif *obj)
 	}
 	obj->dists[obj->start_node->id] = 0;
 	obj->dists[obj->start_node->id + obj->nb_node] = 0;
+	obj->dists[obj->end_node->id] = __INT_MAX__;
+	obj->dists[obj->end_node->id + obj->nb_node] = __INT_MAX__;
 	return (1);
 }
 // pour debug uniquement
@@ -161,7 +163,7 @@ void 		old_check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int m
 	}
 }
 
-void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
@@ -193,35 +195,27 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 	// 	return ;
 	// }
 	//printf("checking --> (%d)|%s|-(%d)|%s|\n", u->deja_vu, u->name,v->deja_vu, v->name);
+	if (*u->name == 'F' || *v->name == 'F')
+		printf("|%s| to |%s|\n", u->name, v->name);
 	if (
-		u != v && u != obj->end_node// && v->passage
+		u != v && u != obj->end_node
 		&& v != obj->start_node
 		&& (!u->deja_vu || v->deja_vu ||
-		(u->fathers[sol->nb_way].node_out))// && u->father_node[sol->nb_way]->deja_vu)) &&
+		(u->fathers[sol->nb_way].node_out))
 		)
 	{
 		// obj->dist_up = 1; A REFAIRE
 		// if (!strcmp(u->name, "Aql2"))
-		// 	printf("|%s|-|%s| |%d|-|%d|\n", u->name, v->name, u->deja_vu, v->deja_vu);
+	if (*u->name == 'F' || *v->name == 'F')
+		printf("CHECK |%s|-|%s| |%d|-|%d|\n", u->name, v->name, u->deja_vu, v->deja_vu);
 		if (u->deja_vu && v->deja_vu)
 		{
-			//printf("DEJA_VU_NODE --> |%s|-|%s|\n", u->name, v->name);
-			// if (v->deja_vu != u->deja_vu)
-			// {
-			// 	if (obj->dists[u->id + obj->nb_node] != __INT_MAX__ && obj->dists[u->id + obj->nb_node] + w < obj->dists[v->id])
-			// 	{
-			// 		v->fathers[sol->nb_way].node = u;
-			// 		v->fathers[sol->nb_way].edge = e;
-			// 		v->fathers[sol->nb_way].mode = 1;
-			// 		obj->dists[v->id] = obj->dists[u->id + obj->nb_node] + w;
-			// 	}
-			// }
-			//else 
 			if (e->deja_vu &&
 				//v->deja_vu == u->deja_vu &&
 				obj->dists[u->id] != __INT_MAX__ && obj->dists[u->id] + w < obj->dists[v->id + obj->nb_node])
 			{
-				// printf("BEM BEM\n");
+	if (*u->name == 'F' || *v->name == 'F')
+		printf("|U & V|->DEJA_VU OK e->deja_vu -> |%d| |%s|-|%s|\n", e->deja_vu, e->node1->name, e->node2->name);
 				obj->dist_up = 1;
 				obj->dists[v->id + obj->nb_node] = obj->dists[u->id] + w;
 				v->fathers[sol->nb_way].node_out = u;
@@ -248,6 +242,8 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 					return ;
 				// if (!strcmp(u->name, "Aql2") && !strcmp(v->name, "Qpt1"))
 				// 	printf("add this |%s|-|%s| |%d|-|%d|\n", u->name, v->name, u->deja_vu, v->deja_vu);
+				if (*u->name == 'F' || *v->name == 'F')
+				printf("U->DEJA_VU ONLY\n");
 				obj->dists[v->id] = obj->dists[u->id + obj->nb_node] + w;
 				// v->fathers[sol->nb_way].mode = 1;
 				v->father_mode = 1;
@@ -257,7 +253,8 @@ void check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 			{
 				if (obj->dists[u->id] == __INT_MAX__ || obj->dists[u->id] + w >= obj->dists[v->id])
 					return ;
-				
+					if (*u->name == 'F' || *v->name == 'F')
+				printf("NOT DEJA_VU\n");			
 				//printf("ici\n");
 				obj->dists[v->id] = obj->dists[u->id] + w;
 				// v->fathers[sol->nb_way].mode = 0;

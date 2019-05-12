@@ -120,11 +120,9 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 		if (str[*i] == '#')
 		{
 			if (!(exec_command(obj, str, i)))
-			{
 				return (-1);
-			}
 		}
-		else 
+		else
 		{
 			if (!(node = create_node(str, i, obj->nb_node)) ||
 				!add_in_lst(obj->lst_node_lk + node->id, node))

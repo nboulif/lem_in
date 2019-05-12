@@ -165,7 +165,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 	{
 		n_ln = &way->nodes_lk[i];
 		e_ln = &way->edges_lk[i];
-		printf ("make way iter %d\n", way->len - i);
+		//printf ("make way iter %d\n", way->len - i);
 		if (!mode)
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge;
 		else
@@ -173,28 +173,30 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 			// printf("\n");
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge_out;
 		}
-		printf("egde selected\n");
+		//printf("egde selected\n");
 		e_ln->edge->deja_vu += 1;
 		e_ln->next = n_ln->node == obj->end_node ? NULL : &way->edges_lk[i + 1];
 		e_ln->prev = i == 0 ? NULL : &way->edges_lk[i - 1];
-		printf("egde next and prev set\nmode ==");
+		//printf("egde next and prev set\nmode ==");
 		if (!mode)
 		{
-			printf(" 0\n");
+			//printf(" 0\n");
 			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node;
+			//printf("way->nodes_lk ok\n");
 			mode = n_ln->node->father_mode;
 			// n_ln->node->fathers[sol->nb_way].mode;
 		}
 		else
 		{
-			printf(" 1\n");		
-			mode = 0;
+			//printf(" 1\n");
 			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node_out;
+			//printf("way->nodes_lk ok\n");
+			mode = 0;
 		}
-		printf("node selected |%s|\n", way->nodes_lk[i - 1].node->name);
-		for (int x = 0;x < 10000; x++)
-			printf("");
-			;
+		//printf("node selected |%s|\n", way->nodes_lk[i - 1].node->name);
+		// for (int x = 0;x < 10000; x++)
+		// 	printf("");
+		// 	;
 		//if (make_iter >= 2)
 		//	sleep(1);
 		way->nodes_lk[i - 1].next = n_ln;

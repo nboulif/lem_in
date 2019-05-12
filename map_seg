@@ -1,0 +1,813 @@
+max_way => 18 
+
+nb_node => 2442
+nb_edge => 3076
+nb_edge_f => 1920
+max_way => 18
+ 
+
+START ITERATION => 0
+
+cost => 17
+make way iter 1
+egde selected
+egde next and prev set
+mode == 0
+node selected |Dee3|
+make way iter 2
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rmk9|
+make way iter 3
+egde selected
+egde next and prev set
+mode == 0
+node selected |Skw2|
+make way iter 4
+egde selected
+egde next and prev set
+mode == 0
+node selected |Got7|
+make way iter 5
+egde selected
+egde next and prev set
+mode == 0
+node selected |Iyg3|
+make way iter 6
+egde selected
+egde next and prev set
+mode == 0
+node selected |Aah3|
+make way iter 7
+egde selected
+egde next and prev set
+mode == 0
+node selected |Gwr5|
+make way iter 8
+egde selected
+egde next and prev set
+mode == 0
+node selected |Jgl7|
+make way iter 9
+egde selected
+egde next and prev set
+mode == 0
+node selected |Umc3|
+make way iter 10
+egde selected
+egde next and prev set
+mode == 0
+node selected |Mov1|
+make way iter 11
+egde selected
+egde next and prev set
+mode == 0
+node selected |Fev3|
+make way iter 12
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ry_6|
+make way iter 13
+egde selected
+egde next and prev set
+mode == 0
+node selected |Cjs4|
+make way iter 14
+egde selected
+egde next and prev set
+mode == 0
+node selected |Hmm4|
+make way iter 15
+egde selected
+egde next and prev set
+mode == 0
+node selected |Czo8|
+make way iter 16
+egde selected
+egde next and prev set
+mode == 0
+node selected |D_m7|
+make way iter 17
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eqv8|
+make way ok
+len => 17
+dv 1 D_m7   Eqv8 -- D_m7   / w  1 -- -1  / dir  2 
+dv 1 Czo8   D_m7 -- Czo8   / w  1 -- -1  / dir  2 
+dv 1 Hmm4   Czo8 -- Hmm4   / w  1 -- -1  / dir  2 
+dv 1 Cjs4   Hmm4 -- Cjs4   / w  1 -- -1  / dir  2 
+dv 1 Ry_6   Cjs4 -- Ry_6   / w  1 -- -1  / dir  2 
+dv 1 Fev3   Ry_6 -- Fev3   / w  1 -- -1  / dir  2 
+dv 1 Mov1   Fev3 -- Mov1   / w  1 -- -1  / dir  2 
+dv 1 Umc3   Mov1 -- Umc3   / w  1 -- -1  / dir  2 
+dv 1 Jgl7   Umc3 -- Jgl7   / w  1 -- -1  / dir  2 
+dv 1 Gwr5   Jgl7 -- Gwr5   / w  1 -- -1  / dir  2 
+dv 1 Aah3   Gwr5 -- Aah3   / w  1 -- -1  / dir  2 
+dv 1 Iyg3   Aah3 -- Iyg3   / w  1 -- -1  / dir  2 
+dv 1 Got7   Iyg3 -- Got7   / w  1 -- -1  / dir  2 
+dv 1 Skw2   Got7 -- Skw2   / w  1 -- -1  / dir  2 
+dv 1 Rmk9   Skw2 -- Rmk9   / w  1 -- -1  / dir  2 
+dv 1 Dee3   Rmk9 -- Dee3   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Dee3 -- Izc0   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 17
+len => 17
+dv 1 D_m7   Eqv8 -- D_m7   / w  1 -- -1  / dir  2 
+dv 1 Czo8   D_m7 -- Czo8   / w  1 -- -1  / dir  2 
+dv 1 Hmm4   Czo8 -- Hmm4   / w  1 -- -1  / dir  2 
+dv 1 Cjs4   Hmm4 -- Cjs4   / w  1 -- -1  / dir  2 
+dv 1 Ry_6   Cjs4 -- Ry_6   / w  1 -- -1  / dir  2 
+dv 1 Fev3   Ry_6 -- Fev3   / w  1 -- -1  / dir  2 
+dv 1 Mov1   Fev3 -- Mov1   / w  1 -- -1  / dir  2 
+dv 1 Umc3   Mov1 -- Umc3   / w  1 -- -1  / dir  2 
+dv 1 Jgl7   Umc3 -- Jgl7   / w  1 -- -1  / dir  2 
+dv 1 Gwr5   Jgl7 -- Gwr5   / w  1 -- -1  / dir  2 
+dv 1 Aah3   Gwr5 -- Aah3   / w  1 -- -1  / dir  2 
+dv 1 Iyg3   Aah3 -- Iyg3   / w  1 -- -1  / dir  2 
+dv 1 Got7   Iyg3 -- Got7   / w  1 -- -1  / dir  2 
+dv 1 Skw2   Got7 -- Skw2   / w  1 -- -1  / dir  2 
+dv 1 Rmk9   Skw2 -- Rmk9   / w  1 -- -1  / dir  2 
+dv 1 Dee3   Rmk9 -- Dee3   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Dee3 -- Izc0   / w  1 -- -1  / dir  2 
+turn best vs current  |576|-|207| v2
+
+END ITERATION => 0 
+ 
+
+START ITERATION => 1
+
+cost => 21
+make way iter 1
+egde selected
+egde next and prev set
+mode == 0
+node selected |Wbo3|
+make way iter 2
+egde selected
+egde next and prev set
+mode == 0
+node selected |Cuj7|
+make way iter 3
+egde selected
+egde next and prev set
+mode == 0
+node selected |Zqx2|
+make way iter 4
+egde selected
+egde next and prev set
+mode == 0
+node selected |Pjj2|
+make way iter 5
+egde selected
+egde next and prev set
+mode == 0
+node selected |Wum3|
+make way iter 6
+egde selected
+egde next and prev set
+mode == 0
+node selected |Emj3|
+make way iter 7
+egde selected
+egde next and prev set
+mode == 0
+node selected |Yc_6|
+make way iter 8
+egde selected
+egde next and prev set
+mode == 0
+node selected |Hmj0|
+make way iter 9
+egde selected
+egde next and prev set
+mode == 0
+node selected |Uuq1|
+make way iter 10
+egde selected
+egde next and prev set
+mode == 0
+node selected |Pw_8|
+make way iter 11
+egde selected
+egde next and prev set
+mode == 0
+node selected |Z_x9|
+make way iter 12
+egde selected
+egde next and prev set
+mode == 0
+node selected |Vcm1|
+make way iter 13
+egde selected
+egde next and prev set
+mode == 0
+node selected |Jth9|
+make way iter 14
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ujy3|
+make way iter 15
+egde selected
+egde next and prev set
+mode == 0
+node selected |Dut0|
+make way iter 16
+egde selected
+egde next and prev set
+mode == 0
+node selected |Omd8|
+make way iter 17
+egde selected
+egde next and prev set
+mode == 0
+node selected |Yez6|
+make way iter 18
+egde selected
+egde next and prev set
+mode == 0
+node selected |Apy4|
+make way iter 19
+egde selected
+egde next and prev set
+mode == 0
+node selected |Mrf9|
+make way iter 20
+egde selected
+egde next and prev set
+mode == 0
+node selected |Yeo3|
+make way iter 21
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eqv8|
+make way ok
+len => 21
+dv 1 Yeo3   Eqv8 -- Yeo3   / w  1 -- -1  / dir  2 
+dv 1 Mrf9   Yeo3 -- Mrf9   / w  1 -- -1  / dir  2 
+dv 1 Apy4   Mrf9 -- Apy4   / w  1 -- -1  / dir  2 
+dv 1 Yez6   Apy4 -- Yez6   / w  1 -- -1  / dir  2 
+dv 1 Omd8   Yez6 -- Omd8   / w  1 -- -1  / dir  2 
+dv 1 Dut0   Omd8 -- Dut0   / w  1 -- -1  / dir  2 
+dv 1 Ujy3   Dut0 -- Ujy3   / w  1 -- -1  / dir  2 
+dv 1 Jth9   Ujy3 -- Jth9   / w  1 -- -1  / dir  2 
+dv 1 Vcm1   Jth9 -- Vcm1   / w  1 -- -1  / dir  2 
+dv 1 Z_x9   Vcm1 -- Z_x9   / w  1 -- -1  / dir  2 
+dv 1 Pw_8   Z_x9 -- Pw_8   / w  1 -- -1  / dir  2 
+dv 1 Uuq1   Pw_8 -- Uuq1   / w  1 -- -1  / dir  2 
+dv 1 Hmj0   Uuq1 -- Hmj0   / w  1 -- -1  / dir  2 
+dv 1 Yc_6   Hmj0 -- Yc_6   / w  1 -- -1  / dir  2 
+dv 1 Emj3   Yc_6 -- Emj3   / w  1 -- -1  / dir  2 
+dv 1 Wum3   Emj3 -- Wum3   / w  1 -- -1  / dir  2 
+dv 1 Pjj2   Wum3 -- Pjj2   / w  1 -- -1  / dir  2 
+dv 1 Zqx2   Zqx2 -- Pjj2   / w  -1 -- 1  / dir  1 
+dv 1 Cuj7   Cuj7 -- Zqx2   / w  -1 -- 1  / dir  1 
+dv 1 Wbo3   Wbo3 -- Cuj7   / w  -1 -- 1  / dir  1 
+dv 0 Izc0   Wbo3 -- Izc0   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 21
+len => 21
+dv 1 Yeo3   Eqv8 -- Yeo3   / w  1 -- -1  / dir  2 
+dv 1 Mrf9   Yeo3 -- Mrf9   / w  1 -- -1  / dir  2 
+dv 1 Apy4   Mrf9 -- Apy4   / w  1 -- -1  / dir  2 
+dv 1 Yez6   Apy4 -- Yez6   / w  1 -- -1  / dir  2 
+dv 1 Omd8   Yez6 -- Omd8   / w  1 -- -1  / dir  2 
+dv 1 Dut0   Omd8 -- Dut0   / w  1 -- -1  / dir  2 
+dv 1 Ujy3   Dut0 -- Ujy3   / w  1 -- -1  / dir  2 
+dv 1 Jth9   Ujy3 -- Jth9   / w  1 -- -1  / dir  2 
+dv 1 Vcm1   Jth9 -- Vcm1   / w  1 -- -1  / dir  2 
+dv 1 Z_x9   Vcm1 -- Z_x9   / w  1 -- -1  / dir  2 
+dv 1 Pw_8   Z_x9 -- Pw_8   / w  1 -- -1  / dir  2 
+dv 1 Uuq1   Pw_8 -- Uuq1   / w  1 -- -1  / dir  2 
+dv 1 Hmj0   Uuq1 -- Hmj0   / w  1 -- -1  / dir  2 
+dv 1 Yc_6   Hmj0 -- Yc_6   / w  1 -- -1  / dir  2 
+dv 1 Emj3   Yc_6 -- Emj3   / w  1 -- -1  / dir  2 
+dv 1 Wum3   Emj3 -- Wum3   / w  1 -- -1  / dir  2 
+dv 1 Pjj2   Wum3 -- Pjj2   / w  1 -- -1  / dir  2 
+dv 1 Zqx2   Zqx2 -- Pjj2   / w  -1 -- 1  / dir  1 
+dv 1 Cuj7   Cuj7 -- Zqx2   / w  -1 -- 1  / dir  1 
+dv 1 Wbo3   Wbo3 -- Cuj7   / w  -1 -- 1  / dir  1 
+dv 0 Izc0   Wbo3 -- Izc0   / w  1 -- -1  / dir  2 
+turn best vs current  |207|-|114| v2
+
+END ITERATION => 1 
+ 
+
+START ITERATION => 2
+
+cost => 21
+make way iter 1
+egde selected
+egde next and prev set
+mode == 0
+node selected |Nay7|
+make way iter 2
+egde selected
+egde next and prev set
+mode == 0
+node selected |C_q9|
+make way iter 3
+egde selected
+egde next and prev set
+mode == 0
+node selected |Pzq1|
+make way iter 4
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rmu3|
+make way iter 5
+egde selected
+egde next and prev set
+mode == 0
+node selected |Pel5|
+make way iter 6
+egde selected
+egde next and prev set
+mode == 0
+node selected |Kvg1|
+make way iter 7
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ibn4|
+make way iter 8
+egde selected
+egde next and prev set
+mode == 0
+node selected |W_y7|
+make way iter 9
+egde selected
+egde next and prev set
+mode == 0
+node selected |Axa4|
+make way iter 10
+egde selected
+egde next and prev set
+mode == 0
+node selected |Kyw0|
+make way iter 11
+egde selected
+egde next and prev set
+mode == 0
+node selected |Uyd1|
+make way iter 12
+egde selected
+egde next and prev set
+mode == 0
+node selected |Duf8|
+make way iter 13
+egde selected
+egde next and prev set
+mode == 0
+node selected |Aht5|
+make way iter 14
+egde selected
+egde next and prev set
+mode == 0
+node selected |F_c0|
+make way iter 15
+egde selected
+egde next and prev set
+mode == 0
+node selected |Xql6|
+make way iter 16
+egde selected
+egde next and prev set
+mode == 0
+node selected |Zh_5|
+make way iter 17
+egde selected
+egde next and prev set
+mode == 0
+node selected |Tew6|
+make way iter 18
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rbg8|
+make way iter 19
+egde selected
+egde next and prev set
+mode == 0
+node selected |Cqw8|
+make way iter 20
+egde selected
+egde next and prev set
+mode == 0
+node selected |Hqy9|
+make way iter 21
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eqv8|
+make way ok
+len => 21
+dv 1 Hqy9   Eqv8 -- Hqy9   / w  1 -- -1  / dir  2 
+dv 1 Cqw8   Hqy9 -- Cqw8   / w  1 -- -1  / dir  2 
+dv 1 Rbg8   Cqw8 -- Rbg8   / w  1 -- -1  / dir  2 
+dv 1 Tew6   Rbg8 -- Tew6   / w  1 -- -1  / dir  2 
+dv 1 Zh_5   Tew6 -- Zh_5   / w  1 -- -1  / dir  2 
+dv 1 Xql6   Zh_5 -- Xql6   / w  1 -- -1  / dir  2 
+dv 1 F_c0   Xql6 -- F_c0   / w  1 -- -1  / dir  2 
+dv 1 Aht5   F_c0 -- Aht5   / w  1 -- -1  / dir  2 
+dv 1 Duf8   Aht5 -- Duf8   / w  1 -- -1  / dir  2 
+dv 1 Uyd1   Duf8 -- Uyd1   / w  1 -- -1  / dir  2 
+dv 1 Kyw0   Uyd1 -- Kyw0   / w  1 -- -1  / dir  2 
+dv 1 Axa4   Kyw0 -- Axa4   / w  1 -- -1  / dir  2 
+dv 1 W_y7   Axa4 -- W_y7   / w  1 -- -1  / dir  2 
+dv 1 Ibn4   W_y7 -- Ibn4   / w  1 -- -1  / dir  2 
+dv 1 Kvg1   Ibn4 -- Kvg1   / w  1 -- -1  / dir  2 
+dv 1 Pel5   Kvg1 -- Pel5   / w  1 -- -1  / dir  2 
+dv 1 Rmu3   Pel5 -- Rmu3   / w  1 -- -1  / dir  2 
+dv 1 Pzq1   Rmu3 -- Pzq1   / w  1 -- -1  / dir  2 
+dv 1 C_q9   Pzq1 -- C_q9   / w  1 -- -1  / dir  2 
+dv 1 Nay7   C_q9 -- Nay7   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Nay7 -- Izc0   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 21
+len => 21
+dv 1 Hqy9   Eqv8 -- Hqy9   / w  1 -- -1  / dir  2 
+dv 1 Cqw8   Hqy9 -- Cqw8   / w  1 -- -1  / dir  2 
+dv 1 Rbg8   Cqw8 -- Rbg8   / w  1 -- -1  / dir  2 
+dv 1 Tew6   Rbg8 -- Tew6   / w  1 -- -1  / dir  2 
+dv 1 Zh_5   Tew6 -- Zh_5   / w  1 -- -1  / dir  2 
+dv 1 Xql6   Zh_5 -- Xql6   / w  1 -- -1  / dir  2 
+dv 1 F_c0   Xql6 -- F_c0   / w  1 -- -1  / dir  2 
+dv 1 Aht5   F_c0 -- Aht5   / w  1 -- -1  / dir  2 
+dv 1 Duf8   Aht5 -- Duf8   / w  1 -- -1  / dir  2 
+dv 1 Uyd1   Duf8 -- Uyd1   / w  1 -- -1  / dir  2 
+dv 1 Kyw0   Uyd1 -- Kyw0   / w  1 -- -1  / dir  2 
+dv 1 Axa4   Kyw0 -- Axa4   / w  1 -- -1  / dir  2 
+dv 1 W_y7   Axa4 -- W_y7   / w  1 -- -1  / dir  2 
+dv 1 Ibn4   W_y7 -- Ibn4   / w  1 -- -1  / dir  2 
+dv 1 Kvg1   Ibn4 -- Kvg1   / w  1 -- -1  / dir  2 
+dv 1 Pel5   Kvg1 -- Pel5   / w  1 -- -1  / dir  2 
+dv 1 Rmu3   Pel5 -- Rmu3   / w  1 -- -1  / dir  2 
+dv 1 Pzq1   Rmu3 -- Pzq1   / w  1 -- -1  / dir  2 
+dv 1 C_q9   Pzq1 -- C_q9   / w  1 -- -1  / dir  2 
+dv 1 Nay7   C_q9 -- Nay7   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Nay7 -- Izc0   / w  1 -- -1  / dir  2 
+turn best vs current  |114|-|83| v2
+
+END ITERATION => 2 
+ 
+
+START ITERATION => 3
+
+cost => 23
+make way iter 1
+egde selected
+egde next and prev set
+mode == 0
+node selected |Jgi5|
+make way iter 2
+egde selected
+egde next and prev set
+mode == 0
+node selected |Avk6|
+make way iter 3
+egde selected
+egde next and prev set
+mode == 0
+node selected |Bpu3|
+make way iter 4
+egde selected
+egde next and prev set
+mode == 0
+node selected |Vaq9|
+make way iter 5
+egde selected
+egde next and prev set
+mode == 0
+node selected |Dyc5|
+make way iter 6
+egde selected
+egde next and prev set
+mode == 0
+node selected |Agv5|
+make way iter 7
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eh_6|
+make way iter 8
+egde selected
+egde next and prev set
+mode == 0
+node selected |Vmi1|
+make way iter 9
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ucb8|
+make way iter 10
+egde selected
+egde next and prev set
+mode == 0
+node selected |Vyb1|
+make way iter 11
+egde selected
+egde next and prev set
+mode == 0
+node selected |Bmm6|
+make way iter 12
+egde selected
+egde next and prev set
+mode == 0
+node selected |Nrn2|
+make way iter 13
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ipf6|
+make way iter 14
+egde selected
+egde next and prev set
+mode == 0
+node selected |Qdc5|
+make way iter 15
+egde selected
+egde next and prev set
+mode == 0
+node selected |Bx_1|
+make way iter 16
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ayp3|
+make way iter 17
+egde selected
+egde next and prev set
+mode == 0
+node selected |Gwv2|
+make way iter 18
+egde selected
+egde next and prev set
+mode == 0
+node selected |J_m0|
+make way iter 19
+egde selected
+egde next and prev set
+mode == 0
+node selected |Wiq9|
+make way iter 20
+egde selected
+egde next and prev set
+mode == 0
+node selected |A_n6|
+make way iter 21
+egde selected
+egde next and prev set
+mode == 0
+node selected |Nus1|
+make way iter 22
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rwq5|
+make way iter 23
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eqv8|
+make way ok
+len => 23
+dv 1 Rwq5   Eqv8 -- Rwq5   / w  1 -- -1  / dir  2 
+dv 1 Nus1   Rwq5 -- Nus1   / w  1 -- -1  / dir  2 
+dv 1 A_n6   Nus1 -- A_n6   / w  1 -- -1  / dir  2 
+dv 1 Wiq9   A_n6 -- Wiq9   / w  1 -- -1  / dir  2 
+dv 1 J_m0   Wiq9 -- J_m0   / w  1 -- -1  / dir  2 
+dv 1 Gwv2   J_m0 -- Gwv2   / w  1 -- -1  / dir  2 
+dv 1 Ayp3   Gwv2 -- Ayp3   / w  1 -- -1  / dir  2 
+dv 1 Bx_1   Ayp3 -- Bx_1   / w  1 -- -1  / dir  2 
+dv 1 Qdc5   Bx_1 -- Qdc5   / w  1 -- -1  / dir  2 
+dv 1 Ipf6   Qdc5 -- Ipf6   / w  1 -- -1  / dir  2 
+dv 1 Nrn2   Ipf6 -- Nrn2   / w  1 -- -1  / dir  2 
+dv 1 Bmm6   Nrn2 -- Bmm6   / w  1 -- -1  / dir  2 
+dv 1 Vyb1   Bmm6 -- Vyb1   / w  1 -- -1  / dir  2 
+dv 1 Ucb8   Vyb1 -- Ucb8   / w  1 -- -1  / dir  2 
+dv 1 Vmi1   Ucb8 -- Vmi1   / w  1 -- -1  / dir  2 
+dv 1 Eh_6   Vmi1 -- Eh_6   / w  1 -- -1  / dir  2 
+dv 1 Agv5   Eh_6 -- Agv5   / w  1 -- -1  / dir  2 
+dv 1 Dyc5   Agv5 -- Dyc5   / w  1 -- -1  / dir  2 
+dv 1 Vaq9   Dyc5 -- Vaq9   / w  1 -- -1  / dir  2 
+dv 1 Bpu3   Vaq9 -- Bpu3   / w  1 -- -1  / dir  2 
+dv 1 Avk6   Bpu3 -- Avk6   / w  1 -- -1  / dir  2 
+dv 1 Jgi5   Avk6 -- Jgi5   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Jgi5 -- Izc0   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 23
+len => 23
+dv 1 Rwq5   Eqv8 -- Rwq5   / w  1 -- -1  / dir  2 
+dv 1 Nus1   Rwq5 -- Nus1   / w  1 -- -1  / dir  2 
+dv 1 A_n6   Nus1 -- A_n6   / w  1 -- -1  / dir  2 
+dv 1 Wiq9   A_n6 -- Wiq9   / w  1 -- -1  / dir  2 
+dv 1 J_m0   Wiq9 -- J_m0   / w  1 -- -1  / dir  2 
+dv 1 Gwv2   J_m0 -- Gwv2   / w  1 -- -1  / dir  2 
+dv 1 Ayp3   Gwv2 -- Ayp3   / w  1 -- -1  / dir  2 
+dv 1 Bx_1   Ayp3 -- Bx_1   / w  1 -- -1  / dir  2 
+dv 1 Qdc5   Bx_1 -- Qdc5   / w  1 -- -1  / dir  2 
+dv 1 Ipf6   Qdc5 -- Ipf6   / w  1 -- -1  / dir  2 
+dv 1 Nrn2   Ipf6 -- Nrn2   / w  1 -- -1  / dir  2 
+dv 1 Bmm6   Nrn2 -- Bmm6   / w  1 -- -1  / dir  2 
+dv 1 Vyb1   Bmm6 -- Vyb1   / w  1 -- -1  / dir  2 
+dv 1 Ucb8   Vyb1 -- Ucb8   / w  1 -- -1  / dir  2 
+dv 1 Vmi1   Ucb8 -- Vmi1   / w  1 -- -1  / dir  2 
+dv 1 Eh_6   Vmi1 -- Eh_6   / w  1 -- -1  / dir  2 
+dv 1 Agv5   Eh_6 -- Agv5   / w  1 -- -1  / dir  2 
+dv 1 Dyc5   Agv5 -- Dyc5   / w  1 -- -1  / dir  2 
+dv 1 Vaq9   Dyc5 -- Vaq9   / w  1 -- -1  / dir  2 
+dv 1 Bpu3   Vaq9 -- Bpu3   / w  1 -- -1  / dir  2 
+dv 1 Avk6   Bpu3 -- Avk6   / w  1 -- -1  / dir  2 
+dv 1 Jgi5   Avk6 -- Jgi5   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Jgi5 -- Izc0   / w  1 -- -1  / dir  2 
+turn best vs current  |83|-|68| v2
+
+END ITERATION => 3 
+ 
+
+START ITERATION => 4
+
+cost => 24
+make way iter 1
+egde selected
+egde next and prev set
+mode == 0
+node selected |Bpv8|
+make way iter 2
+egde selected
+egde next and prev set
+mode == 0
+node selected |Mhi0|
+make way iter 3
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ror8|
+make way iter 4
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rys2|
+make way iter 5
+egde selected
+egde next and prev set
+mode == 0
+node selected |Oms2|
+make way iter 6
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ugq2|
+make way iter 7
+egde selected
+egde next and prev set
+mode == 0
+node selected |Jgg7|
+make way iter 8
+egde selected
+egde next and prev set
+mode == 0
+node selected |Kyt5|
+make way iter 9
+egde selected
+egde next and prev set
+mode == 0
+node selected |Ja_5|
+make way iter 10
+egde selected
+egde next and prev set
+mode == 0
+node selected |Rdm2|
+make way iter 11
+egde selected
+egde next and prev set
+mode == 0
+node selected |Key5|
+make way iter 12
+egde selected
+egde next and prev set
+mode == 0
+node selected |Mki9|
+make way iter 13
+egde selected
+egde next and prev set
+mode == 0
+node selected |Iyy1|
+make way iter 14
+egde selected
+egde next and prev set
+mode == 0
+node selected |Yli1|
+make way iter 15
+egde selected
+egde next and prev set
+mode == 0
+node selected |Kex0|
+make way iter 16
+egde selected
+egde next and prev set
+mode == 0
+node selected |Tyj3|
+make way iter 17
+egde selected
+egde next and prev set
+mode == 0
+node selected |Euv0|
+make way iter 18
+egde selected
+egde next and prev set
+mode == 0
+node selected |Swg4|
+make way iter 19
+egde selected
+egde next and prev set
+mode == 0
+node selected |Jlp7|
+make way iter 20
+egde selected
+egde next and prev set
+mode == 0
+node selected |Esl1|
+make way iter 21
+egde selected
+egde next and prev set
+mode == 0
+node selected |Cyk4|
+make way iter 22
+egde selected
+egde next and prev set
+mode == 0
+node selected |Xrf1|
+make way iter 23
+egde selected
+egde next and prev set
+mode == 0
+node selected |Zrs0|
+make way iter 24
+egde selected
+egde next and prev set
+mode == 0
+node selected |Eqv8|
+make way ok
+len => 24
+dv 1 Zrs0   Eqv8 -- Zrs0   / w  1 -- -1  / dir  2 
+dv 1 Xrf1   Zrs0 -- Xrf1   / w  1 -- -1  / dir  2 
+dv 1 Cyk4   Xrf1 -- Cyk4   / w  1 -- -1  / dir  2 
+dv 1 Esl1   Cyk4 -- Esl1   / w  1 -- -1  / dir  2 
+dv 1 Jlp7   Esl1 -- Jlp7   / w  1 -- -1  / dir  2 
+dv 1 Swg4   Jlp7 -- Swg4   / w  1 -- -1  / dir  2 
+dv 1 Euv0   Swg4 -- Euv0   / w  1 -- -1  / dir  2 
+dv 1 Tyj3   Euv0 -- Tyj3   / w  1 -- -1  / dir  2 
+dv 1 Kex0   Tyj3 -- Kex0   / w  1 -- -1  / dir  2 
+dv 1 Yli1   Kex0 -- Yli1   / w  1 -- -1  / dir  2 
+dv 1 Iyy1   Yli1 -- Iyy1   / w  1 -- -1  / dir  2 
+dv 1 Mki9   Iyy1 -- Mki9   / w  1 -- -1  / dir  2 
+dv 1 Key5   Mki9 -- Key5   / w  1 -- -1  / dir  2 
+dv 1 Rdm2   Key5 -- Rdm2   / w  1 -- -1  / dir  2 
+dv 1 Ja_5   Rdm2 -- Ja_5   / w  1 -- -1  / dir  2 
+dv 1 Kyt5   Ja_5 -- Kyt5   / w  1 -- -1  / dir  2 
+dv 1 Jgg7   Kyt5 -- Jgg7   / w  1 -- -1  / dir  2 
+dv 1 Ugq2   Jgg7 -- Ugq2   / w  1 -- -1  / dir  2 
+dv 1 Oms2   Ugq2 -- Oms2   / w  1 -- -1  / dir  2 
+dv 1 Rys2   Oms2 -- Rys2   / w  1 -- -1  / dir  2 
+dv 1 Ror8   Ror8 -- Rys2   / w  -1 -- 1  / dir  1 
+dv 1 Mhi0   Ror8 -- Mhi0   / w  1 -- -1  / dir  2 
+dv 1 Bpv8   Mhi0 -- Bpv8   / w  1 -- -1  / dir  2 
+dv 0 Izc0   Bpv8 -- Izc0   / w  1 -- -1  / dir  2 
+print before ok
+merge ok
+len => 24
+len => 24
+dv 1 Zrs0   Eqv8 -- Zrs0   / w  1 -- -1  / dir  2 
+dv 1 Xrf1   Zrs0 -- Xrf1   / w  1 -- -1  / dir  2 
+dv 1 Cyk4   Xrf1 -- Cyk4   / w  1 -- -1  / dir  2 
+dv 1 Esl1   Cyk4 -- Esl1   / w  1 -- -1  / dir  2 
+dv 1 Jlp7   Esl1 -- Jlp7   / w  1 -- -1  / dir  2 
+dv 1 Swg4   Jlp7 -- Swg4   / w  1 -- -1  / dir  2 
+dv 1 Euv0   Swg4 -- Euv0   / w  1 -- -1  / dir  2 
+dv 1 Tyj3   Euv0 -- Tyj3   / w  1 -- -1  / dir  2 
+dv 1 Kex0   Tyj3 -- Kex0   / w  1 -- -1  / dir  2 
+dv 1 Yli1   Kex0 -- Yli1   / w  1 -- -1  / dir  2 
+dv 1 Iyy1   Yli1 -- Iyy1   / w  1 -- -1  / dir  2 
+dv 1 Mki9   Iyy1 -- Mki9   / w  1 -- -1  / dir  2 
+dv 1 Key5   Mki9 -- Key5   / w  1 -- -1  / dir  2 
+dv 1 Rdm2   Key5 -- Rdm2   / w  1 -- -1  / dir  2 
+dv 1 Ja_5   Rdm2 -- Ja_5   / w  1 -- -1  / dir  2 
+dv 1 Kyt5   Ja_5 -- Kyt5   / w  1 -- -1  / dir  2 
+dv 1 Jgg7   Kyt5 -- Jgg7   / w  1 -- -1  / dir  2 
+dv 1 Ugq2   Jgg7 -- Ugq2   / w  1 -- -1  / dir  2 
+dv 1 Oms2   Ugq2 -- Oms2   / w  1 -- -1  / dir  2 
+dv 1 Rys2   Oms2 -- Rys2   / w  1 -- -1  / dir  2 
+dv 1 Ror8   Ror8 -- Rys2   / w  -1 -- 1  / dir  1 
+dv 1 Mhi0   Ror8 -- Mhi0   / w  

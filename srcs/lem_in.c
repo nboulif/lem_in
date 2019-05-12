@@ -100,10 +100,15 @@ int init_max_father_in_node(t_objectif *obj)
 			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
 			)
 			return (0);
-		ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
-		ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
-		ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
-		
+		for (int i = 0; i <= (obj->max_way + 1); i++)
+		{
+			node->fathers[i] = (t_father){NULL, NULL, NULL, NULL, 0};
+			node->father_node[i] = NULL;
+			node->father_edge[i] = NULL;
+		}
+		//ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
+		//ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
+		//ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
 	}
 	return (1);
 }

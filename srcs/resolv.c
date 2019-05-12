@@ -16,7 +16,7 @@ void	create_output(t_solution *sol, t_string **output)
 {
 	int i;
 
-	i = sol->nb_turn * 4;
+	i = sol->nb_turn;
 	if (!(*output = malloc(sizeof(t_string) * i)))
 		exit(1);
 	while (--i >= 0)
@@ -158,7 +158,7 @@ int			resolv(t_objectif *obj)
 	obj->dists = (int *)malloc(sizeof(int) * ((obj->nb_node * 2) + 1) );
 	
 	i = 0;
-	while (i++ < obj->max_way)
+	while (i++ < obj->max_way + 1)
 	{
 		printf(" \n\nSTART ITERATION => %d\n\n", best_sol.nb_way);
 
@@ -166,7 +166,7 @@ int			resolv(t_objectif *obj)
 		
 		if (!(res))
 		{
-			// printf("NO MORE WAY\n");
+			printf("NO MORE WAY\n");
 			break;
 		}
 		else if (res == -1)
@@ -175,7 +175,6 @@ int			resolv(t_objectif *obj)
 			return (-1);
 		}
 
-		
 		++next_sol.nb_way;
 		evaluate_turn_solution(obj, &next_sol);
 
@@ -190,7 +189,7 @@ int			resolv(t_objectif *obj)
 
 		best_sol = next_sol;
 		best_turn = best_sol.nb_turn;
-
+		printf("ici %d\n", best_sol.nb_way);
 		if (best_sol.nb_way == obj->nb_ants)
 			break ;
 	}
