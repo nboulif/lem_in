@@ -30,7 +30,7 @@ void 		print_way_status_before_merge(t_way *way)
 	}
 }
 
-void 		print_way_status_after_merge(t_objectif *obj, t_way *way)
+void 		print_way_status_after_merge(t_way *way)
 {
 	t_edge_link *e_ln;
 	t_node		*node;
@@ -62,7 +62,7 @@ void 		print_node_and_edge(char *str, int size)
 	ft_putchar('\n');
 }
 
-void		print_all_edge(t_objectif *obj)
+void		print_all_edge()
 {
 	int			i;
 	int			x;
@@ -86,7 +86,7 @@ void		print_all_edge(t_objectif *obj)
 	}
 }
 
-void 		print_way(t_objectif *obj, t_solution *sol)
+void 		print_way(t_solution *sol)
 {
 	int 		i;
 	int 		x;

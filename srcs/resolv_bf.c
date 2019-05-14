@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int 		check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
+int 		check_atomic(t_solution *sol, t_way *way)
 {
 	t_edge_link		*e_check;
 	int 			z;
@@ -69,36 +69,41 @@ int 		check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 	return (check);
 }
 
-int 		find_way(t_objectif *obj, t_solution *sol)
+int 		find_way(t_solution *sol)
 { 
 	t_way 		*way;
 
 	way = &sol->way[sol->nb_way];
 
-	if (!(init_way(obj, way)))
+	if (!(init_way(way)))
 	    return (-1);
 
-	if (!apply_algo_bellman_ford(obj, sol))
+	int i;
+	i = 0;
+	while (i < obj->nb_node)
+		obj->lst_node[i++]->deja_vu_in_way = 0;
+
+	if (!apply_algo_bellman_ford(sol))
 		return(0);
 
 	printf("cost => %d\n", way->cost);
 	
-	make_way(obj, sol);
+	make_way(sol);
 	print_way_status_before_merge(way);
 	merge_way(sol);
 	int check;
-	check = check_atomic(obj, sol, way);
+	check = check_atomic(sol, way);
 	if (!check)
 	{
 		printf("\n\nCROSSSSSSSSSSSSSSSSSSING\n\n");	
 		return (check);
 	}
-	print_way_status_after_merge(obj, way);
+	print_way_status_after_merge(way);
 	return (check);
 	
 }
 
-void	reset_graph(t_objectif *obj, int nb_way)
+void	reset_graph(int nb_way)
 {
 	int		i;
 	t_node	*node;
@@ -111,7 +116,7 @@ void	reset_graph(t_objectif *obj, int nb_way)
 	}
 }
 
-void check_bfs(t_objectif *obj, t_solution *sol, t_edge *e, int mode, t_queue *queue)
+void check_bfs(t_solution *sol, t_edge *e, int mode, t_queue *queue)
 {
 	t_node *u;
 	t_node *v;
@@ -163,10 +168,10 @@ void check_bfs(t_objectif *obj, t_solution *sol, t_edge *e, int mode, t_queue *q
 						{
 							if (queue->node[queue->index] == v->edge[i]->node1 &&
 								v->edge[i]->direction & UNIDIR1)
-								check_bfs(obj, sol, v->edge[i], 1, queue);
+								check_bfs(sol, v->edge[i], 1, queue);
 							else if (queue->node[queue->index] == v->edge[i]->node2 &&
 								v->edge[i]->direction & UNIDIR2)
-								check_bfs(obj, sol, v->edge[i], 2, queue);
+								check_bfs(sol, v->edge[i], 2, queue);
 						}
 					}
 				}
@@ -191,14 +196,14 @@ void check_bfs(t_objectif *obj, t_solution *sol, t_edge *e, int mode, t_queue *q
 	}
 }
 
-int bfs(t_objectif *obj, t_solution *sol)
+int bfs(t_solution *sol)
 {
 	// int 		i;
 	int 		j;
 	t_queue		queue;
 	t_edge 		*e;
 
-	reset_graph(obj, sol->nb_way);
+	reset_graph(sol->nb_way);
 	//init_dist_deja_vu_lst(obj);
 	queue = (t_queue){.index = 0, .node = NULL, .size_queue = 1};
 	queue.node = malloc(sizeof(t_node*) * (obj->nb_node + 1));
@@ -216,9 +221,9 @@ int bfs(t_objectif *obj, t_solution *sol)
 		{
 			e = queue.node[queue.index]->edge[j];
 			if (queue.node[queue.index] == e->node1 && e->direction & UNIDIR1)
-				check_bfs(obj, sol, e, 1, &queue);
+				check_bfs(sol, e, 1, &queue);
 			else if (queue.node[queue.index] == e->node2 && e->direction & UNIDIR2)
-				check_bfs(obj, sol, e, 2, &queue);
+				check_bfs(sol, e, 2, &queue);
 		}
 		queue.index++;
 	}

@@ -31,7 +31,7 @@ int			init_node(t_node *node, char *name, int nb_node)
 	node->i_nb_father = 0;
 	node->in_a_way = NULL;
 	node->deja_vu = 0;
-	node->deja_vu_init = 0;
+	node->deja_vu_in_way = 0;
 	node->nb_of_inway = -1;
 	return (1);
 }
@@ -75,7 +75,7 @@ int			add_in_lst(t_node_link **link, t_node *node)
 	return (1);
 }
 
-int			exec_command(t_objectif *obj, char *str, int *i)
+int			exec_command(char *str, int *i)
 {
 	t_node		*node;
 	int			go;
@@ -103,7 +103,7 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 	return (1);
 }
 
-int			make_tab_node(t_objectif *obj, char *str, int *i)
+int			make_tab_node(char *str, int *i)
 {
 	t_node	*node;
 	int		x;
@@ -119,7 +119,7 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 	{
 		if (str[*i] == '#')
 		{
-			if (!(exec_command(obj, str, i)))
+			if (!(exec_command(str, i)))
 			{
 				return (-1);
 			}

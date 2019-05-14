@@ -68,17 +68,26 @@ void  	    merge_way(t_solution *sol)
 	int z;
 	// t_edge_link *tmp;
 	int i;
+	t_node *node;
+
 	t_edge_link *e_ln_old_a;
 	t_edge_link *e_ln_old_b;
 	t_edge_link *e_ln_last_a;
 	t_edge_link *e_ln_last_b;
 
+	t_edge_link *e_ln_old_a2;
+	t_edge_link *e_ln_old_b2;
+	t_edge_link *e_ln_last_a2;
+	t_edge_link *e_ln_last_b2;
+
 	i = -1;
 	// i = sol->way[sol->nb_way].len;
+	node = sol->way[sol->nb_way].nodes_lk->node;
 	while (++i < sol->way[sol->nb_way].len)
 	// while (--i >= 0)
 	{
 		e_ln_last_a = &sol->way[sol->nb_way].edges_lk[i];
+		node = get_right_node_in_edge(e_ln_last_a->edge, node, 0);
 		if (e_ln_last_a->edge && e_ln_last_a->edge->direction == NODIR)
 		{
 			z = sol->nb_way;
@@ -110,10 +119,37 @@ void  	    merge_way(t_solution *sol)
 							i++;
 						}
 					}
-					e_ln_old_a->next->prev = e_ln_last_a->prev;
-					e_ln_last_a->prev->next = e_ln_old_a->next;
-					e_ln_old_b->prev->next = e_ln_last_b->next;
-					e_ln_last_b->next->prev = e_ln_old_b->prev;
+					if (e_ln_last_a->edge->node1->deja_vu_in_way > 1 || e_ln_last_a->edge->node2->deja_vu_in_way > 1 )
+					{
+						
+						e_ln_old_b2 = e_ln_old_b;
+						e_ln_last_b2 = e_ln_last_b;
+
+						e_ln_old_a2 = e_ln_old_a;
+						e_ln_last_a2 = e_ln_last_a;
+						
+						while (e_ln_old_a->next->edge != e_ln_last_b->edge)
+						{
+							e_ln_last_b = e_ln_last_b->next;
+							i++;
+						}
+
+						e_ln_old_a->prev->next = e_ln_last_a->next;
+						e_ln_last_a->next->prev = e_ln_old_a->prev;
+
+						e_ln_old_a->next->next->prev = e_ln_last_b->prev;
+						e_ln_last_b->prev->next = e_ln_old_a->next->next;
+
+						e_ln_last_a->prev->next = e_ln_last_b->next;
+						e_ln_last_b->next->prev = e_ln_last_a->prev;
+					}
+					else
+					{
+						e_ln_old_a->next->prev = e_ln_last_a->prev;
+						e_ln_last_a->prev->next = e_ln_old_a->next;
+						e_ln_old_b->prev->next = e_ln_last_b->next;
+						e_ln_last_b->next->prev = e_ln_old_b->prev;
+					}
 					break;
 				}
 			}
@@ -122,7 +158,7 @@ void  	    merge_way(t_solution *sol)
 	update_ways_len_with_node_lk(sol);
 }
 
-int 	    make_way(t_objectif *obj, t_solution *sol)
+int 	    make_way(t_solution *sol)
 {
 	int i;
 	int dir;
@@ -176,6 +212,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 		if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
 			way->nodes_lk[i - 1].node->id != obj->end_node->id)
 			way->nodes_lk[i - 1].node->deja_vu += 1;
+			way->nodes_lk[i - 1].node->deja_vu_in_way += 1;
 
 		e = e_ln->edge;
 

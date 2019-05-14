@@ -29,7 +29,7 @@ void	create_output(t_solution *sol, t_string **output)
 	}
 }
 
-void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur_ants, t_string *output, t_t_int index)
+void	put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *output, t_t_int index)
 {
 	char			*tmp;
 	int				i;
@@ -78,7 +78,7 @@ void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 	}
 }
 
-void	print_ants(t_objectif *obj, t_solution *sol)
+void	print_ants(t_solution *sol)
 {
 	t_string	*output;
 	t_string	current_ants;
@@ -99,7 +99,7 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
 		while (++i < sol->way[x].nb_ants && obj->nb_ants > 0)
 		{
-			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
+			put_in_ouput_travel_of_ants(sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 			obj->nb_ants--;
 		}
 	}
@@ -116,7 +116,7 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	}
 }
 
-void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
+void		evaluate_turn_solution(t_solution *sol)
 {
 	int i;
 	int sum;
@@ -138,7 +138,7 @@ void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
 					!!(nb_ants % i);
 }
 
-int			resolv(t_objectif *obj)
+int			resolv()
 {
 	int res;
 	int best_turn;
@@ -162,7 +162,7 @@ int			resolv(t_objectif *obj)
 	{
 		printf(" \n\nSTART ITERATION => %d\n\n", best_sol.nb_way);
 
-		res = find_way(obj, &next_sol);
+		res = find_way(&next_sol);
 		
 		if (!(res))
 		{
@@ -177,7 +177,7 @@ int			resolv(t_objectif *obj)
 
 		
 		++next_sol.nb_way;
-		evaluate_turn_solution(obj, &next_sol);
+		evaluate_turn_solution(&next_sol);
 
 		printf("turn best vs current  |%d|-|%d| v2\n", best_turn, next_sol.nb_turn);
 		// sleep(1);
@@ -197,8 +197,8 @@ int			resolv(t_objectif *obj)
 
 	if (best_sol.nb_way)
 	{
-		print_way(obj, &best_sol);
-		// print_ants(obj, &best_sol);
+		print_way(&best_sol);
+		// print_ants(&best_sol);
 		printf("nb_turn %d\n", best_turn);
 		return (1);
 	}

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
+void delete_this_edge(t_node *node, t_edge *edge)
 {
 	int				x;
 
@@ -26,15 +26,15 @@ void delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
 				node != obj->end_node)
 			{
 				if (node == node->edge[0]->node2)
-					delete_this_edge(node->edge[0]->node1, node->edge[0], obj);
+					delete_this_edge(node->edge[0]->node1, node->edge[0]);
 				else
-					delete_this_edge(node->edge[0]->node2, node->edge[0], obj);
+					delete_this_edge(node->edge[0]->node2, node->edge[0]);
 			}
 			return ;
 		}
 }
 
-void delete_dead_end(t_objectif *obj)
+void delete_dead_end()
 {
  	int			i;
  	t_node_link	*link;
@@ -51,17 +51,17 @@ void delete_dead_end(t_objectif *obj)
 			{
 				if (link->node == link->node->edge[0]->node2)
 					delete_this_edge(link->node->edge[0]->node1,
-									link->node->edge[0], obj);
+									link->node->edge[0]);
 				else
 					delete_this_edge(link->node->edge[0]->node2,
-									link->node->edge[0], obj);
+									link->node->edge[0]);
 			}
 			link = link->next;
  		}
  	}
 }
 
-int create_tab_edge_in_node(t_objectif *obj)
+int create_tab_edge_in_node()
 {
 	int			i;
 	t_node_link	*link;
@@ -80,7 +80,7 @@ int create_tab_edge_in_node(t_objectif *obj)
 	return (1);
 }
 
-int rec_init_lst_edge_ord(t_objectif *obj)
+int rec_init_lst_edge_ord()
 {
 	t_queue queue;
 	t_node *node;
@@ -99,7 +99,7 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 	ft_memset(queue.node, 0, obj->nb_node);
 
 	queue.node[0] = obj->start_node;
-	obj->start_node->deja_vu_init = 1;
+	obj->start_node->deja_vu_in_way = 1;
 
 	k = 0;
 	queue.size_queue = 0;
@@ -119,15 +119,15 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 				node = edge->node1;
 			
 
-			if (!node->deja_vu_init)
+			if (!node->deja_vu_in_way)
 			{
-				node->deja_vu_init = 1;
+				node->deja_vu_in_way = 1;
 				queue.node[++queue.size_queue] = node;
 			}
 
-			if (!edge->deja_vu_init)
+			if (!edge->deja_vu_in_way)
 			{
-				edge->deja_vu_init = 1;
+				edge->deja_vu_in_way = 1;
 				obj->lst_edge_ord[k++] = edge;
 			}
 
@@ -141,14 +141,14 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 	return (1);
 }
 
-int link_node_and_edge(t_objectif *obj)
+int link_node_and_edge()
 {
 	int			i;
 	t_node		*node1;
 	t_node		*node2;
 
 	i = -1;
-	if (!create_tab_edge_in_node(obj))
+	if (!create_tab_edge_in_node())
 		return (0);
 	while (++i < obj->nb_edge)
 	{
@@ -164,11 +164,11 @@ int link_node_and_edge(t_objectif *obj)
 	return (1);
 }
 
-int init_resolv(t_objectif *obj)
+int init_resolv()
 {	
-	if (!link_node_and_edge(obj))
+	if (!link_node_and_edge())
 		return (0);
-	delete_dead_end(obj);
-	rec_init_lst_edge_ord(obj);
+	delete_dead_end();
+	rec_init_lst_edge_ord();
 	return (1);
 }

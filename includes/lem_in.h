@@ -41,4 +41,6 @@
 #define SIZE_DEPART 2000
 
 
+t_objectif					*obj;
+
 #endif
