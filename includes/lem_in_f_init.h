@@ -42,7 +42,7 @@ int				init_resolv();
 //zap
 void			zap_line(char *str, int *i);
 void			zap_comm(char *str, int *i);
-void            print_ants(t_solution *sol);
+int             print_ants(t_solution *sol);
 
 
 #endif

@@ -100,8 +100,7 @@ int extract_info(char *str)
 	i = 0;
 	zap_line(str, &i);
 	if ((var = make_tab_node(str, &i)) == -1)
-		exit(printf("MALLOC ERROR\n"));
-
+		return (0);
 	int j;
 	int k;
 	t_node_link *link;
@@ -130,7 +129,7 @@ int extract_info(char *str)
 
 	if (var && !make_tab_edge(str, &i))
 	{
-		exit(printf("ERROR\n"));
+		return (0);
 	}
 	return (1);
 }

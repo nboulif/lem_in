@@ -26,16 +26,16 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 	{
 		//if (!curr->deja_vu)
 			way->len++;
-//if (check_in_tab(curr)) // debug
-//	printf("boucle infiniiii |%s|\n", curr->name);
+	//if (check_in_tab(curr)) // debug
+	//	printf("boucle infiniiii |%s|\n", curr->name);
 		while (curr->fathers[sol->nb_way].node_out &&
 			(from->fathers[sol->nb_way].mode))
 			// (from->father_mode))// || curr->fathers[sol->nb_way].node_out == curr->father_node[sol->nb_way]))
 		{
 			from = curr;
 			curr = curr->fathers[sol->nb_way].node_out;
-//if (check_in_tab(curr)) // debug
-//	printf("boucle infiniiii |%s|\n", curr->name);
+	//if (check_in_tab(curr)) // debug
+	//	printf("boucle infiniiii |%s|\n", curr->name);
 		//	if (!curr->deja_vu)
 			way->len++;
 		}
@@ -63,110 +63,185 @@ void 		update_ways_len_with_node_lk(t_solution *sol)
 	}
 }
 
+t_node 		*get_node_between_2_edge(t_edge *edge1, t_edge *edge2)
+{
+	if (edge1->node1 == edge2->node1 || edge1->node1 == edge2->node2)
+		return (edge1->node1);
+	else
+		return (edge1->node2);
+}
+
+void		merge_multiple_disc_edge(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 
+						 			 t_edge_link *e_ln_last_b, t_edge_link *e_ln_old_b)
+{
+	t_edge_link *e_ln_old_a1;
+	t_edge_link *e_ln_old_b1;
+	t_edge_link *e_ln_last_a1;
+	t_edge_link *e_ln_last_b1;
+
+	
+	e_ln_old_a1 = e_ln_old_b->prev;
+	e_ln_old_b1 = e_ln_old_b->prev;
+
+	e_ln_last_a1 = e_ln_last_b;	
+
+
+
+	int i;
+	i = -1;
+	while (++i < obj->sol->way[obj->sol->nb_way].len && e_ln_old_a1->edge != e_ln_last_a1->edge)
+		e_ln_last_a1 = &obj->sol->way[obj->sol->nb_way].edges_lk[i];
+	
+	
+	e_ln_last_b1 = e_ln_last_a1;
+	while (e_ln_old_b1->prev->edge == e_ln_last_b1->next->edge)
+	{
+		e_ln_old_b1 = e_ln_old_b1->prev;
+		e_ln_last_b1 = e_ln_last_b1->next;
+	}
+
+	e_ln_old_b1->prev->next = e_ln_last_b1->next;
+	e_ln_last_b1->next->prev = e_ln_old_b1->prev;
+
+	e_ln_old_a->next->prev = e_ln_last_a->prev;
+	e_ln_last_a->prev->next = e_ln_old_a->next;
+
+	e_ln_last_a1->prev->next = e_ln_last_b->next;
+	e_ln_last_b->next->prev = e_ln_last_a1->prev;
+}
+
+void		merge_one_edge(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
+{
+	
+	t_node *node_in;
+	t_node *node_out;
+
+	if (e_ln_last_a->edge->node1->deja_vu_in_way > 1 || e_ln_last_a->edge->node2->deja_vu_in_way > 1)
+	{
+
+		node_in = get_node_between_2_edge(e_ln_last_a->edge, e_ln_last_a->prev->edge);
+		node_out = get_right_node_in_edge(e_ln_last_a->edge, node_in, 0);
+
+		if (node_in->deja_vu_in_way > 1)
+			node_in->deja_vu_in_way += 1;
+		else
+		{
+			merge_multiple_disc_edge(e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
+			node_out->deja_vu_in_way -= 3;
+		}
+
+	}
+	else
+	{
+		e_ln_old_a->next->prev = e_ln_last_a->prev;
+		e_ln_old_a->prev->next = e_ln_last_a->next;
+
+		e_ln_last_a->prev->next = e_ln_old_a->next;
+		e_ln_last_a->next->prev = e_ln_old_a->prev;
+	}
+}
+
+int			pass_next_nodirs(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 
+						 	 t_edge_link *e_ln_last_b, t_edge_link *e_ln_old_b)
+{
+	int i;
+	
+	e_ln_last_b = e_ln_last_a;
+	e_ln_old_b = e_ln_old_a;
+
+	i = 0;
+	while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
+	{
+		if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
+			e_ln_last_b->edge->node1->deja_vu = 0;
+		else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
+			e_ln_last_b->edge->node1->deja_vu = 0;
+		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
+			e_ln_last_b->edge->node2->deja_vu = 0;
+		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
+			e_ln_last_b->edge->node2->deja_vu = 0;
+
+		e_ln_last_b = e_ln_last_b->next;
+		e_ln_old_b = e_ln_old_b->prev;
+		i++;
+	}
+	return (i);
+}
+
+
+int			merge_multiple_edge(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
+{
+	int i;
+
+	t_edge_link e_ln_last_b;
+	t_edge_link e_ln_old_b;
+	
+	t_node *node_in;
+	t_node *node_out;
+
+	node_in = get_node_between_2_edge(e_ln_last_a->edge, e_ln_last_a->prev->edge);
+	i = pass_next_nodirs(e_ln_last_a, e_ln_old_a, &e_ln_last_b, &e_ln_old_b);
+	node_out = get_node_between_2_edge(e_ln_last_b.edge, e_ln_last_b.next->edge);
+
+	if (node_in->deja_vu_in_way > 1 || node_out->deja_vu_in_way > 1)
+	{
+		if (node_in->deja_vu_in_way > 1 && node_in->deja_vu_in_way % 2)
+			node_in->deja_vu_in_way += 1;
+		else
+		{
+			node_out->deja_vu_in_way -= 2;
+			merge_multiple_disc_edge(e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
+		}
+	}
+	else
+	{
+		e_ln_old_a->next->prev = e_ln_last_a->prev;
+		e_ln_old_b.prev->next = e_ln_last_b.next;
+
+		e_ln_last_a->prev->next = e_ln_old_a->next;
+		e_ln_last_b.next->prev = e_ln_old_b.prev;
+	}
+
+	return (i);
+}
+
 void  	    merge_way(t_solution *sol)
 {
 	int z;
 	// t_edge_link *tmp;
 	int i;
+	
+	obj->sol = sol;
 
-	t_node *node_in;
-	t_node *node_out;
-
-	t_edge_link *e_ln_old_a;
-	t_edge_link *e_ln_old_b;
-	t_edge_link *e_ln_last_a;
-	t_edge_link *e_ln_last_b;
-
-	t_edge_link *e_ln_old_a2;
-	t_edge_link *e_ln_old_b2;
-	t_edge_link *e_ln_last_a2;
-	t_edge_link *e_ln_last_b2;
+	t_edge_link *e_ln_last;
+	t_edge_link *e_ln_old;
 
 	i = -1;
 	// i = sol->way[sol->nb_way].len;
-	node_in = obj->start_node;
 
 	while (++i < sol->way[sol->nb_way].len)
 	// while (--i >= 0)
 	{
-		e_ln_last_a = &sol->way[sol->nb_way].edges_lk[i];
-		node_out = get_right_node_in_edge(e_ln_last_a->edge, node_in, 0);
-		if (e_ln_last_a->edge && e_ln_last_a->edge->direction == NODIR)
+		e_ln_last = &sol->way[sol->nb_way].edges_lk[i];
+		if (e_ln_last->edge && e_ln_last->edge->direction == NODIR)
 		{
 			z = sol->nb_way;
 			while(z-- > 0)
 			{
-				e_ln_old_a = sol->way[z].edges_lk;
-				while(e_ln_old_a && (e_ln_old_a->edge != e_ln_last_a->edge))
-					e_ln_old_a = e_ln_old_a->next;
-				if(e_ln_old_a && (e_ln_old_a->edge == e_ln_last_a->edge))
+				e_ln_old = sol->way[z].edges_lk;
+				while(e_ln_old && (e_ln_old->edge != e_ln_last->edge))
+					e_ln_old = e_ln_old->next;
+				if(e_ln_old && (e_ln_old->edge == e_ln_last->edge))
 				{
-					e_ln_last_b = e_ln_last_a;
-					e_ln_old_b = e_ln_old_a;
-					if (e_ln_last_a->next && e_ln_last_a->next->edge->direction == NODIR &&
-						e_ln_old_a->prev && e_ln_old_a->prev->edge == e_ln_last_a->next->edge)
-					{
-						while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
-						{
-							if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
-								e_ln_last_b->edge->node1->deja_vu = 0;
-							else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
-								e_ln_last_b->edge->node1->deja_vu = 0;
-							else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
-								e_ln_last_b->edge->node2->deja_vu = 0;
-							else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
-								e_ln_last_b->edge->node2->deja_vu = 0;
-
-							e_ln_last_b = e_ln_last_b->next;
-							e_ln_old_b = e_ln_old_b->prev;
-							i++;
-						}
-					}
-					if (node_in->deja_vu_in_way == 2 )
-						node_in->deja_vu_in_way += 1;
-					else if (node_out->deja_vu_in_way == 3)
-					{
-						node_out->deja_vu_in_way = 0;
-						e_ln_old_a2 = e_ln_old_a->next;
-						e_ln_old_b2 = e_ln_old_a->next;
-
-						e_ln_last_b2 = e_ln_last_b;
-
-						
-						while (e_ln_old_a2->edge != e_ln_last_b2->edge)
-						{
-							e_ln_last_b2 = e_ln_last_b2->next;
-							i++;
-						}
-						e_ln_last_a2 = e_ln_last_b2;
-						while (e_ln_old_a2->next->edge == e_ln_last_a2->prev->edge)
-						{
-							e_ln_old_b2 = e_ln_old_b2->next;
-							e_ln_last_b2 = e_ln_last_b2->prev;
-						}
-
-						e_ln_old_a->prev->next = e_ln_last_a->next;
-						e_ln_last_a->next->prev = e_ln_old_a->prev;
-
-						e_ln_old_a->next->next->prev = e_ln_last_b->prev;
-						e_ln_last_b->prev->next = e_ln_old_a->next->next;
-
-						e_ln_last_a->prev->next = e_ln_last_b->next;
-						e_ln_last_b->next->prev = e_ln_last_a->prev;
-					}
+					if (e_ln_last->next && e_ln_last->next->edge->direction == NODIR &&
+						e_ln_old->prev && e_ln_old->prev->edge == e_ln_last->next->edge)
+						i += merge_multiple_edge(e_ln_last, e_ln_old);
 					else
-					{
-						e_ln_old_a->next->prev = e_ln_last_a->prev;
-						e_ln_last_a->prev->next = e_ln_old_a->next;
-						e_ln_old_b->prev->next = e_ln_last_b->next;
-						e_ln_last_b->next->prev = e_ln_old_b->prev;
-					}
+						merge_one_edge(e_ln_last, e_ln_old);
 					break;
 				}
 			}
 		}
-		node_in = get_right_node_in_edge(e_ln_last_a->edge, node_out, 0);
-
 	}
 	update_ways_len_with_node_lk(sol);
 }

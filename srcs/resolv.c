@@ -12,24 +12,25 @@
 
 #include "lem_in.h"
 
-void	create_output(t_solution *sol, t_string **output)
+int		create_output(t_solution *sol, t_string **output)
 {
 	int i;
 
 	i = sol->nb_turn * 4;
 	if (!(*output = malloc(sizeof(t_string) * i)))
-		exit(1);
+		return (0);
 	while (--i >= 0)
 	{
 		output[0][i].size = 50;
 		if (!(output[0][i].chaine = malloc(sizeof(char) * output[0][i].size)))
-			exit(1);
+			return (0);
 		output[0][i].chaine[output[0][i].size - 1] = 0;
 		output[0][i].index = 0;
 	}
+	return (1);
 }
 
-void	put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *output, t_t_int index)
+int		put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *output, t_t_int index)
 {
 	char			*tmp;
 	int				i;
@@ -41,10 +42,10 @@ void	put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *
 	nd = 0;
 	i = 0;
 	if (!(tmp = ft_itoa(index.i_ants + 1)))
-		exit(1);
+		return (0);
 	if ((cur_ants->index = ft_strlen(tmp) + 1) >= cur_ants->size - 1)
 		if (!ft_realloc((void**)&cur_ants->chaine, &cur_ants->size, cur_ants->size * 2, sizeof(char)))
-			exit(1);
+			return (0);
 	ft_strcpy(cur_ants->chaine + 1, tmp);
 	free(tmp);
 	node_lk = sol->way[index.x].nodes_lk;
@@ -62,7 +63,7 @@ void	put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *
 			(nd = ft_strlen(node_lk->node->name)) >= (unsigned long)str->size - 1)
 			if (!ft_realloc((void**)&str->chaine, &str->size,
 				str->size + nd + cur_ants->index + 2 + 1, sizeof(char)))
-				exit(1);
+				return (0);
 		ft_strcpy(str->chaine + str->index, cur_ants->chaine);
 		str->index += cur_ants->index;
 		str->chaine[str->index++] = '-';
@@ -71,14 +72,15 @@ void	put_in_ouput_travel_of_ants(t_solution *sol, t_string *cur_ants, t_string *
 		str->chaine[str->index++] = ' ';
 		if (node_lk->node == obj->end_node)
 			//sol->way[index.x].node[i++ + nd].name == obj->end_node->name)
-			return ;
+			return (1);
 		i++;
 		edge_lk = edge_lk->next;
 		node_lk = node_lk->next;
 	}
+	return (0);
 }
 
-void	print_ants(t_solution *sol)
+int		print_ants(t_solution *sol)
 {
 	t_string	*output;
 	t_string	current_ants;
@@ -88,10 +90,11 @@ void	print_ants(t_solution *sol)
 
 	i_ants = 0;
 	x = -1;
-	create_output(sol, &output);
+	if (!create_output(sol, &output))
+		return (0);
 	current_ants.size = 10;
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
-		exit(1);
+		return (0);
 	current_ants.chaine[0] = 'L';
 	while (++x <= sol->nb_way && obj->nb_ants >= 0)
 	{
@@ -99,7 +102,8 @@ void	print_ants(t_solution *sol)
 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
 		while (++i < sol->way[x].nb_ants && obj->nb_ants > 0)
 		{
-			put_in_ouput_travel_of_ants(sol, &current_ants, output, (t_t_int){i, x, i_ants++});
+			if (!put_in_ouput_travel_of_ants(sol, &current_ants, output, (t_t_int){i, x, i_ants++}))
+				return (0);
 			obj->nb_ants--;
 		}
 	}
@@ -114,6 +118,7 @@ void	print_ants(t_solution *sol)
 		free(output[x].chaine);
 		//write(1, "\n", 1);
 	}
+	return (1);
 }
 
 void		evaluate_turn_solution(t_solution *sol)
@@ -133,9 +138,10 @@ void		evaluate_turn_solution(t_solution *sol)
 		if (--nb_ants == 0)
 			break ;
 	}
+
+	
 	sol->nb_turn =  sum / i +
-				    nb_ants / i +
-					!!(nb_ants % i);
+				    nb_ants / i + (nb_ants % i ? 1 : 0);
 }
 
 int			resolv()
@@ -180,7 +186,6 @@ int			resolv()
 		evaluate_turn_solution(&next_sol);
 
 		printf("turn best vs current  |%d|-|%d| v2\n", best_turn, next_sol.nb_turn);
-		// sleep(1);
 		printf("\nEND ITERATION => %d \n", best_sol.nb_way);
 		if (best_sol.nb_way && best_turn < next_sol.nb_turn)
 		{
@@ -198,7 +203,9 @@ int			resolv()
 	if (best_sol.nb_way)
 	{
 		print_way(&best_sol);
-		// print_ants(&best_sol);
+		if (!print_ants(&best_sol))
+			return (0);
+		
 		printf("nb_turn %d\n", best_turn);
 		return (1);
 	}

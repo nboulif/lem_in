@@ -116,6 +116,7 @@ typedef struct				s_objectif
 	int						dist_up;
 	int						*dists;
 	int						**deja_vus;
+	t_solution				*sol;
 }							t_objectif;
 
 // SOLVE
