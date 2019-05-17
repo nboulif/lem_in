@@ -154,15 +154,32 @@ int			pass_next_nodirs(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a,
 	i = 0;
 	while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
 	{
-		if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
+		if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1 ||
+			e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
+		{
+			e_ln_last_b->edge->deja_vu = 0;
+			e_ln_last_b->edge->w1 = 1;
+			e_ln_last_b->edge->w2 = 1;
+			e_ln_last_b->edge->direction = BIDIR;
+			e_ln_last_b->next->edge->deja_vu = 0;
+			e_ln_last_b->next->edge->w1 = 1;
+			e_ln_last_b->next->edge->w2 = 1;
+			e_ln_last_b->next->edge->direction = BIDIR;
 			e_ln_last_b->edge->node1->deja_vu = 0;
-		else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
-			e_ln_last_b->edge->node1->deja_vu = 0;
-		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
+		}
+		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1 ||
+				e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
+		{
+			e_ln_last_b->next->edge->deja_vu = 0;
+			e_ln_last_b->next->edge->w1 = 1;
+			e_ln_last_b->next->edge->w2 = 1;
+			e_ln_last_b->next->edge->direction = BIDIR;
+			e_ln_last_b->edge->deja_vu = 0;
+			e_ln_last_b->edge->w1 = 1;
+			e_ln_last_b->edge->w2 = 1;
+			e_ln_last_b->edge->direction = BIDIR;
 			e_ln_last_b->edge->node2->deja_vu = 0;
-		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
-			e_ln_last_b->edge->node2->deja_vu = 0;
-
+		}
 		e_ln_last_b = e_ln_last_b->next;
 		e_ln_old_b = e_ln_old_b->prev;
 		i++;
@@ -235,48 +252,6 @@ void  	    merge_way(t_solution *sol)
 					e_ln_old = e_ln_old->next;
 				if(e_ln_old && (e_ln_old->edge == e_ln_last->edge))
 				{
-					e_ln_last_b = e_ln_last_a;
-					e_ln_old_b = e_ln_old_a;
-					if (e_ln_last_a->next && e_ln_last_a->next->edge->direction == NODIR &&
-						e_ln_old_a->prev && e_ln_old_a->prev->edge == e_ln_last_a->next->edge)
-					{
-						while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
-						{
-							if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1 ||
-								e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
-							{
-								e_ln_last_b->edge->deja_vu = 0;
-								e_ln_last_b->edge->w1 = 1;
-								e_ln_last_b->edge->w2 = 1;
-								e_ln_last_b->edge->direction = BIDIR;
-								e_ln_last_b->next->edge->deja_vu = 0;
-								e_ln_last_b->next->edge->w1 = 1;
-								e_ln_last_b->next->edge->w2 = 1;
-								e_ln_last_b->next->edge->direction = BIDIR;
-								e_ln_last_b->edge->node1->deja_vu = 0;
-							}
-							else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1 ||
-									e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
-							{
-								e_ln_last_b->next->edge->deja_vu = 0;
-								e_ln_last_b->next->edge->w1 = 1;
-								e_ln_last_b->next->edge->w2 = 1;
-								e_ln_last_b->next->edge->direction = BIDIR;
-								e_ln_last_b->edge->deja_vu = 0;
-								e_ln_last_b->edge->w1 = 1;
-								e_ln_last_b->edge->w2 = 1;
-								e_ln_last_b->edge->direction = BIDIR;
-								e_ln_last_b->edge->node2->deja_vu = 0;
-							}
-							e_ln_last_b = e_ln_last_b->next;
-							e_ln_old_b = e_ln_old_b->prev;
-							i++;
-						}
-					}
-					e_ln_old_a->next->prev = e_ln_last_a->prev;
-					e_ln_last_a->prev->next = e_ln_old_a->next;
-					e_ln_old_b->prev->next = e_ln_last_b->next;
-					e_ln_last_b->next->prev = e_ln_old_b->prev;
 					if (e_ln_last->next && e_ln_last->next->edge->direction == NODIR &&
 						e_ln_old->prev && e_ln_old->prev->edge == e_ln_last->next->edge)
 						i += merge_multiple_edge(e_ln_last, e_ln_old);

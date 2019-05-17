@@ -125,11 +125,10 @@ void print_main_info()
 int main(void)
 {
 	char			*str;
-	t_objectif		obj_stack;
 	int				size;
 	int res;
 	
-	obj = &obj_stack;
+	obj = (t_objectif*)malloc(sizeof(t_objectif));
 
 	ft_memset(obj, 0, sizeof(t_objectif));
 	str = NULL;
