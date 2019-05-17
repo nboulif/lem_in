@@ -58,11 +58,17 @@ if ! [[ $NB_TEST =~ $re ]] ; then
 fi
 
 total=0
+total_2=0
 res_min=0
 res_equal=0
 res_plus_0=0
 res_plus_2=0
 res_plus_10=0
+res_2_min=0
+res_2_equal=0
+res_2_plus_0=0
+res_2_plus_2=0
+res_2_plus_10=0
 
 make
 
@@ -74,8 +80,7 @@ do
 	MAPS="test_files/$INDICE\_mapp" 
 	RES1="test_files/$INDICE\_ress1" 
 	RES2="test_files/$INDICE\_ress2" 
-	echo "------ $INDICE --------"
-	# ./generator --$MODE > $MAPS
+	./generator --$MODE > $MAPS
 	nb_turn_expected=`sed '2q;d' $MAPS | grep -o "[0-9][0-9]*"`
 	./$lem_in_1 < $MAPS > $RES1
 	nb_turn_1=`tail -n 1 $RES1 | grep -o "[0-9][0-9]*"`
@@ -89,13 +94,30 @@ do
 	total=`echo "$total+$player_1_res " | bc -l`	
 	if [ "$lem_in_2" != "0" ] ; then
 		./$lem_in_2 < $MAPS > $RES2 
+		# nb_turn_2=`tail -n 1 $RES2 | grep -o "[0-9][0-9]*"`
 		nb_turn_2=`cat $RES2 | grep "^L" | wc -l | bc -l`
 		player_2_res=`echo "$nb_turn_2-$nb_turn_expected" | bc -l`
-		echo "$nb_turn_expected-$nb_turn_1 ($nb_turn_2) ($player_2_res) $player_1_color$player_1_res$player_1_color_reset / $total"
+		if (($player_2_res < 0)); then player_2_color=`tput setaf 2`; let res_2_min++
+		elif (($player_2_res == 0)); then player_2_color=`tput setaf 4`; let res_2_equal++
+		elif (($player_2_res < 3)); then player_2_color=`tput setaf 5`; let res_2_plus_0++
+		elif (($player_2_res < 11)); then player_2_color=`tput setaf 3`; let res_2_plus_2++
+		else player_2_color=`tput setaf 1` ; let res_2_plus_10++ ;fi
+		player_2_color_reset=`tput sgr0`
+		total_2=`echo "$total_2+$player_2_res " | bc -l`
+		# printf "$INDICE -- $nb_turn_expected => $nb_turn_1 vs $nb_turn_2 / $player_1_color$player_1_res$player_1_color_reset vs $player_2_color$player_2_res$player_2_color_reset / $total vs $total_2 --- $res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10 --- $res_2_min | $res_2_equal | $res_2_plus_0 | $res_2_plus_2 | $res_2_plus_10\\r"
+
+		printf "
+$INDICE -- $nb_turn_expected => $nb_turn_1 vs $nb_turn_2 / $player_1_color$player_1_res$player_1_color_reset vs $player_2_color$player_2_res$player_2_color_reset / $total vs $total_2
+$res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10 
+$res_2_min | $res_2_equal | $res_2_plus_0 | $res_2_plus_2 | $res_2_plus_10
+"
 	else 
-		echo "$nb_turn_expected-$nb_turn_1 $player_1_color$player_1_res$player_1_color_reset / $total"
+		printf "
+$INDICE -- $nb_turn_expected => $nb_turn_1 / $player_1_color$player_1_res$player_1_color_reset / $total
+$res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10 
+"
 	fi
-	echo "$res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10"
+	
 	cat $RES1 | grep "DISC\|CROIS"
 	# if [[ "$MODE" =~ ^(flow-one|flow-ten|flow-thousand)$ ]]; then
 		sleep 0.7
