@@ -94,7 +94,7 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 	printf("make way ok\n");
 	print_way_status_before_merge(way);
 	printf("print before ok\n");
-	merge_way(sol);
+	merge_way(obj, sol);
 	printf("merge ok\n");
 
 	int check;

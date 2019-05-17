@@ -50,7 +50,7 @@ int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
 //way
 void            set_way_len_with_fathers(t_solution *sol, t_node *end_node);
 void            update_ways_len_with_node_lk(t_solution *sol);
-void            merge_way(t_solution *sol);
+void            merge_way(t_objectif *obj, t_solution *sol);
 int             make_way(t_objectif *obj, t_solution *sol);
 
 //resolv_tmp
