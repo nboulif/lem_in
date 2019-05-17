@@ -63,7 +63,7 @@ int		read_all(char **str)
 	return (index);
 }
 
-void estimate_max_way(t_objectif *obj)
+void estimate_max_way()
 {
 	int				i;
 	t_node_link 	*link;
@@ -85,7 +85,7 @@ void estimate_max_way(t_objectif *obj)
 	obj->max_way = (obj->max_way < obj->nb_ants) ? obj->max_way : obj->nb_ants;
 }
 
-int init_max_father_in_node(t_objectif *obj)
+int init_max_father_in_node()
 {
 	int i;
 	t_node *node;
@@ -113,47 +113,49 @@ int init_max_father_in_node(t_objectif *obj)
 	return (1);
 }
 
-void print_main_info(t_objectif obj)
+void print_main_info()
 {
 // print_node_and_edge(str, size);
-	printf("nb_node => %d\n", obj.nb_node);
-	printf("nb_edge => %d\n", obj.nb_edge);
-	printf("nb_edge_f => %d\n", obj.nb_edge_f);
-	printf("max_way => %d\n", obj.max_way);
+	printf("nb_node => %d\n", obj->nb_node);
+	printf("nb_edge => %d\n", obj->nb_edge);
+	printf("nb_edge_f => %d\n", obj->nb_edge_f);
+	printf("max_way => %d\n", obj->max_way);
 }
 
 int main(void)
 {
 	char			*str;
-	t_objectif		obj;
+	t_objectif		obj_stack;
 	int				size;
 	int res;
 	
-	ft_memset(&obj, 0, sizeof(t_objectif));
+	obj = &obj_stack;
+
+	ft_memset(obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||
-		!extract_info(&obj, str) || !init_resolv(&obj))
+		!extract_info(str) || !init_resolv())
 	{
 		printf("Error init\n");
 		return (0);
 	}
-	estimate_max_way(&obj);
-	printf("max_way => %d \n\n", obj.max_way);
+	estimate_max_way();
+	printf("max_way => %d \n\n", obj->max_way);
 
-	if (!obj.max_way)
+	if (!obj->max_way)
 	{
 		printf("NO WAY AVAILABLE\n");
 		return (0);
 	}
 	
-	print_main_info(obj);
+	print_main_info();
 	
-	if (!(init_max_father_in_node(&obj)))
+	if (!(init_max_father_in_node()))
 	{
 		printf("Error init_max_father\n");
 		return (0);
 	}
-	if ((res = resolv(&obj)) == -1)
+	if ((res = resolv()) == -1)
 	{
 		printf("Error Resolv\n");
 		return (0);

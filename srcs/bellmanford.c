@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int init_dist_deja_vu_lst(t_objectif *obj)
+int init_dist_deja_vu_lst()
 {
 	for (int i = 0; i < obj->nb_node; i++)
 	{
@@ -44,7 +44,7 @@ int	check_in_tab(t_node *new_element)
 	tab[index++] = *new_element;
 	return (1);
 }
-void 		check_negative_cycle(t_objectif *obj)
+void 		check_negative_cycle()
 {
 	int i;
 	int u;
@@ -61,7 +61,7 @@ void 		check_negative_cycle(t_objectif *obj)
 	
 }
 
-void 		old_check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+void 		old_check_bellman_ford(t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
@@ -163,7 +163,7 @@ void 		old_check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int m
 	}
 }
 
-void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
+void check_bellman_ford(t_solution *sol, t_edge *e, int mode)
 {
 	t_node *u;
 	t_node *v;
@@ -268,14 +268,14 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 	}
 }
 
-int 		apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
+int 		apply_algo_bellman_ford(t_solution *sol)
 {
 	int 		i;
 	int 		j;
 
 	t_edge 		*e;
 	
-	init_dist_deja_vu_lst(obj);
+	init_dist_deja_vu_lst();
 
 	i = -1;
 	while (++i < obj->nb_node)
@@ -306,9 +306,9 @@ int 		apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 			{
 				e = obj->lst_node[o]->edge[j];
 				if (obj->lst_node[o] == e->node1 && e->direction & UNIDIR1)
-					check_bellman_ford(obj, sol, e, 1);
+					check_bellman_ford(sol, e, 1);
 				else if (obj->lst_node[o] == e->node2 && e->direction & UNIDIR2)
-					check_bellman_ford(obj, sol, e, 2);
+					check_bellman_ford(sol, e, 2);
 			}
 		}
 		if (!obj->dist_up)

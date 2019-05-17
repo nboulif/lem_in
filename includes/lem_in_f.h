@@ -27,36 +27,36 @@ int 		    check_need_realloc(t_node *next);
 
 //print_utils
 void 			print_node_and_edge(char *str, int size);
-void			print_all_edge(t_objectif *obj);
-void 			print_way(t_objectif *obj, t_solution *sol);
+void			print_all_edge();
+void 			print_way(t_solution *sol);
 void            print_way_status_before_merge(t_way *way);
-void            print_way_status_after_merge(t_objectif *obj, t_way *way);
+void            print_way_status_after_merge(t_way *way);
 
 //resolv_init
-int 			init_way(t_objectif *obj, t_way *way);
-int				init_solution(t_objectif *obj, t_solution  *sol, t_queue *queue);
-int				clone_way(t_objectif *obj, t_solution *sol, t_solution *cur);
-void 			init_graph_bf(t_objectif *obj, int first_time);
+int 			init_way(t_way *way);
+int				init_solution(t_solution  *sol, t_queue *queue);
+int				clone_way(t_solution *sol, t_solution *cur);
+void 			init_graph_bf(int first_time);
 
 //resolv_bf
-int             find_way(t_objectif *obj, t_solution *sol);
+int             find_way(t_solution *sol);
 
 //resolv
-int				resolv(t_objectif *obj);
+int				resolv();
 
 //Bellman Ford
-int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
+int 			apply_algo_bellman_ford(t_solution *sol);
 
 //way
 void            set_way_len_with_fathers(t_solution *sol, t_node *end_node);
 void            update_ways_len_with_node_lk(t_solution *sol);
 void            merge_way(t_solution *sol);
-int             make_way(t_objectif *obj, t_solution *sol);
+int             make_way(t_solution *sol);
 
 //resolv_tmp
-// int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);
-// int 			first_way(t_objectif *obj, t_solution *sol);
-// int				find_way2(t_objectif *obj, t_solution *sol);
+// int				add_brother_in_queue(t_node *node, t_queue *queue, int range);
+// int 			first_way(t_solution *sol);
+// int				find_way2(t_solution *sol);
 
 #endif
 

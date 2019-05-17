@@ -24,7 +24,7 @@ t_edge		create_edge(t_node *node1, t_node *node2)
 	return (edge);
 }
 
-t_node *find_in_lst(t_objectif *obj, char *name, int size)
+t_node *find_in_lst(char *name, int size)
 {
 	unsigned long	id;
 	t_node_link		*lst_node_lk;
@@ -47,7 +47,7 @@ t_node *find_in_lst(t_objectif *obj, char *name, int size)
 }
 
 
-t_edge		next_edge(t_objectif *obj, char *str, int *i)
+t_edge		next_edge(char *str, int *i)
 {
 	int		x;
 	int		l;
@@ -66,8 +66,8 @@ t_edge		next_edge(t_objectif *obj, char *str, int *i)
 				return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
 			}
 			edge = create_edge(
-				find_in_lst(obj, str + *i, x - *i),
-				find_in_lst(obj, str + x + 1, l - (x + 1)));
+				find_in_lst(str + *i, x - *i),
+				find_in_lst(str + x + 1, l - (x + 1)));
 			*i = l;
 			return (edge);
 		}
@@ -77,7 +77,7 @@ t_edge		next_edge(t_objectif *obj, char *str, int *i)
 	return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
 }
 
-int			make_tab_edge(t_objectif *obj, char *str, int *i)
+int			make_tab_edge(char *str, int *i)
 {
 	t_edge	edge;
 	int		index;
@@ -87,7 +87,7 @@ int			make_tab_edge(t_objectif *obj, char *str, int *i)
 	size = obj->nb_node * obj->nb_node;
 	if (!(obj->lst_edge = malloc(sizeof(t_edge) * size)))
 		return (0);
-	while ((edge = next_edge(obj, str, i)).node1)
+	while ((edge = next_edge(str, i)).node1)
 	{
 		if (index > size || !edge.node2)
 			return (0);
