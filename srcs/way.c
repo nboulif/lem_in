@@ -204,6 +204,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 		if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
 			way->nodes_lk[i - 1].node->id != obj->end_node->id)
 			way->nodes_lk[i - 1].node->deja_vu += 1;
+		way->nodes_lk[i - 1].node->deja_vu_in_way += 1;
 
 		e = e_ln->edge;
 
