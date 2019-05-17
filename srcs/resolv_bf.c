@@ -105,6 +105,7 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 		return (check);
 	}
 	print_way_status_after_merge(obj, way);
+
 	return (check);
 	
 }

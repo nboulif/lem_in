@@ -82,13 +82,10 @@ void		merge_multiple_disc_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge
 	t_edge_link *e_ln_last_a1;
 	t_edge_link *e_ln_last_b1;
 
-	printf("------------------------------------------------------\n");
 	e_ln_old_a1 = e_ln_old_b->prev;
 	e_ln_old_b1 = e_ln_old_b->prev;
 
 	e_ln_last_a1 = e_ln_last_b;	
-
-
 
 	int i;
 	i = -1;
@@ -145,27 +142,27 @@ void		merge_one_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_l
 }
 
 int			pass_next_nodirs(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 
-						 	 t_edge_link *e_ln_last_b, t_edge_link *e_ln_old_b)
+						 	 t_edge_link **e_ln_last_b, t_edge_link **e_ln_old_b)
 {
 	int i;
 	
-	e_ln_last_b = e_ln_last_a;
-	e_ln_old_b = e_ln_old_a;
+	(*e_ln_last_b) = e_ln_last_a;
+	(*e_ln_old_b) = e_ln_old_a;
 
 	i = 0;
-	while (e_ln_old_b->prev->edge == e_ln_last_b->next->edge)
+	while ((*e_ln_old_b)->prev->edge == (*e_ln_last_b)->next->edge)
 	{
-		if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node1)
-			e_ln_last_b->edge->node1->deja_vu = 0;
-		else if (e_ln_last_b->edge->node1 == e_ln_last_b->next->edge->node2)
-			e_ln_last_b->edge->node1->deja_vu = 0;
-		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node1)
-			e_ln_last_b->edge->node2->deja_vu = 0;
-		else if (e_ln_last_b->edge->node2 == e_ln_last_b->next->edge->node2)
-			e_ln_last_b->edge->node2->deja_vu = 0;
+		if ((*e_ln_last_b)->edge->node1 == (*e_ln_last_b)->next->edge->node1)
+			(*e_ln_last_b)->edge->node1->deja_vu = 0;
+		else if ((*e_ln_last_b)->edge->node1 == (*e_ln_last_b)->next->edge->node2)
+			(*e_ln_last_b)->edge->node1->deja_vu = 0;
+		else if ((*e_ln_last_b)->edge->node2 == (*e_ln_last_b)->next->edge->node1)
+			(*e_ln_last_b)->edge->node2->deja_vu = 0;
+		else if ((*e_ln_last_b)->edge->node2 == (*e_ln_last_b)->next->edge->node2)
+			(*e_ln_last_b)->edge->node2->deja_vu = 0;
 
-		e_ln_last_b = e_ln_last_b->next;
-		e_ln_old_b = e_ln_old_b->prev;
+		(*e_ln_last_b) = (*e_ln_last_b)->next;
+		(*e_ln_old_b) = (*e_ln_old_b)->prev;
 		i++;
 	}
 	return (i);
@@ -176,15 +173,15 @@ int			merge_multiple_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link
 {
 	int i;
 
-	t_edge_link e_ln_last_b;
-	t_edge_link e_ln_old_b;
+	t_edge_link *e_ln_last_b;
+	t_edge_link *e_ln_old_b;
 	
 	t_node *node_in;
 	t_node *node_out;
 
 	node_in = get_node_between_2_edge(e_ln_last_a->edge, e_ln_last_a->prev->edge);
 	i = pass_next_nodirs(e_ln_last_a, e_ln_old_a, &e_ln_last_b, &e_ln_old_b);
-	node_out = get_node_between_2_edge(e_ln_last_b.edge, e_ln_last_b.next->edge);
+	node_out = get_node_between_2_edge(e_ln_last_b->edge, e_ln_last_b->next->edge);
 
 	if (node_in->deja_vu_in_way > 1 || node_out->deja_vu_in_way > 1)
 	{
@@ -199,10 +196,10 @@ int			merge_multiple_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link
 	else
 	{
 		e_ln_old_a->next->prev = e_ln_last_a->prev;
-		e_ln_old_b.prev->next = e_ln_last_b.next;
+		e_ln_old_b->prev->next = e_ln_last_b->next;
 
 		e_ln_last_a->prev->next = e_ln_old_a->next;
-		e_ln_last_b.next->prev = e_ln_old_b.prev;
+		e_ln_last_b->next->prev = e_ln_old_b->prev;
 	}
 
 	return (i);
@@ -238,14 +235,19 @@ void  	    merge_way(t_objectif *obj, t_solution *sol)
 				{
 					if (e_ln_last->next && e_ln_last->next->edge->direction == NODIR &&
 						e_ln_old->prev && e_ln_old->prev->edge == e_ln_last->next->edge)
+					{
 						i += merge_multiple_edge(obj, e_ln_last, e_ln_old);
+					}
 					else
+					{
 						merge_one_edge(obj, e_ln_last, e_ln_old);
+					}
 					break;
 				}
 			}
 		}
 	}
+
 	update_ways_len_with_node_lk(sol);
 }
 
@@ -270,6 +272,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 	way->nodes_lk[i].next = NULL;
 	
 	mode = obj->end_node->father_mode;
+	
 
 	while (i + 1)
 	{
@@ -280,7 +283,6 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge;
 		else
 		{
-			printf("\n");
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge_out;
 		}
 		e_ln->edge->deja_vu += 1;
@@ -289,21 +291,27 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 		
 		if (!mode)
 		{
-			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node;
+			i > 0 ? way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node : 0;
 			mode = n_ln->node->father_mode;
-			// mode = n_ln->node->father_mode;
 		}
 		else
 		{
+			i > 0 ? way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node_out : 0;
 			mode = 0;
-			way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node_out;
 		}
-		way->nodes_lk[i - 1].next = n_ln;
+
+		if (i > 0)
+		{
+			way->nodes_lk[i - 1].next = n_ln;
+			
+			if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
+				way->nodes_lk[i - 1].node->id != obj->end_node->id)
+			{
+				way->nodes_lk[i - 1].node->deja_vu += 1;
+				way->nodes_lk[i - 1].node->deja_vu_in_way += 1;		
+			}
+		}
 		
-		if (way->nodes_lk[i - 1].node->id != obj->start_node->id &&
-			way->nodes_lk[i - 1].node->id != obj->end_node->id)
-			way->nodes_lk[i - 1].node->deja_vu += 1;
-		way->nodes_lk[i - 1].node->deja_vu_in_way += 1;
 
 		e = e_ln->edge;
 
