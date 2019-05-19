@@ -118,8 +118,9 @@ $res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10
 "
 	fi
 	
-	cat $RES1 | grep "DISC\|CROIS"
+	cat $RES1 | grep "DISC\|CROIS\|SPEC"
 	# if [[ "$MODE" =~ ^(flow-one|flow-ten|flow-thousand)$ ]]; then
 		sleep 0.7
+		sleep 1.1
 	# fi
 done
