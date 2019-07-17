@@ -22,7 +22,7 @@ int 		check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 	int 			check;
 	
 	check = 1;
-	printf("len => %d\n", way->len);
+	// printf("len => %d\n", way->len);
 
 	e_ln = &way->edges_lk[0];
 	node = obj->start_node;
@@ -88,14 +88,14 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 		return(0);
 
 
-	printf("cost => %d\n", way->cost);
+	// printf("cost => %d\n", way->cost);
 
 	make_way(obj, sol);
-	printf("make way ok\n");
-	print_way_status_before_merge(way);
-	printf("print before ok\n");
+	// printf("make way ok\n");
+	// print_way_status_before_merge(way);
+	// printf("print before ok\n");
 	merge_way(obj, sol);
-	printf("merge ok\n");
+	// printf("merge ok\n");
 
 	int check;
 	check = check_atomic(obj, sol, way);
@@ -104,8 +104,7 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 		printf("\n\nCROSSSSSSSSSSSSSSSSSSING\n\n");	
 		return (check);
 	}
-	print_way_status_after_merge(obj, way);
-
+	// print_way_status_after_merge(obj, way);
 	return (check);
 	
 }

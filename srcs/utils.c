@@ -46,6 +46,8 @@ int				ft_realloc(void **tab, int *size, int new_size, size_t type_size)
 {
 	char *save;
 
+	if (new_size == *size)
+		return (1);
 	if (!(save = malloc(new_size * type_size)))
 		return (0);
 	if (*size)

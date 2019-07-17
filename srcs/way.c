@@ -248,14 +248,11 @@ void  	    merge_way(t_objectif *obj, t_solution *sol)
 					if(e_ln_old && (e_ln_old->edge == e_ln_last->edge))
 					{
 						finish = 0;
-						if (e_ln_last->next && e_ln_old->prev && e_ln_old->prev->edge == e_ln_last->next->edge)
-						{
+						if (e_ln_last->next && e_ln_old->prev &&
+						e_ln_old->prev->edge == e_ln_last->next->edge)
 							i += merge_multiple_edge(obj, e_ln_last, e_ln_old);
-						}
 						else
-						{
 							merge_one_edge(obj, e_ln_last, e_ln_old);
-						}
 						break;
 					}
 				}

@@ -80,10 +80,12 @@ do
 	MAPS="test_files/$INDICE\_mapp" 
 	RES1="test_files/$INDICE\_ress1" 
 	RES2="test_files/$INDICE\_ress2" 
-	./generator --$MODE > $MAPS
+	# ./generator --$MODE > $MAPS
 	nb_turn_expected=`sed '2q;d' $MAPS | grep -o "[0-9][0-9]*"`
 	./$lem_in_1 < $MAPS > $RES1
-	nb_turn_1=`tail -n 1 $RES1 | grep -o "[0-9][0-9]*"`
+	# nb_turn_1=`tail -n 1 $RES1 | grep -o "[0-9][0-9]*"`
+	nb_turn_1=`cat $RES1 | grep "^L" | wc -l | bc -l`
+	cat $RES1 | grep "nb_ants"
 	player_1_res=`echo "$nb_turn_1-$nb_turn_expected" | bc -l`
 	if (($player_1_res < 0)); then player_1_color=`tput setaf 2`; let res_min++
 	elif (($player_1_res == 0)); then player_1_color=`tput setaf 4`; let res_equal++
@@ -121,6 +123,6 @@ $res_min | $res_equal | $res_plus_0 | $res_plus_2 | $res_plus_10
 	cat $RES1 | grep "DISC\|CROIS\|SPEC"
 	# if [[ "$MODE" =~ ^(flow-one|flow-ten|flow-thousand)$ ]]; then
 		sleep 0.7
-		sleep 1.1
+		#sleep 1.1
 	# fi
 done

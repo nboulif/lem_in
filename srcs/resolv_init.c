@@ -45,8 +45,8 @@ void 		init_graph_bf(t_objectif *obj, int first_time)
 
 int 		init_way(t_objectif *obj, t_way *way)
 {
-	if (!(way->nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node))) ||
-		!(way->edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node))))
+	if (!(way->nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node * obj->nb_node))) ||
+		!(way->edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node * obj->nb_node))))
 		return (0);
 	return (1);
 }
@@ -55,7 +55,7 @@ int			init_solution(t_objectif *obj, t_solution  *sol, t_queue *queue)
 {
 	if (!(sol->way = malloc(sizeof(t_way) * sol->nb_way)) ||
 		!(queue->node = ft_memalloc(sizeof(t_node*) * obj->nb_node)) ||
-		!init_way(obj, sol->way + sol->nb_way - 1))
+		!init_way(obj, &sol->way[sol->nb_way - 1]))
 		return (0);
 	return (1);
 }

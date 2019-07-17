@@ -49,16 +49,19 @@ int		read_all(char **str)
 		(*str)[index] = 0;
 		if (ret < SIZE_BUFF)
 		{
-			if (ft_realloc((void**)str, &index, index + 1, sizeof(char)) &&
+			// printf("realloc 1\n");
+			if (ft_realloc((void**)str, &index, index, sizeof(char)) &&
 				!((*str)[index] = 0))
 				return (index);
 			return (0);
 		}
+		// printf("realloc 2\n");
 		if (index + SIZE_BUFF >= size - 1)
 			if (!ft_realloc((void**)str, &size, size * 2, sizeof(char)))
 				return (0);
 	}
-	if (index < size && !ft_realloc((void**)str, &index, index + 1, sizeof(char)))
+	// printf("realloc 3\n");
+	if (index < size && !ft_realloc((void**)str, &index, index, sizeof(char)))
 		return (0);
 	return (index);
 }
@@ -88,23 +91,37 @@ void estimate_max_way(t_objectif *obj)
 int init_max_father_in_node(t_objectif *obj)
 {
 	int i;
+	int	x;
 	t_node *node;
 
 	i = -1;
 	while (++i < obj->nb_node)
 	{
 		node = obj->lst_node[i];
+		if (node->nb_edge_f == 1 &&
+			node != obj->start_node &&
+			node != obj->end_node)
+		{
+			if (node == node->edge[0]->node2)
+				delete_this_edge(node->edge[0]->node1,
+								node->edge[0], obj);
+			else
+				delete_this_edge(node->edge[0]->node2,
+								node->edge[0], obj);
+			continue ;
+		}
 		if (
 			!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
 			!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
 			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
 			)
 			return (0);
-		for (int i = 0; i <= (obj->max_way + 1); i++)
+		x = 0;	
+		while (x < (obj->max_way + 1))
 		{
-			node->fathers[i] = (t_father){NULL, NULL, NULL, NULL, 0};
-			node->father_node[i] = NULL;
-			node->father_edge[i] = NULL;
+			node->fathers[x] = (t_father){NULL, NULL, NULL, NULL, 0};
+			node->father_node[x] = NULL;
+			node->father_edge[x++] = NULL;
 		}
 		//ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
 		//ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
@@ -127,8 +144,8 @@ int main(void)
 	char			*str;
 	t_objectif		obj;
 	int				size;
-	int res;
-	
+	int				res;
+
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||
@@ -138,7 +155,10 @@ int main(void)
 		return (0);
 	}
 	estimate_max_way(&obj);
-	printf("max_way => %d \n\n", obj.max_way);
+	// write(1, str, size - 1);
+	print_node_and_edge(str, size);
+	// ft_putchar('\n');
+	// printf("max_way => %d \n\n", obj.max_way);
 
 	if (!obj.max_way)
 	{
@@ -146,7 +166,7 @@ int main(void)
 		return (0);
 	}
 	
-	print_main_info(obj);
+	// print_main_info(obj);
 	
 	if (!(init_max_father_in_node(&obj)))
 	{
@@ -159,6 +179,5 @@ int main(void)
 		return (0);
 	}
 
-	
 	return (1);
 }

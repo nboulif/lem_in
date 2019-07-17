@@ -135,7 +135,7 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 		}
 	}
 	obj->nb_edge_f = k;
-	
+
 
 	// exit(0);
 	return (1);
@@ -165,10 +165,10 @@ int link_node_and_edge(t_objectif *obj)
 }
 
 int init_resolv(t_objectif *obj)
-{	
+{
 	if (!link_node_and_edge(obj))
 		return (0);
-	delete_dead_end(obj);
+	// delete_dead_end(obj);
 	rec_init_lst_edge_ord(obj);
 	return (1);
 }

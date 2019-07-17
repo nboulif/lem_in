@@ -28,8 +28,8 @@ def make_tree_node(reinit=False):
                 pos=vector(x, y, z), 
                 axis=vector(x, y, z + 1), 
                 opacity=0.2,
-                thickness=0.3, 
-                radius=lg.radius_ring, 
+                thickness=0.3,
+                radius=lg.radius_ring,
                 color=color.white)
             )
     else:
@@ -54,13 +54,17 @@ def make_tree_node(reinit=False):
     while(node_next_lvl):
         node_current_level = [i for i in node_next_lvl]
         # print("{}".format([i["name"] for i in node_current_level]))
+        step = len(node_current_level)
+        circ = step * 10
+        lg.radius_ring = circ / (pi * 2)
+        lg.radius_ring_node = lg.radius_ring
         if not reinit:
             lg.all_rings.append(ring(visible=False, 
-                pos=vector(0, 0, z), 
-                axis=vector(0, 0, z + 1), 
+                pos=vector(0, 0, z),
+                axis=vector(0, 0, z + 1),
                 opacity=0.2,
                 thickness=0.3, 
-                radius=lg.radius_ring, 
+                radius=lg.radius_ring,
                 color=color.white)
             )
         else:
@@ -68,7 +72,6 @@ def make_tree_node(reinit=False):
             lg.all_rings[lvl].pos=vector(0, 0, z)
             lg.all_rings[lvl].axis=vector(0, 0, z + 1)
         lvl += 1
-        step = len(node_current_level)
         if step > 1:
             alpha = 0.0
             indice = 0
