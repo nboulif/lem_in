@@ -97,21 +97,21 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
 	i = 0;
 	int nb_ants = 0;
-	while (obj->nb_ants > 0)
+	while (i_ants < obj->nb_ants)
 	{
 		x = -1;
-		nb_ants = obj->nb_ants;
+		nb_ants = i_ants;
 		//i = -1;
 		//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-		while (++x < sol->nb_way && obj->nb_ants >= 0)
+		while (++x < sol->nb_way && i_ants < obj->nb_ants)
 		{
 			//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
 			if (sol->way[x].nb_ants-- <= 0)
 				sol->way[x] = sol->way[--sol->nb_way];
 			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
-			obj->nb_ants--;
+			// obj->nb_ants--;
 		}
-		if (nb_ants == obj->nb_ants)
+		if (nb_ants == i_ants)
 			break;
 		i++;
 	}
