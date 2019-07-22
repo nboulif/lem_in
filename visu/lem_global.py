@@ -52,7 +52,7 @@ def init():
     nb_ants = 0
     n_ant = 0
     vision_ant = 0
-    dist_ring = 10
+    dist_ring = 80
     radius_ring_node = 10
     radius_ring = radius_ring_node + 10
 

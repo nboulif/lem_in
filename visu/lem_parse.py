@@ -55,8 +55,11 @@ def make_tree_node(reinit=False):
         node_current_level = [i for i in node_next_lvl]
         # print("{}".format([i["name"] for i in node_current_level]))
         step = len(node_current_level)
-        circ = step * 10
-        lg.radius_ring = circ / (pi * 2)
+        circ = step * 5
+        if circ < 1000:
+            lg.radius_ring = circ / (pi * 2)
+        else :
+            lg.radius_ring = 1000 / (pi * 2)
         lg.radius_ring_node = lg.radius_ring
         if not reinit:
             lg.all_rings.append(ring(visible=False, 

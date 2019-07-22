@@ -157,7 +157,7 @@ def draw_edges(edges_name, v, i):
             lg.all_edges[edge_name]["edge"].axis = lg.all_edges[edge_name]["node2"]["node"].pos - lg.all_edges[edge_name]["node1"]["node"].pos
 
             lg.all_edges[edge_name]["edge"].opacity = 0.5
-            lg.all_edges[edge_name]["edge"].radius = 1
+            lg.all_edges[edge_name]["edge"].radius = 0.4
             lg.all_edges[edge_name]["edge"].color = lg.all_edges[edge_name]["color1"]
     except Exception as e:
         print(f"ERRRRRROR {e}")

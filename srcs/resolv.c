@@ -93,15 +93,27 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
-	while (++x <= sol->nb_way && obj->nb_ants >= 0)
-	{
-		i = -1;
+	while (++x <= sol->nb_way)
 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-		while (++i < sol->way[x].nb_ants && obj->nb_ants > 0)
+	i = 0;
+	int nb_ants = 0;
+	while (obj->nb_ants > 0)
+	{
+		x = -1;
+		nb_ants = obj->nb_ants;
+		//i = -1;
+		//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
+		while (++x < sol->nb_way && obj->nb_ants >= 0)
 		{
+			//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
+			if (sol->way[x].nb_ants-- <= 0)
+				sol->way[x] = sol->way[--sol->nb_way];
 			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 			obj->nb_ants--;
 		}
+		if (nb_ants == obj->nb_ants)
+			break;
+		i++;
 	}
 	x = -1;
 	//if (obj->nb_ants)
