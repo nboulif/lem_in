@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#define MIN(x,y) (x < y ? x : y)
+#define SIX_GB 6442450944
 
 void 		init_graph_bf(t_objectif *obj, int first_time)
 {
@@ -43,11 +45,40 @@ void 		init_graph_bf(t_objectif *obj, int first_time)
 		obj->start_node->D = 0;
 }
 
-int 		init_way(t_objectif *obj, t_way *way)
+int 		init_way(t_objectif *obj, t_way *way, int mode)
 {
-	if (!(way->nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node * obj->nb_node))) ||
-		!(way->edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node * obj->nb_node))))
+	static t_node_link *n_link_allocation_zone = NULL;
+	static t_edge_link *e_link_allocation_zone = NULL;
+	static unsigned long index = 0;
+	static unsigned long size = 0;
+
+	if (mode == 0)
+	{
+		free(e_link_allocation_zone);
+		free(n_link_allocation_zone);
+		return (1);
+	}
+	else if (!n_link_allocation_zone || !e_link_allocation_zone)
+	{
+		size = (unsigned long)obj->nb_node * (unsigned long)obj->nb_node * (unsigned long)(obj->max_way * 2);
+		printf("first_alloc == |%lu|, nb_node^2 |%lu|\n", size, (unsigned long)obj->nb_node * (unsigned long)obj->nb_node);
+		if (!n_link_allocation_zone &&
+			!(n_link_allocation_zone = (t_node_link*)malloc(MIN(sizeof(t_node_link) * size, SIX_GB))))
+				return (0);
+		if (!(e_link_allocation_zone) &&
+			!(e_link_allocation_zone = (t_edge_link*)malloc(MIN(sizeof(t_edge_link) * size, SIX_GB))))
+				return (0);
+		size = MIN(MIN(SIX_GB, size * sizeof(t_edge_link)), size * sizeof(t_node_link));
+	}
+	index += obj->nb_node * obj->nb_node;
+	printf("alloc index == |%lu|\n", index);
+	if (index >= size)
 		return (0);
+	way->nodes_lk = &n_link_allocation_zone[index];
+	way->edges_lk = &e_link_allocation_zone[index];
+	//if (!(way->nodes_lk = (t_node_link*)malloc(sizeof(t_node_link) * (obj->nb_node * obj->nb_node))) ||
+	//	!(way->edges_lk = (t_edge_link*)malloc(sizeof(t_edge_link) * (obj->nb_node * obj->nb_node))))
+	//	return (0);
 	return (1);
 }
 
@@ -55,7 +86,7 @@ int			init_solution(t_objectif *obj, t_solution  *sol, t_queue *queue)
 {
 	if (!(sol->way = malloc(sizeof(t_way) * sol->nb_way)) ||
 		!(queue->node = ft_memalloc(sizeof(t_node*) * obj->nb_node)) ||
-		!init_way(obj, &sol->way[sol->nb_way - 1]))
+		!init_way(obj, &sol->way[sol->nb_way - 1], 1))
 		return (0);
 	return (1);
 }

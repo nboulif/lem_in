@@ -32,6 +32,9 @@
 /*
 ** si une node n'a qu'un edge ou moins alors on peut le supprimer directement.
 */
+int fd;
+#include <stdio.h>
+#include <fcntl.h>
 
 int		read_all(char **str)
 {
@@ -43,7 +46,7 @@ int		read_all(char **str)
 	if (!(*str = malloc(size * sizeof(char))))
 		return (0);
 	index = 0;
-	while ((ret = read(0, *str + index, SIZE_BUFF)) > 0)
+	while ((ret = read(fd, *str + index, SIZE_BUFF)) > 0)
 	{
 		index += ret;
 		(*str)[index] = 0;
@@ -139,13 +142,17 @@ void print_main_info(t_objectif obj)
 	printf("max_way => %d\n", obj.max_way);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	char			*str;
 	t_objectif		obj;
 	int				size;
 	int				res;
 
+	if (argc > 1)
+		fd = open(argv[1], O_RDONLY);
+	else 
+		fd = 0;
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||

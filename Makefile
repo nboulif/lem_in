@@ -14,7 +14,7 @@ NAME = lem-in
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O3
 
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)
@@ -23,7 +23,7 @@ LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_DIRECTORY = libft/
 LIBFT_HEADERS = $(LIBFT_DIRECTORY)
 
-HEADERS_LIST = lem_in.h lem_in_s.h lem_in_f_init.h lem_in_f.h 
+HEADERS_LIST = lem_in.h lem_in_s.h lem_in_f_init.h lem_in_f.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 

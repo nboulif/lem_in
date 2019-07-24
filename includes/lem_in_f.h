@@ -33,7 +33,7 @@ void            print_way_status_before_merge(t_way *way);
 void            print_way_status_after_merge(t_objectif *obj, t_way *way);
 
 //resolv_init
-int 			init_way(t_objectif *obj, t_way *way);
+int 			init_way(t_objectif *obj, t_way *way, int mode);
 int				init_solution(t_objectif *obj, t_solution  *sol, t_queue *queue);
 int				clone_way(t_objectif *obj, t_solution *sol, t_solution *cur);
 void 			init_graph_bf(t_objectif *obj, int first_time);

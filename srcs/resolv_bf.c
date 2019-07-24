@@ -72,39 +72,17 @@ int 		check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 int 		find_way(t_objectif *obj, t_solution *sol)
 { 
 	t_way 		*way;
+	int			i;
 
 	way = &sol->way[sol->nb_way];
-
-	if (!(init_way(obj, way)))
+	if (!(init_way(obj, way, 1)))
 	    return (-1);
-
-
-	int i;
 	i = 0;
 	while (i < obj->nb_node)
 		obj->lst_node[i++]->deja_vu_in_way = 0;
-
 	if (!apply_algo_bellman_ford(obj, sol))
 		return(0);
-
-
-	// printf("cost => %d\n", way->cost);
-
 	make_way(obj, sol);
-	// printf("make way ok\n");
-	// print_way_status_before_merge(way);
-	// printf("print before ok\n");
 	merge_way(obj, sol);
-	// printf("merge ok\n");
-
-	int check;
-	check = check_atomic(obj, sol, way);
-	if (!check)
-	{
-		printf("\n\nCROSSSSSSSSSSSSSSSSSSING\n\n");	
-		return (check);
-	}
-	// print_way_status_after_merge(obj, way);
-	return (check);
-	
+	return (check_atomic(obj, sol, way));
 }

@@ -18,21 +18,6 @@ typedef struct	s_edge				t_edge;
 typedef struct	s_father			t_father;
 typedef struct	s_solution			t_solution;
 
-// typedef struct				s_node_u_solve
-// {
-// 	int						D;
-// 	int						last_D;
-// 	t_edge					**father_edge;
-// 	t_node					**father_node;
-// 	t_edge					*in_a_way;
-// 	int						nb_father_n;
-// 	int						nb_father_t;
-// 	int						i_nb_father;
-// 	int						nb_of_inway;
-// }							t_node_u_solve;
-
-// NODE && EDGE REPRESENTATION
-
 typedef struct				s_father
 {
 	t_node					*node;
@@ -53,23 +38,15 @@ typedef struct				s_node
 	int						deja_vu_init;
 	int						deja_vu_in_way;
 	int						deja_vu;
-
 	int						father_mode;
-
-	// t_node_u_solve			u_sol;
-
 	t_father				*fathers;
-
 	t_edge					**father_edge;
 	t_node					**father_node;
-	
 	t_edge					*in_a_way;
 	int						nb_father_n;
 	int						nb_father_t;
 	int						i_nb_father;
 	int						nb_of_inway;
-
-	// for Bellman Ford
 	int						D;
 	int						last_D;
 
@@ -113,7 +90,7 @@ typedef struct				s_objectif
 	int						nb_edge;
 	int						nb_edge_f;
 	int						nb_ants;
-	int 					max_way;
+	int						max_way;
 	int						max_link;
 	int						dist_up;
 	int						*dists;
