@@ -123,7 +123,7 @@ def draw_nodes(nodes_name, v, i):
                 lg.all_nodes[node_name]["node"]
             except:
                 # lg.all_nodes[node_name]["node"] = sphere(visible = True)
-                lg.all_nodes[node_name]["node"] = box(visible = True, size=vcube)
+                lg.all_nodes[node_name]["node"] = box(visible = True, size=vcube, texture="https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg")
                 # lg.all_nodes[node_name]["text"] = text(visible = False, text=node_name, color=color.white)
 
             
