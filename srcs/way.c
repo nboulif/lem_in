@@ -49,7 +49,7 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 void 		update_ways_len_with_node_lk(t_solution *sol)
 {
 	t_edge_link		*e_ln;
-	t_node_link		*n_ln;
+	// t_node_link		*n_ln;
 	int 			i;
 
 	i = -1;
@@ -57,10 +57,10 @@ void 		update_ways_len_with_node_lk(t_solution *sol)
 	{
 		sol->way[i].len = 1;
 		e_ln = sol->way[i].edges_lk;
-		n_ln = sol->way[i].nodes_lk;
+		//n_ln = sol->way[i].nodes_lk;
 		while ((e_ln = e_ln->next))
 		{
-			n_ln = n_ln->next;
+		//	n_ln = n_ln->next;
 			sol->way[i].len++;
 		}
 	}
@@ -275,32 +275,34 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 	t_way *way;
 
 	int		mode;
-		
+
 	way = &sol->way[sol->nb_way];
 
 	set_way_len_with_fathers(sol, obj->end_node);
-	
+
 	i = way->len - 1;
 	way->nodes_lk[i].node = obj->end_node;
 	way->nodes_lk[i].next = NULL;
 	
 	mode = obj->end_node->father_mode;
-	
+
 
 	while (i + 1)
 	{
+		printf("1er mode |%d|\n", mode);
 		n_ln = &way->nodes_lk[i];
 		e_ln = &way->edges_lk[i];
 		
 		if (!mode)
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge;
 		else
-		{
 			e_ln->edge = n_ln->node->fathers[sol->nb_way].edge_out;
-		}
+		printf("2eme\n");
+
 		e_ln->edge->deja_vu += 1;
 		e_ln->next = n_ln->node == obj->end_node ? NULL : &way->edges_lk[i + 1];
 		e_ln->prev = i == 0 ? NULL : &way->edges_lk[i - 1];
+		printf("3eme\n");
 		
 		if (!mode)
 		{
@@ -312,6 +314,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 			i > 0 ? way->nodes_lk[i - 1].node = n_ln->node->fathers[sol->nb_way].node_out : 0;
 			mode = 0;
 		}
+		printf("4eme\n");
 
 		if (i > 0)
 		{
@@ -324,14 +327,16 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 				way->nodes_lk[i - 1].node->deja_vu_in_way += 1;		
 			}
 		}
+		printf("5eme\n");
 		
 
 		e = e_ln->edge;
 
 		dir = e->node1->id == n_ln->node->id ? UNIDIR2 : UNIDIR1;
 		w = e->node1->id == n_ln->node->id ? &e->w1 : &e->w2;
+		printf("6eme\n");
 
-		
+
 		// e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
 		// e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
 
@@ -341,6 +346,7 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 		// e->direction == BIDIR ? *w = 0 : 0;
 		// e->direction == BIDIR ? *w = -1 : 0;
 		//e->direction == BIDIR ? e->direction = dir : 0;
+		printf("7eme\n");
 
 		--i;
 	}

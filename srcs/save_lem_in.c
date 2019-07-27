@@ -170,29 +170,27 @@ int init_max_father_in_node(t_objectif *obj)
 			else
 				delete_this_edge(node->edge[0]->node2,
 								node->edge[0], obj);
+			//obj->lst_node[i--] = obj->lst_node[--obj->nb_node];
 			continue ;
 		}
 		if (!(node->fathers = alloc_t_father(obj, 1)) ||
 			!(node->father_node = alloc_t_node_star(obj, 1)) ||
 			!(node->father_edge = alloc_t_edge_star(obj, 1)))
 			return (0);
-		// if (
-		// 	!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
+		// if (!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
 		// 	!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
-		// 	!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
-		// 	)
+		// 	!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*))))
 		// 	return (0);
-		x = 0;	
+		x = 0;
 		while (x < (obj->max_way + 1))
 		{
 			node->fathers[x] = (t_father){NULL, NULL, NULL, NULL, 0};
 			node->father_node[x] = NULL;
 			node->father_edge[x++] = NULL;
 		}
-		//ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
-		//ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
-		//ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
+		// printf("fin bcl\n");
 	}
+	// printf("sortie\n");
 	return (1);
 }
 
@@ -221,33 +219,25 @@ int main(int argc, char **argv)
 	if (!(size = read_all(&str)) ||
 		!extract_info(&obj, str) || !init_resolv(&obj))
 	{
-		printf("Error init\n");
-		return (0);
+		write(2, "Error init\n", 11);
+		return (1);
 	}
-	estimate_max_way(&obj);
-	// write(1, str, size - 1);
+	estimate_max_way(&obj);	
 	print_node_and_edge(str, size);
-	// ft_putchar('\n');
-	// printf("max_way => %d \n\n", obj.max_way);
-
 	if (!obj.max_way)
 	{
-		printf("NO WAY AVAILABLE\n");
-		return (0);
+		write(2, "NO WAY AVAILABLE\n", 17);
+		return (1);
 	}
-	
-	// print_main_info(obj);
-	
 	if (!(init_max_father_in_node(&obj)))
 	{
-		printf("Error init_max_father\n");
-		return (0);
+		write(2, "Error init_max_father\n", 22);
+		return (1);
 	}
 	if ((res = resolv(&obj)) == -1)
 	{
-		printf("Error Resolv\n");
-		return (0);
+		write(2, "Error Resolv\n", 13);
+		return (1);
 	}
-
-	return (1);
+	return (0);
 }
