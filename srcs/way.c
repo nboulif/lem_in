@@ -49,7 +49,7 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 void 		update_ways_len_with_node_lk(t_solution *sol)
 {
 	t_edge_link		*e_ln;
-	t_node_link		*n_ln;
+	//t_node_link		*n_ln;
 	int 			i;
 
 	i = -1;
@@ -57,10 +57,10 @@ void 		update_ways_len_with_node_lk(t_solution *sol)
 	{
 		sol->way[i].len = 1;
 		e_ln = sol->way[i].edges_lk;
-		n_ln = sol->way[i].nodes_lk;
+		//n_ln = sol->way[i].nodes_lk;
 		while ((e_ln = e_ln->next))
 		{
-			n_ln = n_ln->next;
+		//	n_ln = n_ln->next;
 			sol->way[i].len++;
 		}
 	}
