@@ -100,7 +100,7 @@ void 		print_way(t_objectif *obj, t_solution *sol)
 	x = -1;
 	while (++x < sol->nb_way)
 	{
-		printf("chemin %d\n", x);
+		printf("chemin %d len %d\n", x, sol->way[x].len);
 		i = 0;
 		e_ln = &sol->way[x].edges_lk[0];
 		node = obj->start_node;

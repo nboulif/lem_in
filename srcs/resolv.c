@@ -93,26 +93,41 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
+	// printf("nb_turn %d\n", sol->nb_turn);
+	// print_way(obj, sol);
 	while (++x <= sol->nb_way)
+	{
+		if (sol->way[x].len >= sol->nb_turn)
+		{
+			sol->way[x--] = sol->way[sol->nb_way--];
+			continue ;
+		}
 		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
+	}
 	i = 0;
 	int nb_ants = 0;
-	while (i_ants < obj->nb_ants)
+	while (i_ants <= obj->nb_ants)
 	{
 		x = -1;
 		nb_ants = i_ants;
 		//i = -1;
 		//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-		while (++x < sol->nb_way && i_ants < obj->nb_ants)
+		while (++x <= sol->nb_way && i_ants <= obj->nb_ants)
 		{
 			//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
 			if (sol->way[x].nb_ants-- <= 0)
-				sol->way[x] = sol->way[--sol->nb_way];
+			{
+				sol->way[x--] = sol->way[sol->nb_way--];
+				continue ;
+			}
 			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 			// obj->nb_ants--;
 		}
 		if (nb_ants == i_ants)
+		{
+			printf("break prblm\n");
 			break;
+		}
 		i++;
 	}
 	x = -1;

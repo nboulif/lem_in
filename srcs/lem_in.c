@@ -87,6 +87,64 @@ void estimate_max_way(t_objectif *obj)
 						obj->max_link);
 	obj->max_way = (obj->max_way < obj->nb_ants) ? obj->max_way : obj->nb_ants;
 }
+t_father* alloc_t_father(t_objectif *obj, int mode)
+{
+	static t_father	*tab = NULL;
+	static size_t	index = 0;
+
+	if (!mode)
+	{
+		free(tab);
+		return (NULL);
+	}
+	if (tab == NULL)
+	{
+		// printf("alloc %lu\n", (size_t)(obj->max_way + 1) * ((size_t)obj->nb_node + 1));
+		if (!(tab = malloc(sizeof(t_father) * (size_t)(obj->max_way + 1) * (size_t)(obj->nb_node + 1))))
+			return (NULL);
+	}
+	index += (obj->max_way + 1);
+	// printf("index %lu\n", index);
+	return (&tab[index - (obj->max_way + 1)]);
+}
+
+t_node** alloc_t_node_star(t_objectif *obj, int mode)
+{
+	static t_node	**tab = NULL;
+	static size_t	index = 0;
+
+	if (!mode)
+	{
+		free(tab);
+		return (NULL);
+	}
+	if (tab == NULL)
+	{
+		if (!(tab = malloc(sizeof(t_node*) * (size_t)(obj->max_way + 1) * ((size_t)obj->nb_node + 1))))
+			return (NULL);
+	}
+	index += (obj->max_way + 1);
+	return (&tab[index - (obj->max_way + 1)]);
+}
+
+t_edge** alloc_t_edge_star(t_objectif *obj, int mode)
+{
+	static t_edge	**tab;
+	static size_t	index = 0;
+
+	if (!mode)
+	{
+		free(tab);
+		return (NULL);
+	}
+	if (tab == NULL)
+	{
+		if (!(tab = malloc(sizeof(t_edge*) * (size_t)(obj->max_way + 1) * ((size_t)obj->nb_node + 1))))
+			return (NULL);
+	}
+	index += (obj->max_way + 1);
+	return (&tab[index - (obj->max_way + 1)]);
+}
 
 int init_max_father_in_node(t_objectif *obj)
 {
@@ -110,12 +168,16 @@ int init_max_father_in_node(t_objectif *obj)
 								node->edge[0], obj);
 			continue ;
 		}
-		if (
-			!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
-			!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
-			!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
-			)
+		if (!(node->fathers = alloc_t_father(obj, 1)) ||
+			!(node->father_node = alloc_t_node_star(obj, 1)) ||
+			!(node->father_edge = alloc_t_edge_star(obj, 1)))
 			return (0);
+		// if (
+		// 	!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
+		// 	!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
+		// 	!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
+		// 	)
+		// 	return (0);
 		x = 0;	
 		while (x < (obj->max_way + 1))
 		{
@@ -176,8 +238,10 @@ int main(void)
 	if ((res = resolv(&obj)) == -1)
 	{
 		printf("Error Resolv\n");
-		return (0);
+		exit(0);
 	}
-
+	alloc_t_father(&obj, 0);
+	alloc_t_node_star(&obj, 0);
+	alloc_t_edge_star(&obj, 0);
 	return (1);
 }
