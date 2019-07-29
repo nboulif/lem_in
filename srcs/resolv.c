@@ -93,40 +93,25 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
-	// printf("nb_turn %d\n", sol->nb_turn);
-	// print_way(obj, sol);
-	while (++x <= sol->nb_way)
-	{
-		if (sol->way[x].len >= sol->nb_turn)
-		{
-			sol->way[x--] = sol->way[sol->nb_way--];
-			continue ;
-		}
-		sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-	}
+	printf("***||nb_turn %d sol->nb_way %d||***\n", sol->nb_turn, sol->nb_way);
+	while (++x < sol->nb_way)
+		sol->way[x].nb_ants = (sol->nb_turn - sol->way[x].len) + 1;
 	i = 0;
-	int nb_ants = 0;
-	while (i_ants <= obj->nb_ants)
+	int nb_ants = -1;
+	while (i_ants < obj->nb_ants)
 	{
 		x = -1;
-		nb_ants = i_ants;
-		//i = -1;
-		//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-		while (++x <= sol->nb_way && i_ants <= obj->nb_ants)
-		{
-			//sol->way[x].nb_ants = sol->nb_turn - sol->way[x].len + 1;
-			if (sol->way[x].nb_ants-- <= 0)
-			{
-				sol->way[x--] = sol->way[sol->nb_way--];
-				continue ;
-			}
-			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
-			// obj->nb_ants--;
-		}
 		if (nb_ants == i_ants)
 		{
 			printf("break prblm\n");
 			break;
+		}
+		nb_ants = i_ants;
+		while (++x < sol->nb_way && i_ants < obj->nb_ants)
+		{
+			if (sol->way[x].nb_ants-- <= 0)
+				continue ;
+			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 		}
 		i++;
 	}
@@ -134,13 +119,14 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	//if (obj->nb_ants)
 	//	exit(printf("rest %d ant in obj->nb_ants \n", obj->nb_ants));
 
-	while (++x < sol->nb_turn)
+	while (output[++x].index)
 	{
 		printf("%.*s\n", output[x].index - 1, output[x].chaine);
-		// write(1, output[x].chaine, output[x].index - 1);
-		free(output[x].chaine);
+		//write(1, output[x].chaine, output[x].index - 1);
 		//write(1, "\n", 1);
+		free(output[x].chaine);
 	}
+	free(output);
 }
 
 void		create_node_tab(t_objectif *obj, t_solution *sol)
@@ -189,7 +175,50 @@ void		create_node_tab(t_objectif *obj, t_solution *sol)
 	}
 }
 
-void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
+// ***********************************************************
+// **************  old estimate max way   ********************
+// ***********************************************************
+
+// void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
+// {
+// 	int i;
+// 	int sum;
+// 	int nb_ants;
+// 	int retry;
+
+// 	retry = 0;
+// 	sum = 0;
+// 	i = 0;
+// 	while (i < sol->nb_way)
+// 		sum += sol->way[i++].len;
+// 	nb_ants = obj->nb_ants - i;
+// 	if (sum % i)
+// 	{
+// 		--nb_ants;
+// 		while (sum % i)
+// 		{
+// 			sum++;
+// 			if (--nb_ants == 0)
+// 				break ;
+// 		}
+// 	}
+// 	sol->nb_turn =  sum / i +
+// 				    nb_ants / i +
+// 					!!(nb_ants % i);
+// 	i = -1;
+// 	while (++i < sol->nb_way)
+// 		if (sol->way[i].len > sol->nb_turn)
+// 		{
+// 			sol->way[i--] = sol->way[--sol->nb_way];
+// 			retry = 1;
+// 		}
+// 	if (retry)
+// 		evaluate_turn_solution(obj, sol);
+// }
+
+// *************************************************************
+// *************************************************************
+void		evaluate_turn_solution_old(t_objectif *obj, t_solution *sol)
 {
 	int i;
 	int sum;
@@ -211,10 +240,83 @@ void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
 					!!(nb_ants % i);
 }
 
+int			fill_min_way(t_objectif *obj, t_solution *sol, int i, int nb_max)
+{
+	int x = -1;
+	int objectif_turn_per_way;
+	int	nb_ants;
+
+	printf("max -> |%d| nb_max -> |%d|\n", sol->way[i].len, nb_max);
+	objectif_turn_per_way = sol->way[i].len;
+	nb_ants = obj->nb_ants;
+	while (++x < sol->nb_way)
+	{
+		if (sol->way[x].len == sol->way[i].len)
+			continue ;
+		sol->way[x].nb_ants = objectif_turn_per_way - sol->way[x].len + 1;
+		nb_ants -= sol->way[x].nb_ants;
+		if ((nb_ants == 0 && x < sol->nb_way - 1) || nb_ants < 0)
+		{
+			while (x >= 0)
+				sol->way[x--].nb_ants = 0;
+			return (0);
+		}
+	}
+	nb_ants -= (nb_max < nb_ants) ? nb_max : nb_ants;
+	sol->nb_turn = sol->way[0].nb_ants - 1 +
+				sol->way[0].len +
+				nb_ants / sol->nb_way +
+				!!(nb_ants % sol->nb_way);
+	// printf("sol->nb_turn |%d|\n", sol->nb_turn);
+	return (1);
+}
+
+void		evaluate_turn_solution(t_objectif *obj, t_solution *sol)
+{
+	// int sum;
+	// int retry;
+	int nb_ants = 0;
+	int i;
+	int max;
+	int max_ind;
+	int	nb_max;
+
+	i = -1;
+	if (sol->nb_way == 1)
+	{
+		sol->nb_turn = sol->way[0].len + obj->nb_ants - 1;
+		// printf("sol->nb_turn |%d|\n", sol->nb_turn);
+		return ;
+	}
+	while (1)
+	{
+		nb_ants = obj->nb_ants;
+		max_ind = 0;
+		max = 0;
+		while (++i < sol->nb_way)
+		{
+			if (max < sol->way[i].len)
+			{
+				nb_max = 1;
+				max = sol->way[i].len;
+				max_ind = i;
+			}
+			else if (max == sol->way[i].len)
+				nb_max++;
+		}
+		if (fill_min_way(obj, sol, max_ind, nb_max))
+			break;
+		while (--i >= 0)
+			if (max == sol->way[i].len)
+				sol->way[i] = sol->way[--sol->nb_way];
+		sol->nb_turn = INT_MAX;
+		break;
+	}
+}
+
 int			resolv(t_objectif *obj)
 {
 	int res;
-	int best_turn;
 	int i;
 	
 	t_solution best_sol;
@@ -229,13 +331,13 @@ int			resolv(t_objectif *obj)
 	next_sol.way = (t_way*)malloc(sizeof(t_way) * obj->max_way);
 	next_sol.nb_way = 0;
 	
-	obj->dists = (int *)malloc(sizeof(int) * ((obj->nb_node * 2) + 1) );
-	
+	obj->dists = (int *)malloc(sizeof(int) * ((obj->nb_node * 2) + 1));
+
 	i = 0;
+	best_sol.nb_turn = INT_MAX;
 	while (i++ < obj->max_way)
 	{
 		// printf(" \n\nSTART ITERATION => %d\n\n", best_sol.nb_way);
-
 		res = find_way(obj, &next_sol);
 		
 		if (!(res))
@@ -248,34 +350,50 @@ int			resolv(t_objectif *obj)
 			printf("ERROR RESOLV\n");
 			return (-1);
 		}
-
 		++next_sol.nb_way;
+		evaluate_turn_solution_old(obj, &next_sol);
+		printf("old -> |%d| &", next_sol.nb_turn);
 		evaluate_turn_solution(obj, &next_sol);
+		printf("new -> |%d|\n", next_sol.nb_turn);
+		// print_way(obj, &next_sol);
+		printf("***||evaluate_turn_solution NEXT -> %d||***\n", next_sol.nb_turn);
 
 		// printf("turn best vs current  |%d|-|%d| v2\n", best_turn, next_sol.nb_turn);
 		// sleep(1);
 		// printf("\nEND ITERATION => %d \n", best_sol.nb_way);
-		if (best_sol.nb_way && best_turn < next_sol.nb_turn)
+		if (best_sol.nb_way && best_sol.nb_turn < next_sol.nb_turn)
 		{
-			// printf("MORE TURN\n");
+			printf("MORE TURN\n");
 			break ;
 		}
-		best_sol = next_sol;
-		best_turn = best_sol.nb_turn;
+		else
+		{
+			init_way(obj, &best_sol.way[next_sol.nb_way - 1]);
+			for (int x = 0; x < next_sol.nb_way; x++)
+			{
+				ft_memcpy(best_sol.way[x].nodes_lk, next_sol.way[x].nodes_lk, sizeof(t_node_link) * next_sol.way[x].len);
+				ft_memcpy(best_sol.way[x].edges_lk, next_sol.way[x].edges_lk, sizeof(t_edge_link) * next_sol.way[x].len); 
+				best_sol.way[x].len = next_sol.way[x].len;
+			}
+			best_sol.nb_turn = next_sol.nb_turn;
+			best_sol.nb_way = next_sol.nb_way;
+			best_sol.len = next_sol.len;
+			//ft_memcpy(best_sol.way, next_sol.way, sizeof(t_way));
+			//ft_memcpy(&best_sol, &next_sol, sizeof(t_solution));
+			//best_sol = next_sol;
+			//best_turn = best_sol.nb_turn;
+		}
 		// printf("ici %d\n", best_sol.nb_way);
 		if (best_sol.nb_way == obj->nb_ants)
 			break ;
+		// clone_way(obj, &next_sol, &best_sol);
 	}
-
 	if (best_sol.nb_way)
 	{
-		// print_way(obj, &best_sol);
 		create_node_tab(obj, &best_sol);
-		// print_way(obj, &best_sol);
+		printf("***||evaluate_turn_solution BEST -> %d||***\n", best_sol.nb_turn);
 		print_ants(obj, &best_sol);
-		// printf("nb_turn %d\n", best_turn);
 		return (1);
 	}
 	return (0);
-	
 }

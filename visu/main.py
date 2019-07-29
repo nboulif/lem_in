@@ -249,7 +249,7 @@ def main():
         if ev.event == "mousedown":
             lg.cur_camera_pos = ev.pos
         elif ev.event == "mousemove":
-            scene.camera.pos -= (ev.pos - lg.cur_camera_pos ) / 20
+            scene.camera.pos -= (ev.pos - lg.cur_camera_pos) / 5
 
     scene.bind('mouseup mousemove mousedown', move_camera)
 

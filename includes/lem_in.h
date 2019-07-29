@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include <stdio.h>
+#include <limits.h>
 #include <time.h>
 
 #include "lem_in_s.h"

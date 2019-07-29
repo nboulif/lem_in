@@ -74,7 +74,6 @@ int 		find_way(t_objectif *obj, t_solution *sol)
 	t_way 		*way;
 
 	way = &sol->way[sol->nb_way];
-
 	if (!(init_way(obj, way)))
 	    return (-1);
 

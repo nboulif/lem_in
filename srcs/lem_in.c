@@ -87,6 +87,7 @@ void estimate_max_way(t_objectif *obj)
 						obj->max_link);
 	obj->max_way = (obj->max_way < obj->nb_ants) ? obj->max_way : obj->nb_ants;
 }
+
 t_father* alloc_t_father(t_objectif *obj, int mode)
 {
 	static t_father	*tab = NULL;
@@ -99,12 +100,10 @@ t_father* alloc_t_father(t_objectif *obj, int mode)
 	}
 	if (tab == NULL)
 	{
-		// printf("alloc %lu\n", (size_t)(obj->max_way + 1) * ((size_t)obj->nb_node + 1));
 		if (!(tab = malloc(sizeof(t_father) * (size_t)(obj->max_way + 1) * (size_t)(obj->nb_node + 1))))
 			return (NULL);
 	}
 	index += (obj->max_way + 1);
-	// printf("index %lu\n", index);
 	return (&tab[index - (obj->max_way + 1)]);
 }
 
@@ -172,29 +171,19 @@ int init_max_father_in_node(t_objectif *obj)
 			!(node->father_node = alloc_t_node_star(obj, 1)) ||
 			!(node->father_edge = alloc_t_edge_star(obj, 1)))
 			return (0);
-		// if (
-		// 	!(node->fathers = malloc((obj->max_way + 1) * sizeof(t_father))) ||
-		// 	!(node->father_node = malloc((obj->max_way + 1) * sizeof(t_node*))) ||
-		// 	!(node->father_edge = malloc((obj->max_way + 1) * sizeof(t_edge*)))
-		// 	)
-		// 	return (0);
-		x = 0;	
+		x = 0;
 		while (x < (obj->max_way + 1))
 		{
 			node->fathers[x] = (t_father){NULL, NULL, NULL, NULL, 0};
 			node->father_node[x] = NULL;
 			node->father_edge[x++] = NULL;
 		}
-		//ft_memset(node->fathers, 0, (obj->max_way + 1) * sizeof(t_father));
-		//ft_memset(node->father_node, 0, (obj->max_way + 1) * sizeof(t_node*));
-		//ft_memset(node->father_edge, 0, (obj->max_way + 1) * sizeof(t_edge*));
 	}
 	return (1);
 }
 
 void print_main_info(t_objectif obj)
 {
-// print_node_and_edge(str, size);
 	printf("nb_node => %d\n", obj.nb_node);
 	printf("nb_edge => %d\n", obj.nb_edge);
 	printf("nb_edge_f => %d\n", obj.nb_edge_f);
@@ -217,10 +206,7 @@ int main(void)
 		return (0);
 	}
 	estimate_max_way(&obj);
-	// write(1, str, size - 1);
 	print_node_and_edge(str, size);
-	// ft_putchar('\n');
-	// printf("max_way => %d \n\n", obj.max_way);
 
 	if (!obj.max_way)
 	{
@@ -240,8 +226,10 @@ int main(void)
 		printf("Error Resolv\n");
 		exit(0);
 	}
-	alloc_t_father(&obj, 0);
-	alloc_t_node_star(&obj, 0);
-	alloc_t_edge_star(&obj, 0);
+	// *** free ***
+alloc_t_father(&obj, 0);
+alloc_t_node_star(&obj, 0);
+alloc_t_edge_star(&obj, 0);
+	// *** *** ***
 	return (1);
 }
