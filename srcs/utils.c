@@ -40,8 +40,6 @@ int				ft_min(int a, int b, int c)
 	return (b < c ? b : c);
 }
 
-
-
 int				ft_realloc(void **tab, int *size, int new_size, size_t type_size)
 {
 	char *save;

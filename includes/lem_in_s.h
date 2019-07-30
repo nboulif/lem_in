@@ -53,6 +53,7 @@ typedef struct				s_node
 	int						deja_vu_init;
 	int						deja_vu_in_way;
 	int						deja_vu;
+	int						size_name;
 
 	int						father_mode;
 

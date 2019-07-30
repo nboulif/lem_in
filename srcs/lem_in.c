@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
+#include <fcntl.h>
 /*
 ** le nombre de tour que vont prendre les fourmis à arriver à l'objectif est
 ** equivalent au nombre de nodes dans le plus long chemin trouvé + le nombre de
@@ -32,7 +32,7 @@
 /*
 ** si une node n'a qu'un edge ou moins alors on peut le supprimer directement.
 */
-
+int fd;
 int		read_all(char **str)
 {
 	int				index;
@@ -43,7 +43,7 @@ int		read_all(char **str)
 	if (!(*str = malloc(size * sizeof(char))))
 		return (0);
 	index = 0;
-	while ((ret = read(0, *str + index, SIZE_BUFF)) > 0)
+	while ((ret = read(fd, *str + index, SIZE_BUFF)) > 0)
 	{
 		index += ret;
 		(*str)[index] = 0;
@@ -190,13 +190,21 @@ void print_main_info(t_objectif obj)
 	printf("max_way => %d\n", obj.max_way);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	char			*str;
 	t_objectif		obj;
 	int				size;
 	int				res;
 
+	if (argc > 1)
+	{
+		fd = open(argv[1], O_RDONLY);
+		if (fd < 0)
+			fd = 0;
+	}
+	else
+		fd = 0;
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
 	if (!(size = read_all(&str)) ||

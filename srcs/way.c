@@ -49,7 +49,6 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 void 		update_ways_len_with_node_lk(t_solution *sol)
 {
 	t_edge_link		*e_ln;
-	//t_node_link		*n_ln;
 	int 			i;
 
 	i = -1;
@@ -57,12 +56,8 @@ void 		update_ways_len_with_node_lk(t_solution *sol)
 	{
 		sol->way[i].len = 1;
 		e_ln = sol->way[i].edges_lk;
-		//n_ln = sol->way[i].nodes_lk;
 		while ((e_ln = e_ln->next))
-		{
-		//	n_ln = n_ln->next;
 			sol->way[i].len++;
-		}
 	}
 }
 
@@ -70,8 +65,7 @@ t_node 		*get_node_between_2_edge(t_edge *edge1, t_edge *edge2)
 {
 	if (edge1->node1 == edge2->node1 || edge1->node1 == edge2->node2)
 		return (edge1->node1);
-	else
-		return (edge1->node2);
+	return (edge1->node2);
 }
 
 void		merge_multiple_disc_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 

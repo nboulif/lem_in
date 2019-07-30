@@ -13,7 +13,7 @@
 #include "lem_in.h"
 
 
-int			init_node(t_node *node, char *name, int nb_node)
+int			init_node(t_node *node, char *name, int nb_node, int size_name)
 {
 	node->name = name;
 	node->id = hash((unsigned char*)name) % nb_node;
@@ -33,6 +33,7 @@ int			init_node(t_node *node, char *name, int nb_node)
 	node->deja_vu = 0;
 	node->deja_vu_init = 0;
 	node->nb_of_inway = -1;
+	node->size_name = size_name;
 	return (1);
 }
 
@@ -57,7 +58,7 @@ t_node		*create_node(char *str, int *i, int nb_node)
 	name[index++] = 0;
 	if (!(node = malloc(sizeof(t_node))) ||
 		!ft_realloc((void**)&name, &index, index, sizeof(char)) ||
-		!init_node(node, name, nb_node))
+		!init_node(node, name, nb_node, index))
 		return (NULL);
 	zap_line(str, i);
 	return (node);
