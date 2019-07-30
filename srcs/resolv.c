@@ -34,41 +34,41 @@ static int		ft_lenstr(long n)
 	static int nb = 1;
 	static int cmp = 1;
 
-	// printf("n -> %ld", n);
+	printf("n -> %ld", n);
 	while ((cmp * 10) <= n)
 	{
 		cmp *= 10;
 		nb++;
 	}
-	// printf("len -> %d\n", nb);
+	printf("len -> %d\n", nb);
 	return (nb);
 }
 
 char			*ft_itoa_no_m(char *str, int n)
 {
 	static int	size = 0;
-	static int  last = 1;
-	int ind;
+	// static int  last = 1;
+	// int ind;
 
-	if (n == last + 1 &&
-		ft_lenstr(n) == size)
-	{
-		ind = size - 1;
-		if (str[size - 1] == '9')
-		{
-			while (str[ind] == '9')
-			{
-				str[ind] = '0';
-				ind--;
-			}
-			str[ind - 1] += 1;
-		}
-		else
-			str[size - 1] += 1;
-        last = n;
-		return (str);
-	}
-	last = n;
+	// if (n == last + 1 &&
+	// 	ft_lenstr(n) == size)
+	// {
+	// 	ind = size - 1;
+	// 	if (str[size - 1] == '9')
+	// 	{
+	// 		while (str[ind] == '9')
+	// 		{
+	// 			str[ind] = '0';
+	// 			ind--;
+	// 		}
+	// 		str[ind - 1] += 1;
+	// 	}
+	// 	else
+	// 		str[size - 1] += 1;
+    //     last = n;
+	// 	return (str);
+	// }
+	// last = n;
 	size = ft_lenstr(n);
 	str[size] = '\0';
 	while (size--)
@@ -91,6 +91,7 @@ void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 			&cur_ants->size, cur_ants->size * 2, sizeof(char)))
 			exit(1);
 	ft_itoa_no_m(cur_ants->chaine + 1, index.i_ants + 1);
+	printf("cur_ants->chaine :\n%s\n", cur_ants->chaine);
 	node_lk = sol->way[index.x].nodes_lk;
 	while (1)
 	{
@@ -100,7 +101,7 @@ void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 		str = output + i + index.i;
 		if (str->index + cur_ants->index + 2 + node_lk->node->size_name >= str->size - 1)
 			if (!ft_realloc((void**)&str->chaine, &str->size,
-				str->size * 4, sizeof(char)))
+				str->size * 2, sizeof(char)))
 				exit(1);
 		ft_strcpy(str->chaine + str->index, cur_ants->chaine);
 		str->index += cur_ants->index;
