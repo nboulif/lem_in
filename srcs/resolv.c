@@ -47,28 +47,28 @@ static int		ft_lenstr(long n)
 char			*ft_itoa_no_m(char *str, int n)
 {
 	static int	size = 0;
-	// static int  last = 1;
-	// int ind;
+	static int  last = 1;
+	int ind;
 
-	// if (n == last + 1 &&
-	// 	ft_lenstr(n) == size)
-	// {
-	// 	ind = size - 1;
-	// 	if (str[size - 1] == '9')
-	// 	{
-	// 		while (str[ind] == '9')
-	// 		{
-	// 			str[ind] = '0';
-	// 			ind--;
-	// 		}
-	// 		str[ind - 1] += 1;
-	// 	}
-	// 	else
-	// 		str[size - 1] += 1;
-    //     last = n;
-	// 	return (str);
-	// }
-	// last = n;
+	if (n == last + 1 &&
+		ft_lenstr(n) == size)
+	{
+		ind = size - 1;
+		if (str[size - 1] == '9')
+		{
+			while (str[ind] == '9')
+			{
+				str[ind] = '0';
+				ind--;
+			}
+			str[ind - 1] += 1;
+		}
+		else
+			str[size - 1] += 1;
+        last = n;
+		return (str);
+	}
+	last = n;
 	size = ft_lenstr(n);
 	str[size] = '\0';
 	while (size--)
@@ -114,10 +114,8 @@ void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 		str->index += nd;
 		str->chaine[str->index++] = ' ';
 		if (node_lk->node == obj->end_node)
-			//sol->way[index.x].node[i++ + nd].name == obj->end_node->name)
 			return ;
 		i++;
-		// edge_lk = edge_lk->next;
 		node_lk = node_lk->next;
 	}
 }
@@ -157,19 +155,29 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 				continue ;
 			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 		}
+		write(1, output[i].chaine, output[i].index - 1);
+		write(1, "\n", 1);		
+		free(output[i].chaine);
 		i++;
 	}
-	x = -1;
+	for (int x = i; output[x].index; x++)
+	{
+		// printf("%.*s\n", output[x].index, output[x].chaine);
+		// output[x].chaine[output[x].index] = '\n';
+		write(1, output[x].chaine, output[x].index - 1);
+		write(1, "\n", 1);
+		free(output[x].chaine);
+	}
 	//if (obj->nb_ants)
 	//	exit(printf("rest %d ant in obj->nb_ants \n", obj->nb_ants));
 
-	while (output[++x].index)
-	{
-		printf("%.*s\n", output[x].index - 1, output[x].chaine);
+	// while (output[++x].index)
+	// {
+	// 	printf("%.*s\n", output[x].index - 1, output[x].chaine);
 		//write(1, output[x].chaine, output[x].index - 1);
 		//write(1, "\n", 1);
-		free(output[x].chaine);
-	}
+		// free(output[x].chaine);
+	// }
 	free(output);
 }
 

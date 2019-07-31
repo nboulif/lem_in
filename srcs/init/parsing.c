@@ -101,7 +101,6 @@ int extract_info(t_objectif *obj, char *str)
 	zap_line(str, &i);
 	if ((var = make_tab_node(obj, str, &i)) == -1)
 		exit(printf("MALLOC ERROR\n"));
-
 	int j;
 	int k;
 	t_node_link *link;

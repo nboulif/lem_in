@@ -48,21 +48,13 @@ int		read_all(char **str)
 		index += ret;
 		(*str)[index] = 0;
 		if (ret < SIZE_BUFF)
-		{
-			// printf("realloc 1\n");
-			if (ft_realloc((void**)str, &index, index, sizeof(char)) &&
-				!((*str)[index] = 0))
-				return (index);
-			return (0);
-		}
+			return (index);
 		// printf("realloc 2\n");
 		if (index + SIZE_BUFF >= size - 1)
 			if (!ft_realloc((void**)str, &size, size * 2, sizeof(char)))
 				return (0);
 	}
-	// printf("realloc 3\n");
-	if (index < size && !ft_realloc((void**)str, &index, index, sizeof(char)))
-		return (0);
+
 	return (index);
 }
 
@@ -207,12 +199,16 @@ int main(int argc, char **argv)
 		fd = 0;
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
+	// printf("time for read and parse :");
+	// clock_t time = clock();
 	if (!(size = read_all(&str)) ||
 		!extract_info(&obj, str) || !init_resolv(&obj))
 	{
 		printf("Error init\n");
 		return (0);
 	}
+	// printf("%f sec\n", (double)(clock() - time) / (double)CLOCKS_PER_SEC);
+	// exit(0);
 	estimate_max_way(&obj);
 	print_node_and_edge(str, size);
 
