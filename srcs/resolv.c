@@ -34,13 +34,13 @@ static int		ft_lenstr(long n)
 	static int nb = 1;
 	static int cmp = 1;
 
-	printf("n -> %ld", n);
+	// printf("n -> %ld", n);
 	while ((cmp * 10) <= n)
 	{
 		cmp *= 10;
 		nb++;
 	}
-	printf("len -> %d\n", nb);
+	// printf("len -> %d\n", nb);
 	return (nb);
 }
 
@@ -83,35 +83,41 @@ void	put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 {
 	int				i;
 	t_string		*str;
+	unsigned long	nd;
 	t_node_link		*node_lk;
 
+	nd = 0;
 	i = 0;
 	if ((cur_ants->index = ft_lenstr(index.i_ants + 1) + 1) >= cur_ants->size - 1)
-		if (!ft_realloc((void**)&cur_ants->chaine,
-			&cur_ants->size, cur_ants->size * 2, sizeof(char)))
+		if (!ft_realloc((void**)&cur_ants->chaine, &cur_ants->size, cur_ants->size * 2, sizeof(char)))
 			exit(1);
 	ft_itoa_no_m(cur_ants->chaine + 1, index.i_ants + 1);
-	printf("cur_ants->chaine :\n%s\n", cur_ants->chaine);
 	node_lk = sol->way[index.x].nodes_lk;
 	while (1)
 	{
-		while (node_lk->node != obj->end_node &&
-				node_lk->node->name == node_lk->next->node->name)
+		while ((node_lk->node != obj->end_node &&
+				node_lk->node->name == node_lk->next->node->name))
+		{
+			// edge_lk = edge_lk->next;
 			node_lk = node_lk->next;
+		}
 		str = output + i + index.i;
-		if (str->index + cur_ants->index + 2 + node_lk->node->size_name >= str->size - 1)
+		if (str->index + cur_ants->index + 2 +
+			(nd = ft_strlen(node_lk->node->name)) >= (unsigned long)str->size - 1)
 			if (!ft_realloc((void**)&str->chaine, &str->size,
-				str->size * 2, sizeof(char)))
+				str->size + nd + cur_ants->index + 2 + 1, sizeof(char)))
 				exit(1);
 		ft_strcpy(str->chaine + str->index, cur_ants->chaine);
 		str->index += cur_ants->index;
 		str->chaine[str->index++] = '-';
 		ft_strcpy(str->chaine + str->index, node_lk->node->name);
-		str->index += node_lk->node->size_name;
+		str->index += nd;
 		str->chaine[str->index++] = ' ';
 		if (node_lk->node == obj->end_node)
+			//sol->way[index.x].node[i++ + nd].name == obj->end_node->name)
 			return ;
 		i++;
+		// edge_lk = edge_lk->next;
 		node_lk = node_lk->next;
 	}
 }
@@ -131,7 +137,6 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
-	current_ants.chaine[1] = 0;
 	printf("***||nb_turn %d sol->nb_way %d||***\n", sol->nb_turn, sol->nb_way);
 	while (++x < sol->nb_way)
 		sol->way[x].nb_ants = (sol->nb_turn - sol->way[x].len) + 1;
@@ -140,6 +145,11 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 	while (i_ants < obj->nb_ants)
 	{
 		x = -1;
+		if (nb_ants == i_ants)
+		{
+			printf("break prblm\n");
+			break;
+		}
 		nb_ants = i_ants;
 		while (++x < sol->nb_way && i_ants < obj->nb_ants)
 		{
@@ -147,17 +157,17 @@ void	print_ants(t_objectif *obj, t_solution *sol)
 				continue ;
 			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
 		}
-		if (nb_ants == i_ants)
-		{
-			printf("break prblm\n");
-			break;
-		}
 		i++;
 	}
 	x = -1;
+	//if (obj->nb_ants)
+	//	exit(printf("rest %d ant in obj->nb_ants \n", obj->nb_ants));
+
 	while (output[++x].index)
 	{
 		printf("%.*s\n", output[x].index - 1, output[x].chaine);
+		//write(1, output[x].chaine, output[x].index - 1);
+		//write(1, "\n", 1);
 		free(output[x].chaine);
 	}
 	free(output);
