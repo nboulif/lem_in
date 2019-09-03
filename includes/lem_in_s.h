@@ -61,8 +61,8 @@ typedef struct				s_node
 
 	t_father				*fathers;
 
-	t_edge					**father_edge;
-	t_node					**father_node;
+	// t_edge					**father_edge;
+	// t_node					**father_node;
 	
 	t_edge					*in_a_way;
 	int						nb_father_n;
@@ -118,8 +118,6 @@ typedef struct				s_objectif
 	int						max_link;
 	int						dist_up;
 	int						*dists;
-	int						**deja_vus;
-	t_solution				*sol;
 }							t_objectif;
 
 // SOLVE

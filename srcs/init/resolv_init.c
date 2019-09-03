@@ -136,7 +136,7 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 	}
 	obj->nb_edge_f = k;
 
-
+	free(queue.node);
 	// exit(0);
 	return (1);
 }

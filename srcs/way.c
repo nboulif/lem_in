@@ -32,8 +32,6 @@ void set_way_len_with_fathers(t_solution *sol, t_node *end_node)
 //	printf("boucle infiniiii |%s|\n", curr->name);
 		while (curr->fathers[sol->nb_way].node_out &&
 			(from->father_mode))
-			// fathers[sol->nb_way].mode))
-			// (from->father_mode))// || curr->fathers[sol->nb_way].node_out == curr->father_node[sol->nb_way]))
 		{
 			from = curr;
 			curr = curr->fathers[sol->nb_way].node_out;
@@ -68,7 +66,7 @@ t_node 		*get_node_between_2_edge(t_edge *edge1, t_edge *edge2)
 	return (edge1->node2);
 }
 
-void		merge_multiple_disc_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 
+void		merge_multiple_disc_edge(t_solution *sol, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a, 
 						 			 t_edge_link *e_ln_last_b, t_edge_link *e_ln_old_b)
 {
 	t_edge_link *e_ln_old_a1;
@@ -83,8 +81,8 @@ void		merge_multiple_disc_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge
 
 	int i;
 	i = -1;
-	while (++i < obj->sol->way[obj->sol->nb_way].len && e_ln_old_a1->edge != e_ln_last_a1->edge)
-		e_ln_last_a1 = &obj->sol->way[obj->sol->nb_way].edges_lk[i];
+	while (++i < sol->way[sol->nb_way].len && e_ln_old_a1->edge != e_ln_last_a1->edge)
+		e_ln_last_a1 = &sol->way[sol->nb_way].edges_lk[i];
 	
 	
 	e_ln_last_b1 = e_ln_last_a1;
@@ -138,7 +136,7 @@ int			pass_next_nodirs(t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a,
 }
 
 
-int			merge_multiple_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
+int			merge_multiple_edge(t_solution *sol, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
 {
 	int i;
 
@@ -160,7 +158,7 @@ int			merge_multiple_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link
 		else
 		{
 			printf("SPECIAL MERGE MULTI 2\n");
-			merge_multiple_disc_edge(obj, e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
+			merge_multiple_disc_edge(sol, e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
 			node_out->deja_vu_in_way -= 3;
 		}
 	}
@@ -176,7 +174,7 @@ int			merge_multiple_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link
 	return (i);
 }
 
-void		merge_one_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
+void		merge_one_edge(t_solution *sol, t_edge_link *e_ln_last_a, t_edge_link *e_ln_old_a)
 {
 	
 	t_node *node_in;
@@ -194,7 +192,7 @@ void		merge_one_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_l
 		else
 		{
 			printf("SPECIAL MERGE ONE 2\n");
-			merge_multiple_disc_edge(obj, e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
+			merge_multiple_disc_edge(sol, e_ln_last_a, e_ln_old_a, e_ln_last_a, e_ln_old_a);
 			node_out->deja_vu_in_way -= 3;
 		}
 	}
@@ -208,7 +206,7 @@ void		merge_one_edge(t_objectif *obj, t_edge_link *e_ln_last_a, t_edge_link *e_l
 	}
 }
 
-void  	    merge_way(t_objectif *obj, t_solution *sol)
+void  	    merge_way(t_solution *sol)
 {
 	int z;
 	// t_edge_link *tmp;
@@ -217,8 +215,6 @@ void  	    merge_way(t_objectif *obj, t_solution *sol)
 
 	t_edge_link *e_ln_last;
 	t_edge_link *e_ln_old;
-
-	obj->sol = sol;
 
 	while (1)
 	{
@@ -244,9 +240,9 @@ void  	    merge_way(t_objectif *obj, t_solution *sol)
 						finish = 0;
 						if (e_ln_last->next && e_ln_old->prev &&
 						e_ln_old->prev->edge == e_ln_last->next->edge)
-							i += merge_multiple_edge(obj, e_ln_last, e_ln_old);
+							i += merge_multiple_edge(sol, e_ln_last, e_ln_old);
 						else
-							merge_one_edge(obj, e_ln_last, e_ln_old);
+							merge_one_edge(sol, e_ln_last, e_ln_old);
 						break;
 					}
 				}
@@ -325,17 +321,8 @@ int 	    make_way(t_objectif *obj, t_solution *sol)
 		dir = e->node1->id == n_ln->node->id ? UNIDIR2 : UNIDIR1;
 		w = e->node1->id == n_ln->node->id ? &e->w1 : &e->w2;
 
-		
-		// e->direction != BIDIR && e->direction != NODIR ? *w = 0 : 0;
-		// e->direction != BIDIR && e->direction != NODIR ? e->direction = NODIR : 0;
-
-		// e->direction == BIDIR ? obj->offset = 1 : 0;
 		e->direction == BIDIR ? *w = -(*w) : 0;
 		e->direction -= dir;
-		// e->direction == BIDIR ? *w = 0 : 0;
-		// e->direction == BIDIR ? *w = -1 : 0;
-		//e->direction == BIDIR ? e->direction = dir : 0;
-
 		--i;
 	}
 

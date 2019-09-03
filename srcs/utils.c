@@ -60,16 +60,3 @@ int				ft_realloc(void **tab, int *size, int new_size, size_t type_size)
 	return (1);
 }
 
-int 		check_need_realloc(t_node *next)
-{
-	if (next->i_nb_father == next->nb_father_n)
-	{
-		if (!ft_realloc((void**)&next->father_node, &next->nb_father_n,
-				next->nb_father_n * 2, sizeof(t_node*)) || 
-			!ft_realloc((void**)&next->father_edge, &next->nb_father_t,
-				next->nb_father_n, sizeof(t_edge*)))
-			return (0);
-	}
-	return (1);
-}
-

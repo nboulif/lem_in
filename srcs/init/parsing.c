@@ -72,7 +72,8 @@ int		count_node(char *str, t_objectif *info)
 
 	i = 0;
 	nb_node = 0;
-	info->nb_ants = ft_atoi(str);
+	if (!(info->nb_ants = ft_atoi(str)))
+			exit(printf("NO ANTS\n"));
 	while (str[i] != '\n')
 		if (!str[i] || !ft_isdigit(str[i++]))
 			return (0);
@@ -94,18 +95,21 @@ int		count_node(char *str, t_objectif *info)
 int extract_info(t_objectif *obj, char *str)
 {
 	int			i;
-	int			var;
 
 	obj->nb_node = count_node(str, obj);
 	i = 0;
 	zap_line(str, &i);
-	if ((var = make_tab_node(obj, str, &i)) == -1)
-		exit(printf("MALLOC ERROR\n"));
+	if (!(make_tab_node(obj, str, &i)))
+	{
+		printf("MALLOC ERROR\n");
+		return (0);
+	}
 	int j;
 	int k;
 	t_node_link *link;
 
-	obj->lst_node = (t_node**)malloc(sizeof(t_node) * obj->nb_node);
+	if (!(obj->lst_node = (t_node**)malloc(sizeof(t_node) * obj->nb_node)))
+		return (0);
 	j = -1;
 	k = 1;
 	obj->lst_node[0] = obj->start_node;
@@ -127,7 +131,7 @@ int extract_info(t_objectif *obj, char *str)
 		}
 	}
 
-	if (var && !make_tab_edge(obj, str, &i))
+	if (!make_tab_edge(obj, str, &i))
 	{
 		exit(printf("ERROR\n"));
 	}

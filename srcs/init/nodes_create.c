@@ -52,14 +52,22 @@ t_node		*create_node(char *str, int *i, int nb_node)
 	{
 		if (index == size - 1)
 			if (!ft_realloc((void**)&name, &size, size * 2, sizeof(char)))
+			{
+				free(name);
 				return (NULL);
+			}
 		name[index++] = str[(*i)++];
 	}
 	name[index++] = 0;
 	if (!(node = malloc(sizeof(t_node))) ||
 		!ft_realloc((void**)&name, &index, index, sizeof(char)) ||
 		!init_node(node, name, nb_node, index))
+	{
+		free(name);
+		free(node);
 		return (NULL);
+	}
+	
 	zap_line(str, i);
 	return (node);
 }
@@ -112,7 +120,7 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 	x = 0;
 	if (!(obj->lst_node_lk = malloc(sizeof(t_node_link*)
 		* obj->nb_node)))
-		return (-1);
+		return (0);
 	while (x < obj->nb_node)
 		obj->lst_node_lk[x++] = NULL;
 	while (((char*)(unsigned long)*i)[(long)str] == '#' ||
@@ -121,13 +129,13 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 		if (str[*i] == '#')
 		{
 			if (!(exec_command(obj, str, i)))
-				return (-1);
+				return (0);
 		}
 		else
 		{
 			if (!(node = create_node(str, i, obj->nb_node)) ||
 				!add_in_lst(obj->lst_node_lk + node->id, node))
-				return (-1);
+				return (0);
 		}
 	}
 	return (1);
