@@ -14,7 +14,7 @@ NAME = lem-in
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)
@@ -37,6 +37,7 @@ SOURCES_LIST = lem_in.c \
 				utils.c \
 				edges_utils.c \
 				print_utils.c \
+				print_solution.c \
 				bellmanford.c \
 				resolv.c \
 				resolv_bf.c \
