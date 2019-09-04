@@ -21,11 +21,6 @@ int			init_node(t_node *node, char *name, int nb_node, int size_name)
 	node->nb_edge_f = 0;
 	node->edge = NULL;
 	node->range = 0;
-	// if (!(node->father_node = malloc(sizeof(t_node*))) ||
-	// 	!(node->father_edge = malloc(sizeof(t_edge*))))
-	// 	return (0);
-	// ft_memset(node->father_node, 0, 1 * sizeof(t_node*));
-	// ft_memset(node->father_edge, 0, 1 * sizeof(t_edge*));
 	node->nb_father_n = 1;
 	node->nb_father_t = 1;
 	node->i_nb_father = 0;
@@ -60,14 +55,13 @@ t_node		*create_node(char *str, int *i, int nb_node)
 	}
 	name[index++] = 0;
 	if (!(node = malloc(sizeof(t_node))) ||
-		!ft_realloc((void**)&name, &index, index, sizeof(char)) ||
+		// !ft_realloc((void**)&name, &index, index, sizeof(char)) ||
 		!init_node(node, name, nb_node, index))
 	{
 		free(name);
 		free(node);
 		return (NULL);
 	}
-	
 	zap_line(str, i);
 	return (node);
 }
@@ -90,6 +84,8 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 	int			go;
 
 	go = 0;
+	node = NULL;
+	// printf("exec_command -> |%.*s|\n", (int)(strchr(&str[*i], '\n') - &str[*i]), &str[*i]);
 	while (1)
 	{
 		if (!ft_strncmp(str + *i, "##start\n", 8))
@@ -100,10 +96,11 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 		if (go || str[*i] != '#')
 			break ;
 	}
-	node = NULL;
-	if (go && ((go == 8 && obj->start_node) || (go == 6 && obj->end_node) ||
-		(!(node = create_node(str, i, obj->nb_node)) ||
-		!add_in_lst(&obj->lst_node_lk[node->id], node))))
+	if (go &&
+		((go == 8 && obj->start_node) ||
+		 (go == 6 && obj->end_node) ||
+		 (!(node = create_node(str, i, obj->nb_node)) ||
+		 !add_in_lst(&obj->lst_node_lk[node->id], node))))
 		return (0);
 	if (go == 8)
 		obj->start_node = node;
@@ -123,7 +120,7 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 		return (0);
 	while (x < obj->nb_node)
 		obj->lst_node_lk[x++] = NULL;
-	while (((char*)(unsigned long)*i)[(long)str] == '#' ||
+	while (str[*i] == '#' ||
 			is_node_cond(str, i))
 	{
 		if (str[*i] == '#')
@@ -132,11 +129,9 @@ int			make_tab_node(t_objectif *obj, char *str, int *i)
 				return (0);
 		}
 		else
-		{
 			if (!(node = create_node(str, i, obj->nb_node)) ||
 				!add_in_lst(obj->lst_node_lk + node->id, node))
 				return (0);
-		}
 	}
-	return (1);
+	return (obj->end_node && obj->start_node);
 }

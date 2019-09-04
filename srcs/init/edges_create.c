@@ -90,8 +90,10 @@ int			make_tab_edge(t_objectif *obj, char *str, int *i)
 	while ((edge = next_edge(obj, str, i)).node1)
 	{
 		if (index > size || !edge.node2)
+		{
 			return (0);
-		if (edge.node1 != edge.node2)
+		}
+	if (edge.node1 != edge.node2)
 			obj->lst_edge[index++] = edge;
 		if (!str[*i])
 			break ;
