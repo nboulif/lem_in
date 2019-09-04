@@ -106,8 +106,6 @@ int rec_init_lst_edge_ord(t_objectif *obj)
 	queue.index = -1;
 	while(++queue.index <= queue.size_queue)
 	{
-		// printf("node %s \n", queue.node[queue.index]->name);
-
 		j = -1;
 		while(++j < queue.node[queue.index]->nb_edge_f)
 		{	

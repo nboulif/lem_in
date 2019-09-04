@@ -131,7 +131,6 @@ void print_ants(t_objectif *obj, t_solution *sol)
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
-	printf("***||nb_turn %d sol->nb_way %d||***\n", sol->nb_turn, sol->nb_way);
 	while (++x < sol->nb_way)
 		sol->way[x].nb_ants = (sol->nb_turn - sol->way[x].len) + 1;
 	i = 0;
@@ -140,10 +139,7 @@ void print_ants(t_objectif *obj, t_solution *sol)
 	{
 		x = -1;
 		if (nb_ants == i_ants)
-		{
-			printf("break prblm\n");
 			break;
-		}
 		nb_ants = i_ants;
 		while (++x < sol->nb_way && i_ants < obj->nb_ants)
 		{
