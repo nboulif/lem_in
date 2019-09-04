@@ -1,18 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_solution.h                                   :+:      :+:    :+:   */
+/*   print_solution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:03:30 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 03:03:31 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 20:37:38 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void create_output(t_solution *sol, t_string **output)
+void		create_node_tab(t_objectif *obj)
+{
+	t_node *current;
+	int i;
+	int x;
+	t_edge_link *e_ln;
+
+	x = -1;
+	while (++x < obj->best_sol.nb_way)
+	{
+		i = 0;
+		current = obj->start_node;
+		obj->best_sol.way[x].nodes_lk[0].node = current;
+		e_ln = obj->best_sol.way[x].edges_lk;
+		while (1)
+		{
+			current = get_right_node_in_edge(e_ln->edge, current, 0);
+			if (!current)
+				break ;
+			obj->best_sol.way[x].nodes_lk[i + 1].node = current;
+			obj->best_sol.way[x].nodes_lk[i].next = &obj->best_sol.way[x].nodes_lk[i + 1];
+			e_ln = e_ln->next;
+			if (current->name == obj->end_node->name)
+			{
+				obj->best_sol.way[x].nodes_lk[i + 1].next = NULL;
+				break ;
+			}
+			i++;
+		}
+		obj->best_sol.way[x].nodes_lk = obj->best_sol.way[x].nodes_lk->next;
+	}
+}
+
+void			create_output(t_solution *sol, t_string **output)
 {
 	int i;
 
@@ -29,7 +62,7 @@ void create_output(t_solution *sol, t_string **output)
 	}
 }
 
-static int ft_lenstr(long n)
+static int		ft_lenstr(long n)
 {
 	static int nb = 1;
 	static int cmp = 1;
@@ -42,7 +75,7 @@ static int ft_lenstr(long n)
 	return (nb);
 }
 
-char *ft_itoa_no_m(char *str, int n)
+char			*ft_itoa_no_m(char *str, int n)
 {
 	static int size = 0;
 	static int last = 1;
@@ -77,7 +110,7 @@ char *ft_itoa_no_m(char *str, int n)
 	return (str);
 }
 
-void put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur_ants, t_string *output, t_t_int index)
+void			put_in_ouput_travel_of_ants(t_objectif *obj, t_string *cur_ants, t_string *output, t_t_int index)
 {
 	int i;
 	t_string *str;
@@ -90,7 +123,7 @@ void put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 		if (!ft_realloc((void **)&cur_ants->chaine, &cur_ants->size, cur_ants->size * 2, sizeof(char)))
 			exit(1);
 	ft_itoa_no_m(cur_ants->chaine + 1, index.i_ants + 1);
-	node_lk = sol->way[index.x].nodes_lk;
+	node_lk = obj->best_sol.way[index.x].nodes_lk;
 	while (1)
 	{
 		while ((node_lk->node != obj->end_node &&
@@ -116,44 +149,47 @@ void put_in_ouput_travel_of_ants(t_objectif *obj, t_solution *sol, t_string *cur
 	}
 }
 
-void print_ants(t_objectif *obj, t_solution *sol)
+void			print_ants(t_objectif *obj)
 {
 	t_string *output;
 	t_string current_ants;
 	int i;
 	int x;
 	int i_ants;
+	int nb_ants;
 
+	create_node_tab(obj);
 	i_ants = 0;
 	x = -1;
-	create_output(sol, &output);
+	create_output(&obj->best_sol, &output);
 	current_ants.size = 10;
 	if (!(current_ants.chaine = malloc(sizeof(char) * current_ants.size)))
 		exit(1);
 	current_ants.chaine[0] = 'L';
-	while (++x < sol->nb_way)
-		sol->way[x].nb_ants = (sol->nb_turn - sol->way[x].len) + 1;
+	while (++x < obj->best_sol.nb_way)
+		obj->best_sol.way[x].nb_ants = (obj->best_sol.nb_turn - obj->best_sol.way[x].len) + 1;
 	i = 0;
-	int nb_ants = -1;
+	nb_ants = -1;
 	while (i_ants < obj->nb_ants)
 	{
 		x = -1;
 		if (nb_ants == i_ants)
 			break;
 		nb_ants = i_ants;
-		while (++x < sol->nb_way && i_ants < obj->nb_ants)
+		while (++x < obj->best_sol.nb_way && i_ants < obj->nb_ants)
 		{
-			if (sol->way[x].nb_ants-- <= 0)
+			if (obj->best_sol.way[x].nb_ants-- <= 0)
 				continue;
-			put_in_ouput_travel_of_ants(obj, sol, &current_ants, output, (t_t_int){i, x, i_ants++});
+			put_in_ouput_travel_of_ants(obj, &current_ants, output, (t_t_int){i, x, i_ants++});
 		}
 		write(1, output[i].chaine, output[i].index - 1);
 		write(1, "\n", 1);
 		free(output[i].chaine);
 		i++;
 	}
-	for (int x = i; x < sol->nb_turn + 1; x++)
-	{
+    x = i - 1;
+    while (++x < obj->best_sol.nb_turn + 1)
+    {
 		if (output[x].index)
 		{
 			write(1, output[x].chaine, output[x].index - 1);

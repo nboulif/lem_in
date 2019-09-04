@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in_f.h                                         :+:      :+:    :+:   */
+/*   lem_in_f_init.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:03:38 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 03:03:40 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:23:06 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int				init_resolv(t_objectif *obj);
 //zap
 void			zap_line(char *str, int *i);
 void			zap_comm(char *str, int *i);
-void            print_ants(t_objectif *obj, t_solution *sol);
+void            print_ants(t_objectif *obj);
 
 
 #endif
-
-

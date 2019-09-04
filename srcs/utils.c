@@ -6,7 +6,7 @@
 /*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 23:20:53 by rhunders          #+#    #+#             */
-/*   Updated: 2019/03/27 00:16:50 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 20:06:58 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int				ft_min(int a, int b, int c)
 	return (b < c ? b : c);
 }
 
-int				ft_realloc(void **tab, int *size, int new_size, size_t type_size)
+int				ft_realloc(void **tab, int *size,
+		int new_size, size_t type_size)
 {
 	char *save;
 
@@ -59,4 +60,3 @@ int				ft_realloc(void **tab, int *size, int new_size, size_t type_size)
 	*size = new_size;
 	return (1);
 }
-

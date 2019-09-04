@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_s.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:03:30 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 03:03:31 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 19:52:35 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct				s_node
 
 	// t_edge					**father_edge;
 	// t_node					**father_node;
-	
+
 	t_edge					*in_a_way;
 	int						nb_father_n;
 	int						nb_father_t;
@@ -102,24 +102,6 @@ typedef struct				s_edge
 	int						deja_vu_init;
 }							t_edge;
 
-typedef struct				s_objectif
-{
-	t_node					*start_node;
-	t_node					*end_node;
-	t_node					**lst_node;
-	t_node_link				**lst_node_lk;
-	t_edge					*lst_edge;
-	t_edge					**lst_edge_ord;
-	int						nb_node;
-	int						nb_edge;
-	int						nb_edge_f;
-	int						nb_ants;
-	int 					max_way;
-	int						max_link;
-	int						dist_up;
-	int						*dists;
-}							t_objectif;
-
 // SOLVE
 
 typedef struct 				s_way
@@ -146,6 +128,59 @@ typedef struct 				s_queue
 	int						size_queue;
 	int						index;
 }							t_queue;
+
+// SOLVE UTILS
+
+typedef struct 				s_bf_utils
+{
+	t_node	*u;
+	t_node	*v;
+	int		w;
+}							t_bf_utils;
+
+typedef struct 				s_e_ln_utils
+{
+	t_edge_link				*e_ln_old_a;
+	t_edge_link				*e_ln_old_b;
+	t_edge_link				*e_ln_last_a;
+	t_edge_link				*e_ln_last_b;
+
+}							t_e_ln_utils;
+
+typedef struct 				s_make_way_utils
+{
+	int				i;
+	int				dir;
+	int				*w;
+	t_node_link		*n_ln;
+	t_edge_link		*e_ln;
+	t_edge			*e;
+	t_way			*way;
+	int				mode;
+
+}							t_make_way_utils;
+
+// MAIN STRUCT
+
+typedef struct				s_objectif
+{
+	t_node					*start_node;
+	t_node					*end_node;
+	t_node					**lst_node;
+	t_node_link				**lst_node_lk;
+	t_edge					*lst_edge;
+	t_edge					**lst_edge_ord;
+	int						nb_node;
+	int						nb_edge;
+	int						nb_edge_f;
+	int						nb_ants;
+	int 					max_way;
+	int						max_link;
+	int						dist_up;
+	int						*dists;
+	t_solution				best_sol;
+	t_solution				next_sol;
+}							t_objectif;
 
 // PRINT SOLVE
 

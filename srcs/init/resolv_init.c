@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_for_resolv.c                                  :+:      :+:    :+:   */
+/*   resolv_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhunders <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 17:17:16 by rhunders          #+#    #+#             */
-/*   Updated: 2019/03/26 17:17:16 by rhunders         ###   ########.fr       */
+/*   Updated: 2019/09/04 18:05:14 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
+void	delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
 {
-	int				x;
+	int x;
 
 	x = -1;
 	while (++x < node->nb_edge_f)
@@ -34,17 +34,17 @@ void delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
 		}
 }
 
-void delete_dead_end(t_objectif *obj)
+void	delete_dead_end(t_objectif *obj)
 {
- 	int			i;
- 	t_node_link	*link;
+	int			i;
+	t_node_link	*link;
 
- 	i = -1;
- 	while (++i < obj->nb_node)
- 	{
- 		link = obj->lst_node_lk[i];
- 		while (link)
- 		{
+	i = -1;
+	while (++i < obj->nb_node)
+	{
+		link = obj->lst_node_lk[i];
+		while (link)
+		{
 			if (link->node->nb_edge_f == 1 &&
 				link->node != obj->start_node &&
 				link->node != obj->end_node)
@@ -57,14 +57,14 @@ void delete_dead_end(t_objectif *obj)
 									link->node->edge[0], obj);
 			}
 			link = link->next;
- 		}
- 	}
+		}
+	}
 }
 
-int create_tab_edge_in_node(t_objectif *obj)
+int		create_tab_edge_in_node(t_objectif *obj)
 {
-	int			i;
-	t_node_link	*link;
+	int				i;
+	t_node_link		*link;
 
 	i = -1;
 	while (++i < obj->nb_node)
@@ -72,7 +72,8 @@ int create_tab_edge_in_node(t_objectif *obj)
 		link = obj->lst_node_lk[i];
 		while (link)
 		{
-			if (!(link->node->edge = malloc(link->node->nb_edge_o * sizeof(t_edge*))))
+			if (!(link->node->edge =
+				malloc(link->node->nb_edge_o * sizeof(t_edge *))))
 				return (0);
 			link = link->next;
 		}
@@ -80,70 +81,57 @@ int create_tab_edge_in_node(t_objectif *obj)
 	return (1);
 }
 
-int rec_init_lst_edge_ord(t_objectif *obj)
+int		rec_init_lst_edge_ord(t_objectif *obj)
 {
-	t_queue queue;
-	t_node *node;
-	t_edge *edge;
+	t_queue		queue;
+	t_node		*node;
+	t_edge		*edge;
 
-	int j;
-	int k;
+	int			j;
+	int			k;
 
-	
-	obj->lst_edge_ord = (t_edge**)malloc(sizeof(t_edge*) * obj->nb_edge);
-
-	if (!(queue.node = ft_memalloc(sizeof(t_node*) * obj->nb_node)))
-			return (0);
-
+	obj->lst_edge_ord = (t_edge **)malloc(sizeof(t_edge *) * obj->nb_edge);
+	if (!(queue.node = ft_memalloc(sizeof(t_node *) * obj->nb_node)))
+		return (0);
 	ft_memset(obj->lst_edge_ord, 0, obj->nb_edge);
 	ft_memset(queue.node, 0, obj->nb_node);
-
 	queue.node[0] = obj->start_node;
 	obj->start_node->deja_vu_init = 1;
-
 	k = 0;
 	queue.size_queue = 0;
 	queue.index = -1;
-	while(++queue.index <= queue.size_queue)
+	while (++queue.index <= queue.size_queue)
 	{
 		j = -1;
-		while(++j < queue.node[queue.index]->nb_edge_f)
-		{	
+		while (++j < queue.node[queue.index]->nb_edge_f)
+		{
 			edge = queue.node[queue.index]->edge[j];
-
 			if (queue.node[queue.index]->id == edge->node1->id)
 				node = edge->node2;
 			else
 				node = edge->node1;
-			
-
 			if (!node->deja_vu_init)
 			{
 				node->deja_vu_init = 1;
 				queue.node[++queue.size_queue] = node;
 			}
-
 			if (!edge->deja_vu_init)
 			{
 				edge->deja_vu_init = 1;
 				obj->lst_edge_ord[k++] = edge;
 			}
-
-
 		}
 	}
 	obj->nb_edge_f = k;
-
 	free(queue.node);
-	// exit(0);
 	return (1);
 }
 
-int link_node_and_edge(t_objectif *obj)
+int		link_node_and_edge(t_objectif *obj)
 {
-	int			i;
-	t_node		*node1;
-	t_node		*node2;
+	int		i;
+	t_node	*node1;
+	t_node	*node2;
 
 	i = -1;
 	if (!create_tab_edge_in_node(obj))
@@ -158,15 +146,13 @@ int link_node_and_edge(t_objectif *obj)
 			node2->edge[node2->nb_edge_f++] = obj->lst_edge + i;
 		}
 	}
-
 	return (1);
 }
 
-int init_resolv(t_objectif *obj)
+int		init_resolv(t_objectif *obj)
 {
 	if (!link_node_and_edge(obj))
 		return (0);
-	// delete_dead_end(obj);
 	rec_init_lst_edge_ord(obj);
 	return (1);
 }

@@ -1,128 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 04:02:54 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 04:02:55 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 20:27:44 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void 		print_way_status_before_merge(t_way *way)
-{
-	int i;
-	
-	printf("len => %d\n", way->len);
-
-	i = -1;
-	while (++i < way->len)
-	{
-		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
-			way->nodes_lk[i].node->deja_vu, way->nodes_lk[i].node->name, 
-			way->edges_lk[i].edge->node1->name, way->edges_lk[i].edge->node2->name, 
-			way->edges_lk[i].edge->w1, way->edges_lk[i].edge->w2,			
-			way->edges_lk[i].edge->direction			
-			);
-	}
-}
-
-void 		print_way_status_after_merge(t_objectif *obj, t_way *way)
-{
-	t_edge_link *e_ln;
-	t_node		*node;
-	
-	printf("len => %d\n", way->len);
-
-	e_ln = &way->edges_lk[0];
-	node = obj->start_node;
-	while (e_ln)
-	{
-		node = get_right_node_in_edge(e_ln->edge, node, 0);
-
-		printf("dv %d %s   %s -- %s   / w  %d -- %d  / dir  %d \n", 
-			node->deja_vu, node->name,
-			e_ln->edge->node1->name, e_ln->edge->node2->name, 
-			e_ln->edge->w1, e_ln->edge->w2,			
-			e_ln->edge->direction			
-			);
-		e_ln = e_ln->next;
-	}
-}
-
-void 		print_node_and_edge(char *str, int size)
+void		print_node_and_edge(char *str, int size)
 {
 	write(1, str, size - 1);
 	if (str[size - 2] != '\n')
 		ft_putchar('\n');
 	free(str);
 	ft_putchar('\n');
-}
-
-void		print_all_edge(t_objectif *obj)
-{
-	int			i;
-	int			x;
-	t_node_link	*link;
-
-	i = -1;
-	while (++i < obj->nb_node)
-	{
-		link = obj->lst_node_lk[i];
-		while (link)
-		{
-			printf("link->name |%s|\n", link->node->name);
-			x = -1;
-			while (++x < link->node->nb_edge_f)
-				printf("|%s|-|%s|\n", link->node->edge[x]->node1->name,
-									link->node->edge[x]->node2->name);
-			printf("\n");
-			// sleep(1);
-			link = link->next;
-		}
-	}
-}
-
-void 		print_way(t_objectif *obj, t_solution *sol)
-{
-	int 		i;
-	int 		x;
-	t_edge_link		*e_ln;
-
-	printf("\n\nend node name => |%s|\n", obj->end_node->name);
-	printf("nb way => |%d|\n\n", sol->nb_way);
-
-	t_node		*node;
-
-	x = -1;
-	while (++x < sol->nb_way)
-	{
-		printf("chemin %d len %d\n", x, sol->way[x].len);
-		i = 0;
-		e_ln = &sol->way[x].edges_lk[0];
-		node = obj->start_node;
-		while (e_ln)
-		{
-			
-			printf("%d. ", i);
-			node = get_right_node_in_edge(e_ln->edge, node, 0);
-			if (node) 
-			{
-				printf("|%s|", node->name);
-				printf(" |%s|-|%s|\n", 
-					e_ln->edge->node1->name, 
-					e_ln->edge->node2->name
-				);
-			}
-			
-			i++;
-			e_ln = e_ln->next;
-		}	
-		printf("\n");
-	}
-
-
 }

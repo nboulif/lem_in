@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_f.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:03:38 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 03:03:40 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 21:18:31 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,20 @@ int				clone_way(t_objectif *obj, t_solution *sol, t_solution *cur);
 void 			init_graph_bf(t_objectif *obj, int first_time);
 
 //resolv_bf
-int             find_way(t_objectif *obj, t_solution *sol);
+int             find_way(t_objectif *obj);
 
 //resolv
 int				resolv(t_objectif *obj);
 
 //Bellman Ford
-int 			apply_algo_bellman_ford(t_objectif *obj, t_solution *sol);
+int 			apply_algo_bellman_ford(t_objectif *obj);
 
 //way
 void            set_way_len_with_fathers(t_solution *sol, t_node *end_node);
 void            update_ways_len_with_node_lk(t_solution *sol);
 void            merge_way(t_solution *sol);
 int             make_way(t_objectif *obj, t_solution *sol);
+int				init_solver(t_objectif *obj);
 
 //resolv_tmp
 // int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);
@@ -59,5 +60,3 @@ int             make_way(t_objectif *obj, t_solution *sol);
 // int				find_way2(t_objectif *obj, t_solution *sol);
 
 #endif
-
-

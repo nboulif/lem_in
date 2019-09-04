@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   edges_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nboulif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:46:08 by nboulif           #+#    #+#             */
-/*   Updated: 2019/03/30 03:46:09 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:14:42 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int is_same_edge(t_edge edge1, t_edge edge2)
+int			is_same_edge(t_edge edge1, t_edge edge2)
 {
 	return ((edge1.node1 == edge2.node1 || edge1.node1 == edge2.node2) &&
 		(edge1.node2 == edge2.node1 || edge1.node2 == edge2.node2));
 }
 
-int	is_in_tab_edge(t_edge **tab, t_edge *to_find, int size)
+int			is_in_tab_edge(t_edge **tab, t_edge *to_find, int size)
 {
 	int	i;
 
@@ -29,8 +29,7 @@ int	is_in_tab_edge(t_edge **tab, t_edge *to_find, int size)
 	return (0);
 }
 
-
-t_node 		*get_right_node_in_edge(t_edge *edge, t_node *node, int verif)
+t_node		*get_right_node_in_edge(t_edge *edge, t_node *node, int verif)
 {
 	if (verif && edge->deja_vu)
 		return (NULL);

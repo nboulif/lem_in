@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhunders <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/21 22:42:01 by rhunders          #+#    #+#              #
-#    Updated: 2019/03/21 22:42:03 by rhunders         ###   ########.fr        #
+#    Updated: 2019/09/04 19:54:16 by nboulif          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = lem-in
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address
 
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)
@@ -23,7 +23,7 @@ LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_DIRECTORY = libft/
 LIBFT_HEADERS = $(LIBFT_DIRECTORY)
 
-HEADERS_LIST = lem_in.h lem_in_s.h lem_in_f_init.h lem_in_f.h 
+HEADERS_LIST = lem_in.h lem_in_s.h lem_in_f_init.h lem_in_f.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
@@ -86,7 +86,5 @@ fclean: clean
 	@echo "$(NAME): $(RED)$(LIBFT) was deleted$(RESET)"
 	@rm -f $(NAME)
 	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
-	
+
 re: fclean all
-
-
