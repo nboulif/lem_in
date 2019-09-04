@@ -134,6 +134,7 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 				obj->dists[v->id + obj->nb_node] = obj->dists[u->id] + w;
 				v->fathers[sol->nb_way].node_out = u;
 				v->fathers[sol->nb_way].edge_out = e;
+				v->father_mode = 0;
 				if (obj->dists[v->id + obj->nb_node] < obj->dists[v->id] || obj->dists[v->id] == __INT_MAX__)
 				{
 					obj->dists[v->id] = obj->dists[v->id + obj->nb_node];
@@ -141,7 +142,6 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 					v->fathers[sol->nb_way].edge = e;
 					v->fathers[sol->nb_way].mode = 0;
 				}
-				v->father_mode = 0;
 			}
 		}
 		else
@@ -152,7 +152,6 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 					return ;
 				obj->dists[v->id] = obj->dists[u->id + obj->nb_node] + w;
 				v->father_mode = 1;
-				v->fathers[sol->nb_way].mode = 1;
 			}
 			else
 			{
@@ -160,7 +159,6 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 					return ;
 				obj->dists[v->id] = obj->dists[u->id] + w;
 				v->father_mode = 0;
-				v->fathers[sol->nb_way].mode = 0;
 			}
 			obj->dist_up = 1;
 			v->fathers[sol->nb_way].node = u;
