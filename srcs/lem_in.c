@@ -49,7 +49,7 @@ int			lem_in(t_objectif *obj, char *str, int size)
 		return (free_obj_and_print_error(obj, "ERROR\n"));
 	if (!init_solver(obj))
 		return (free_obj_and_print_error(obj, "ERROR\n"));
-	if (!resolv(obj) || 1)
+	if (!resolv(obj))
 		return (free_obj_and_print_error(obj, "ERROR\n"));
 	else
 	{
