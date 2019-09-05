@@ -71,10 +71,12 @@ int 		check_atomic(t_objectif *obj, t_solution *sol, t_way *way)
 
 int 		find_way(t_objectif *obj, t_solution *sol)
 { 
-	t_way 		*way;
-	int			check;
-	int			i;
+	t_way 			*way;
+	int				check;
+	int				i;
 
+	//ft_memset(&obj->queue.node[1], 0, sizeof(t_node*) * (obj->queue.size_queue - 1));
+	// obj->queue.index = 0;
 	way = &sol->way[sol->nb_way];
 	if (!(init_way(obj, way)))
 	    return (-1);

@@ -138,7 +138,6 @@ int		count_node(char *str, t_objectif *info)
 	}
 	return (nb_node);
 }
-extern int nb_line;
 
 int extract_info(t_objectif *obj, char *str)
 {
@@ -147,6 +146,7 @@ int extract_info(t_objectif *obj, char *str)
 	int			k;
 	t_node_link	*link;
 
+	clock_t time = clock();
 	i = 0;
 	while (str[i] == '#')
 		if (!ft_strncmp(str + i, "##start\n", 8) ||
@@ -187,5 +187,6 @@ int extract_info(t_objectif *obj, char *str)
 	}
 	if (!make_tab_edge(obj, str, &i))
 		exit(printf("ERROR IN EDGE\n"));
+	fprintf(stderr, "parse time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 	return (!str[i]);
 }

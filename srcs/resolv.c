@@ -98,8 +98,13 @@ int resolv(t_objectif *obj)
 	t_solution best_sol;
 	t_solution next_sol;
 
+	clock_t time = clock();
+	if (!(obj->queue.node = malloc(sizeof(t_node*) * obj->nb_node)))
+		return (0);
+	obj->queue.node[0] = obj->start_node;
+	obj->queue.size_queue = 1;
+	obj->queue.index = 0;
 	init_solver(obj, &best_sol, &next_sol);
-
 	i = 0;
 	best_sol.nb_turn = INT_MAX;
 	while (i++ < obj->max_way)
@@ -165,6 +170,7 @@ int resolv(t_objectif *obj)
 			free(next_sol.way[i].edges_lk);
 		}
 		free(next_sol.way);
+		fprintf(stderr, "resolv time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 		return (1);
 	}
 	return (0);

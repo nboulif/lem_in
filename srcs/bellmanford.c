@@ -91,6 +91,8 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 				obj->dists[u->id] + w < obj->dists[v->id + obj->nb_node])
 			{
 				obj->dist_up = 1;
+				if (obj->dists[v->id + obj->nb_node] == INT_MAX)
+					obj->queue.node[obj->queue.size_queue++] = v;
 				obj->dists[v->id + obj->nb_node] = obj->dists[u->id] + w;
 				v->fathers[sol->nb_way].node_out = u;
 				v->fathers[sol->nb_way].edge_out = e;
@@ -111,6 +113,8 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 				if (obj->dists[u->id + obj->nb_node] == __INT_MAX__ ||
 					obj->dists[v->id] <= obj->dists[u->id + obj->nb_node] + w)
 					return ;
+				if (obj->dists[v->id] == INT_MAX)
+					obj->queue.node[obj->queue.size_queue++] = v;
 				obj->dists[v->id] = obj->dists[u->id + obj->nb_node] + w;
 				v->father_mode = 1;
 			}
@@ -119,6 +123,8 @@ void 	check_bellman_ford(t_objectif *obj, t_solution *sol, t_edge *e, int mode)
 				if (obj->dists[u->id] == __INT_MAX__ ||
 					obj->dists[u->id] + w >= obj->dists[v->id])
 					return ;
+				if (obj->dists[v->id] == INT_MAX)
+					obj->queue.node[obj->queue.size_queue++] = v;
 				obj->dists[v->id] = obj->dists[u->id] + w;
 				v->father_mode = 0;
 			}
@@ -133,34 +139,33 @@ int 		apply_algo_bellman_ford(t_objectif *obj, t_solution *sol)
 {
 	int 		i;
 	int 		j;
-	int			o;	
-
+	int			o;
 	t_edge 		*e;
 
 	init_dist_deja_vu_lst(obj);
+	obj->queue.size_queue = 1;
 	i = -1;
 	while (++i < obj->nb_node)
 	{
 		obj->dist_up = 0;
 		o = -1;
-		while (++o < obj->nb_node)
+		while (++o < obj->queue.size_queue)
 		{
 			j = -1;
-			while (++j < obj->lst_node[o]->nb_edge_f)
+			while (++j < obj->queue.node[o]->nb_edge_f)
 			{
-				e = obj->lst_node[o]->edge[j];
+				e = obj->queue.node[o]->edge[j];
 				if (e->direction == NODIR)
 					continue ;
-				if (obj->lst_node[o] == e->node1 && e->direction & UNIDIR1)
+				if (obj->queue.node[o] == e->node1 && e->direction & UNIDIR1)
 					check_bellman_ford(obj, sol, e, 1);
-				else if (obj->lst_node[o] == e->node2 && e->direction & UNIDIR2)
+				else if (obj->queue.node[o] == e->node2 && e->direction & UNIDIR2)
 					check_bellman_ford(obj, sol, e, 2);
 			}
 		}
 		if (!obj->dist_up)
-			break;
+			break ;
 	}
-	//suurballe_formule(obj, sol->nb_way);
 	sol->way[sol->nb_way].cost = obj->dists[obj->nb_node - 1];
 
 	if (obj->dists[obj->nb_node - 1] == __INT_MAX__) //|| dist[obj->nb_node - 1] < 0)

@@ -32,6 +32,29 @@ int			init_node(t_node *node, char *name, int nb_node, int size_name)
 	return (1);
 }
 
+t_node		*malloc_node(int nb_node, int mode)
+{
+	static t_node	*node_malloc = NULL;
+	static int		index = 0;
+	int				i;
+
+	if (!mode)
+	{
+		i = 0;
+		while (i < index)
+		{
+			free(node_malloc[i].edge);
+			free(node_malloc[i++].name);
+		}
+		free(node_malloc);
+		return (NULL);
+	}
+	if (!node_malloc)
+		if (!(node_malloc = malloc(sizeof(t_node) * nb_node)))
+			return (NULL);
+	return (&node_malloc[index++]);
+}
+
 t_node		*create_node(char *str, int *i, int nb_node)
 {
 	t_node	*node;
@@ -53,9 +76,10 @@ t_node		*create_node(char *str, int *i, int nb_node)
 			}
 		name[index++] = str[(*i)++];
 	}
-	name[index++] = 0;
-	if (!(node = malloc(sizeof(t_node))) ||
-		// !ft_realloc((void**)&name, &index, index, sizeof(char)) ||
+	name[index] = 0;
+	if (!(node = malloc_node(nb_node, 1)) ||
+		(index != size &&
+		!ft_realloc((void**)&name, &index, index, sizeof(char))) ||
 		!init_node(node, name, nb_node, index))
 	{
 		free(name);

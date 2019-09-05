@@ -18,19 +18,6 @@ typedef struct	s_edge				t_edge;
 typedef struct	s_father			t_father;
 typedef struct	s_solution			t_solution;
 
-// typedef struct				s_node_u_solve
-// {
-// 	int						D;
-// 	int						last_D;
-// 	t_edge					**father_edge;
-// 	t_node					**father_node;
-// 	t_edge					*in_a_way;
-// 	int						nb_father_n;
-// 	int						nb_father_t;
-// 	int						i_nb_father;
-// 	int						nb_of_inway;
-// }							t_node_u_solve;
-
 // NODE && EDGE REPRESENTATION
 
 typedef struct				s_father
@@ -54,16 +41,8 @@ typedef struct				s_node
 	int						deja_vu_in_way;
 	int						deja_vu;
 	int						size_name;
-
 	int						father_mode;
-
-	// t_node_u_solve			u_sol;
-
 	t_father				*fathers;
-
-	// t_edge					**father_edge;
-	// t_node					**father_node;
-	
 	t_edge					*in_a_way;
 	int						nb_father_n;
 	int						nb_father_t;
@@ -102,6 +81,13 @@ typedef struct				s_edge
 	int						deja_vu_init;
 }							t_edge;
 
+typedef struct 				s_queue
+{
+	t_node					**node;
+	int						size_queue;
+	int						index;
+}							t_queue;
+
 typedef struct				s_objectif
 {
 	t_node					*start_node;
@@ -110,6 +96,7 @@ typedef struct				s_objectif
 	t_node_link				**lst_node_lk;
 	t_edge					*lst_edge;
 	t_edge					**lst_edge_ord;
+	t_queue					queue;
 	int						nb_node;
 	int						nb_edge;
 	int						nb_edge_f;
@@ -126,7 +113,6 @@ typedef struct 				s_way
 {
 	t_node_link				*nodes_lk;
 	t_edge_link				*edges_lk;
-
 	int						len;
 	int						cost;
 	int						nb_ants;
@@ -140,12 +126,6 @@ typedef struct 				s_solution
 	int						len;
 }							t_solution;
 
-typedef struct 				s_queue
-{
-	t_node					**node;
-	int						size_queue;
-	int						index;
-}							t_queue;
 
 // PRINT SOLVE
 

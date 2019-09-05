@@ -142,10 +142,10 @@ void free_node_lk(t_node_link *cur)
 {
 	if (cur->next)
 		free_node_lk(cur->next);
-	free(cur->node->edge);
-	free(cur->node->name);
+	// free(cur->node->edge);
+	// free(cur->node->name);
 	// free(cur->node->fathers);
-	free(cur->node);
+	// free(cur->node);
 	free(cur);
 }
 
@@ -153,6 +153,7 @@ void free_obj(t_objectif *obj)
 {
 	int i;
 
+	clock_t time = clock();
 	// i = -1;
 	// while (++i < obj->nb_node)
 	// 	free(obj->lst_node[i]->edge);
@@ -160,11 +161,14 @@ void free_obj(t_objectif *obj)
 	while (++i < obj->nb_node)
 		if (obj->lst_node_lk[i])
 			free_node_lk(obj->lst_node_lk[i]);
+	malloc_node(0, 0);
 	free(obj->lst_node);
 	free(obj->lst_node_lk);
 	free(obj->lst_edge);
 	free(obj->lst_edge_ord);
 	free(obj->dists);
+	free(obj->queue.node);
+	fprintf(stderr,"free time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 }
 
 int main(int argc, char **argv)

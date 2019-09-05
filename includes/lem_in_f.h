@@ -53,6 +53,8 @@ void            update_ways_len_with_node_lk(t_solution *sol);
 void            merge_way(t_solution *sol);
 int             make_way(t_objectif *obj, t_solution *sol);
 
+t_node		*malloc_node(int nb_node, int mode);
+
 //resolv_tmp
 // int				add_brother_in_queue(t_objectif *obj, t_node *node, t_queue *queue, int range);
 // int 			first_way(t_objectif *obj, t_solution *sol);
