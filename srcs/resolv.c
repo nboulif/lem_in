@@ -6,7 +6,7 @@
 /*   By: nboulif <nboulif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 03:03:30 by nboulif           #+#    #+#             */
-/*   Updated: 2019/09/04 21:20:03 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/05 18:41:00 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,39 +83,43 @@ void		next_to_best_sol(t_solution *best_sol, t_solution *next_sol)
 	best_sol->len = next_sol->len;
 }
 
-int			resolv(t_objectif *obj)
+int			resolv_part_init(t_objectif *obj, t_resolv_utils *u)
 {
-	int res;
-	int i;
-	int y;
-
-	clock_t time = clock();
-	if (!(obj->queue.node = malloc(sizeof(t_node*) * obj->nb_node)))
+	if (!(obj->queue.node = malloc(sizeof(t_node*) * (obj->nb_node * 2))))
 		return (0);
 	obj->queue.node[0] = obj->start_node;
 	obj->queue.size_queue = 1;
 	obj->queue.index = 0;
-	init_solver(obj);
-	i = 0;
-	while (i++ < obj->max_way)
+	u->time = clock();
+	u->i = 0;
+	return (1);
+}
+
+int			resolv(t_objectif *obj)
+{
+	t_resolv_utils u;
+
+	if (!(resolv_part_init(obj, &u)))
+		return (0);
+	while (u.i++ < obj->max_way)
 	{
-		if (!(res = find_way(obj)))
+		if (!(u.res = find_way(obj)))
 			break ;
-		else if (res == -1)
-			return (printf("ERROR RESOLV\n") & 0);
+		else if (u.res == -1)
+			return (0);
 		++obj->next_sol.nb_way;
 		evaluate_turn_solution(obj, &obj->next_sol);
 		if (obj->best_sol.nb_way &&
 				obj->best_sol.nb_turn < obj->next_sol.nb_turn)
 			continue;
-		y = obj->best_sol.nb_way;
-		while (y < obj->next_sol.nb_way)
-			if (!init_way(obj, &obj->best_sol.way[y++]))
+		u.y = obj->best_sol.nb_way;
+		while (u.y < obj->next_sol.nb_way)
+			if (!init_way(obj, &obj->best_sol.way[u.y++]))
 				return (0);
 		next_to_best_sol(&obj->best_sol, &obj->next_sol);
 		if (obj->best_sol.nb_way == obj->nb_ants)
 			break ;
 	}
-	fprintf(stderr, "resolv time -> |%f|\n", (float)(clock() - time) / CLOCKS_PER_SEC);
+	fprintf(stderr, "resolv time -> |%f|\n", (float)(clock() - u.time) / C_P_S);
 	return (obj->best_sol.nb_way ? 1 : 0);
 }

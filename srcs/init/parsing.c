@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhunders <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:12:31 by rhunders          #+#    #+#             */
-/*   Updated: 2019/03/12 17:12:33 by rhunders         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:40:55 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int			number_check(char *str)
-{
-	long	number;
-
-	number = ft_atol(str);
-	return (number <= INT_MAX && number >= INT_MIN);
-}
-
-int			check_coord(char *str)
-{
-	int i;
-
-	if (!ft_isdigit(str[0]))
-	{
-		if (str[0] != '-' && str[0] != '+')
-			return (0);
-		i = 1;
-	}
-	else
-		i = 0;
-	while (ft_isdigit(str[i]))
-		i++;
-	return (!(str[i] != ' ' || !ft_isdigit(str[i + 1]) ||
-		!number_check(str) || !number_check(&str[i + 1])));
-}
 
 int		is_node(char *str, int *i)
 {
@@ -48,7 +22,7 @@ int		is_node(char *str, int *i)
 		if (str[*i] == ' ')
 		{
 			if (!str[*i + 1] || !check_coord(&str[*i + 1]))
-				exit(write(2, "BAD NUMBER FOR COORD\n", 22));
+				exit(write(2, "ERROR\n", 6));
 			else
 			{
 				zap_line(str, i);
@@ -61,8 +35,8 @@ int		is_node(char *str, int *i)
 
 int		is_node_cond(char *str, int *i)
 {
-	int 		nb_space;
-	int 		x;
+	int		nb_space;
+	int		x;
 
 	if (str[*i] == ' ')
 		return (0);
@@ -93,7 +67,7 @@ int		count_node(char *str, t_objectif *info)
 	nb_node = 0;
 	tmp = ft_atol(str);
 	if (tmp > INT_MAX || tmp < INT_MIN || !tmp)
-		exit(write(2, "BAD NB OF ANTS\n", 16));
+		exit(write(2, "ERROR\n", 6));
 	info->nb_ants = tmp;
 	while (str[i] != '\n')
 		if (!str[i] || !ft_isdigit(str[i++]))
@@ -121,9 +95,7 @@ int		create_lst_node_tab(t_objectif *obj)
 	if (!(obj->lst_node = (t_node**)malloc(sizeof(t_node) * obj->nb_node)))
 		return (0);
 	obj->lst_node[0] = obj->start_node;
-	obj->start_node->id = 0;
 	obj->lst_node[obj->nb_node - 1] = obj->end_node;
-	obj->end_node->id = obj->nb_node - 1;
 	j = -1;
 	k = 1;
 	while (++j < obj->nb_node)
@@ -131,8 +103,7 @@ int		create_lst_node_tab(t_objectif *obj)
 		link = obj->lst_node_lk[j];
 		while (link)
 		{
-			if (link->node != obj->start_node &&
-				link->node != obj->end_node)
+			if (link->node != obj->start_node && link->node != obj->end_node)
 			{
 				link->node->id = k;
 				obj->lst_node[k++] = link->node;
@@ -143,16 +114,17 @@ int		create_lst_node_tab(t_objectif *obj)
 	return (1);
 }
 
-int extract_info(t_objectif *obj, char *str)
+int		extract_info(t_objectif *obj, char *str)
 {
 	int			i;
+	clock_t		time;
 
-	clock_t time = clock();
+	time = clock();
 	i = 0;
 	while (str[i] == '#')
 		if (!ft_strncmp(str + i, "##start\n", 8) ||
 			!ft_strncmp(str + i, "##end\n", 6))
-			exit(write(2, "\"##start\" ot \"##end\" before ants\n", 34));
+			return (0);
 		else
 			zap_line(str, &i);
 	if ((obj->nb_node = count_node(str + i, obj)) <= 0)
@@ -162,11 +134,11 @@ int extract_info(t_objectif *obj, char *str)
 		ft_strncmp(str + i, "##start\n", 8) &&
 		ft_strncmp(str + i, "##end\n", 6))
 		zap_line(str, &i);
-	if (!(make_tab_node(obj, str, &i)) ||
-		!create_lst_node_tab(obj))
-		exit(write(2, "ERROR\n", 14));
+	if (!(make_tab_node(obj, str, &i)) || !create_lst_node_tab(obj))
+		return (0);
 	if (!make_tab_edge(obj, str, &i))
-		exit(printf("ERROR IN EDGE\n"));
-	fprintf(stderr, "parse time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
+		return (0);
+	fprintf(stderr, "parse time -> %f\n",
+		(float)(clock() - time) / C_P_S);
 	return (!str[i]);
 }

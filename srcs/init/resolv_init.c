@@ -6,60 +6,11 @@
 /*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 17:17:16 by rhunders          #+#    #+#             */
-/*   Updated: 2019/09/04 18:05:14 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:48:56 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	delete_this_edge(t_node *node, t_edge *edge, t_objectif *obj)
-{
-	int x;
-
-	x = -1;
-	while (++x < node->nb_edge_f)
-		if (node->edge[x] == edge)
-		{
-			node->edge[x] = node->edge[--node->nb_edge_f];
-			if (node->nb_edge_f == 1 &&
-				node != obj->start_node &&
-				node != obj->end_node)
-			{
-				if (node == node->edge[0]->node2)
-					delete_this_edge(node->edge[0]->node1, node->edge[0], obj);
-				else
-					delete_this_edge(node->edge[0]->node2, node->edge[0], obj);
-			}
-			return ;
-		}
-}
-
-void	delete_dead_end(t_objectif *obj)
-{
-	int			i;
-	t_node_link	*link;
-
-	i = -1;
-	while (++i < obj->nb_node)
-	{
-		link = obj->lst_node_lk[i];
-		while (link)
-		{
-			if (link->node->nb_edge_f == 1 &&
-				link->node != obj->start_node &&
-				link->node != obj->end_node)
-			{
-				if (link->node == link->node->edge[0]->node2)
-					delete_this_edge(link->node->edge[0]->node1,
-									link->node->edge[0], obj);
-				else
-					delete_this_edge(link->node->edge[0]->node2,
-									link->node->edge[0], obj);
-			}
-			link = link->next;
-		}
-	}
-}
 
 int		create_tab_edge_in_node(t_objectif *obj)
 {
@@ -81,13 +32,36 @@ int		create_tab_edge_in_node(t_objectif *obj)
 	return (1);
 }
 
+void	rec_init_lst_edge_ord_part_two(t_objectif *obj, t_queue queue, int *k)
+{
+	int			j;
+	t_edge		*edge;
+	t_node		*node;
+
+	j = -1;
+	while (++j < queue.node[queue.index]->nb_edge_f)
+	{
+		edge = queue.node[queue.index]->edge[j];
+		if (queue.node[queue.index]->id == edge->node1->id)
+			node = edge->node2;
+		else
+			node = edge->node1;
+		if (!node->deja_vu_init)
+		{
+			node->deja_vu_init = 1;
+			queue.node[++queue.size_queue] = node;
+		}
+		if (!edge->deja_vu_init)
+		{
+			edge->deja_vu_init = 1;
+			obj->lst_edge_ord[(*k)++] = edge;
+		}
+	}
+}
+
 int		rec_init_lst_edge_ord(t_objectif *obj)
 {
 	t_queue		queue;
-	t_node		*node;
-	t_edge		*edge;
-
-	int			j;
 	int			k;
 
 	obj->lst_edge_ord = (t_edge **)malloc(sizeof(t_edge *) * obj->nb_edge);
@@ -101,27 +75,7 @@ int		rec_init_lst_edge_ord(t_objectif *obj)
 	queue.size_queue = 0;
 	queue.index = -1;
 	while (++queue.index <= queue.size_queue)
-	{
-		j = -1;
-		while (++j < queue.node[queue.index]->nb_edge_f)
-		{
-			edge = queue.node[queue.index]->edge[j];
-			if (queue.node[queue.index]->id == edge->node1->id)
-				node = edge->node2;
-			else
-				node = edge->node1;
-			if (!node->deja_vu_init)
-			{
-				node->deja_vu_init = 1;
-				queue.node[++queue.size_queue] = node;
-			}
-			if (!edge->deja_vu_init)
-			{
-				edge->deja_vu_init = 1;
-				obj->lst_edge_ord[k++] = edge;
-			}
-		}
-	}
+		rec_init_lst_edge_ord_part_two(obj, queue, &k);
 	obj->nb_edge_f = k;
 	free(queue.node);
 	return (1);

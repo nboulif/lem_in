@@ -6,11 +6,24 @@
 /*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 23:20:53 by rhunders          #+#    #+#             */
-/*   Updated: 2019/09/04 20:06:58 by nboulif          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:36:10 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int				init_way(t_objectif *obj, t_way *way)
+{
+	if (!(way->nodes_lk =
+		(t_node_link *)malloc(sizeof(t_node_link) * (obj->nb_node + 1))) ||
+		!(way->edges_lk =
+			(t_edge_link *)malloc(sizeof(t_edge_link) * (obj->nb_node + 1))))
+	{
+		free(way->nodes_lk);
+		return (0);
+	}
+	return (1);
+}
 
 unsigned long	hash(unsigned char *str)
 {

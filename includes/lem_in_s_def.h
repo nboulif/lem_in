@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zap.c                                              :+:      :+:    :+:   */
+/*   lem_in_s_def.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhunders <rhunders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/21 23:13:20 by rhunders          #+#    #+#             */
-/*   Updated: 2019/03/26 23:56:05 by nboulif          ###   ########.fr       */
+/*   Created: 2019/03/21 22:45:02 by rhunders          #+#    #+#             */
+/*   Updated: 2019/09/05 18:40:40 by nboulif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef LEM_IN_S_DEF_H
+# define LEM_IN_S_DEF_H
 
-void	zap_line(char *str, int *i)
-{
-	while (str[*i])
-	{
-		*i += 1;
-		if (str[*i] == '\n')
-		{
-			*i += 1;
-			return ;
-		}
-	}
-}
+typedef struct s_node				t_node;
+typedef struct s_edge				t_edge;
+typedef struct s_father				t_father;
+typedef struct s_solution			t_solution;
 
-void	zap_comm(char *str, int *i)
-{
-	while (str[*i] == '#')
-		zap_line(str, i);
-}
+#endif

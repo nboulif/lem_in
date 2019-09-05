@@ -14,7 +14,7 @@ NAME = lem-in
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror #-O3 #-fsanitize=address
 
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)
@@ -28,21 +28,29 @@ HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = srcs/
-SOURCES_LIST = lem_in.c \
-				init/parsing.c \
+SOURCES_LIST = 	init/edges_create.c \
+				init/init_utils.c \
+				init/nodes_create_2.c \
 				init/nodes_create.c \
-				init/edges_create.c \
+				init/parsing.c \
+				init/resolv_init_2.c \
 				init/resolv_init.c \
-				init/zap.c \
-				utils.c \
-				edges_utils.c \
-				print_utils.c \
-				print_solution.c \
+				bellmanford_2.c \
 				bellmanford.c \
-				resolv.c \
+				edges_utils.c \
+				free_obj.c \
+				lem_in_2.c \
+				lem_in.c \
+				print_solution_2.c \
+				print_solution_3.c \
+				print_solution.c \
 				resolv_bf.c \
-				resolv_init.c \
+				resolv.c \
+				utils.c \
+				way_2.c \
+				way_3.c \
 				way.c
+				
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objs/
