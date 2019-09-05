@@ -33,6 +33,7 @@
 ** si une node n'a qu'un edge ou moins alors on peut le supprimer directement.
 */
 int fd;
+
 int read_all(char **str)
 {
 	int index;
@@ -130,37 +131,10 @@ int init_max_father_in_node(t_objectif *obj)
 	return (1);
 }
 
-void print_main_info(t_objectif obj)
-{
-	printf("nb_node => %d\n", obj.nb_node);
-	printf("nb_edge => %d\n", obj.nb_edge);
-	printf("nb_edge_f => %d\n", obj.nb_edge_f);
-	printf("max_way => %d\n", obj.max_way);
-}
-
-void free_node_lk(t_node_link *cur)
-{
-	if (cur->next)
-		free_node_lk(cur->next);
-	// free(cur->node->edge);
-	// free(cur->node->name);
-	// free(cur->node->fathers);
-	// free(cur->node);
-	free(cur);
-}
-
 void free_obj(t_objectif *obj)
 {
-	int i;
-
 	clock_t time = clock();
-	// i = -1;
-	// while (++i < obj->nb_node)
-	// 	free(obj->lst_node[i]->edge);
-	i = -1;
-	while (++i < obj->nb_node)
-		if (obj->lst_node_lk[i])
-			free_node_lk(obj->lst_node_lk[i]);
+	malloc_node_lk(0, 0);
 	malloc_node(0, 0);
 	free(obj->lst_node);
 	free(obj->lst_node_lk);
@@ -188,8 +162,6 @@ int main(int argc, char **argv)
 		fd = 0;
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
-	// printf("time for read and parse :");
-	// clock_t time = clock();
 	if (!(size = read_all(&str)) ||
 		!extract_info(&obj, str) || !init_resolv(&obj))
 	{
@@ -197,8 +169,6 @@ int main(int argc, char **argv)
 		printf("Error init\n");
 		return (0);
 	}
-	// printf("%f sec\n", (double)(clock() - time) / (double)CLOCKS_PER_SEC);
-	// exit(0);
 	estimate_max_way(&obj);
 	print_node_and_edge(str, size);
 

@@ -12,7 +12,6 @@
 
 #include "lem_in.h"
 
-
 int			init_node(t_node *node, char *name, int nb_node, int size_name)
 {
 	node->name = name;
@@ -57,32 +56,26 @@ t_node		*malloc_node(int nb_node, int mode)
 
 t_node		*create_node(char *str, int *i, int nb_node)
 {
-	t_node	*node;
-	char	*name;
-	int		index;
-	int		size;
+	t_node		*node;
+	t_string	nm;
 
-	size = 21;
-	index = 0;
-	if (str[*i] == 'L' || !(name = malloc(size)))
+	nm.size = 21;
+	nm.index = 0;
+	if (str[*i] == 'L' || !(nm.chaine = malloc(nm.size)))
 		return (NULL);
 	while (str[*i] != ' ')
 	{
-		if (index == size - 1)
-			if (!ft_realloc((void**)&name, &size, size * 2, sizeof(char)))
-			{
-				free(name);
+		if (nm.index == nm.size - 1 &&
+		!ft_realloc((void**)&nm.chaine, &nm.size, nm.size * 1.8, sizeof(char)))
 				return (NULL);
-			}
-		name[index++] = str[(*i)++];
+		nm.chaine[nm.index++] = str[(*i)++];
 	}
-	name[index] = 0;
 	if (!(node = malloc_node(nb_node, 1)) ||
-		(index != size &&
-		!ft_realloc((void**)&name, &index, index, sizeof(char))) ||
-		!init_node(node, name, nb_node, index))
+		(nm.index != nm.size &&
+		!ft_realloc((void**)&nm.chaine, &nm.index, nm.index, sizeof(char))) ||
+		!init_node(node, nm.chaine, nb_node, nm.index))
 	{
-		free(name);
+		free(nm.chaine);
 		free(node);
 		return (NULL);
 	}
@@ -90,11 +83,30 @@ t_node		*create_node(char *str, int *i, int nb_node)
 	return (node);
 }
 
-int			add_in_lst(t_node_link **link, t_node *node)
+t_node_link	*malloc_node_lk(int nb_node, int mode)
+{
+	static t_node_link	*node_lk_malloc = NULL;
+	static int		index = 0;
+	int				i;
+
+	if (!mode)
+	{
+		i = 0;
+		free(node_lk_malloc);
+		return (NULL);
+	}
+	if (!node_lk_malloc)
+		if (!(node_lk_malloc = malloc(sizeof(t_node_link) * (nb_node + 1))))
+			return (NULL);
+	return (&node_lk_malloc[index++]);
+}
+
+int			add_in_lst(t_node_link **link, t_node *node, int nb_node)
 {
 	t_node_link	*lk;
 
-	if (!(lk = malloc(sizeof(t_node))))
+	if (!(lk = malloc_node_lk(nb_node, 1)))
+		// !(lk = malloc(sizeof(t_node_link))))
 	 	return (0);
 	lk->next = *link;
 	lk->node = node;
@@ -109,7 +121,6 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 
 	go = 0;
 	node = NULL;
-	// printf("exec_command -> |%.*s|\n", (int)(strchr(&str[*i], '\n') - &str[*i]), &str[*i]);
 	while (1)
 	{
 		if (!ft_strncmp(str + *i, "##start\n", 8))
@@ -120,11 +131,10 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 		if (go || str[*i] != '#')
 			break ;
 	}
-	if (go &&
-		((go == 8 && obj->start_node) ||
+	if (go && ((go == 8 && obj->start_node) ||
 		 (go == 6 && obj->end_node) ||
 		 (!(node = create_node(str, i, obj->nb_node)) ||
-		 !add_in_lst(&obj->lst_node_lk[node->id], node))))
+		 !add_in_lst(&obj->lst_node_lk[node->id], node, obj->nb_node))))
 		return (0);
 	if (go == 8)
 		obj->start_node = node;
@@ -136,26 +146,24 @@ int			exec_command(t_objectif *obj, char *str, int *i)
 int			make_tab_node(t_objectif *obj, char *str, int *i)
 {
 	t_node	*node;
-	int		x;
 
-	x = 0;
-	if (!(obj->lst_node_lk = malloc(sizeof(t_node_link*)
-		* obj->nb_node)))
+	if (!(obj->lst_node_lk = malloc(sizeof(t_node_link*) *
+			obj->nb_node)))
 		return (0);
-	while (x < obj->nb_node)
-		obj->lst_node_lk[x++] = NULL;
-	while (str[*i] == '#' ||
-			is_node_cond(str, i))
-	{
+	ft_memset(obj->lst_node_lk, 0, sizeof(t_node_link*) * obj->nb_node);
+	while (1)
 		if (str[*i] == '#')
 		{
 			if (!(exec_command(obj, str, i)))
 				return (0);
 		}
-		else
+		else if (is_node_cond(str, i)) 
+		{
 			if (!(node = create_node(str, i, obj->nb_node)) ||
-				!add_in_lst(obj->lst_node_lk + node->id, node))
+				!add_in_lst(obj->lst_node_lk + node->id, node, obj->nb_node))
 				return (0);
-	}
+		}
+		else
+			break ;
 	return (obj->end_node && obj->start_node);
 }

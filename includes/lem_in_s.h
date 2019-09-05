@@ -126,7 +126,6 @@ typedef struct 				s_solution
 	int						len;
 }							t_solution;
 
-
 // PRINT SOLVE
 
 typedef struct 				s_string

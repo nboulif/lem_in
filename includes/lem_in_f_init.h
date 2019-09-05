@@ -23,7 +23,8 @@ int				extract_info(t_objectif *obj, char *str);
 int				init_node(t_node *node, char *name, int nb_node, int size_name);
 t_node			*create_node(char *str, int *i, int nb_node);
 int				exec_command(t_objectif *obj, char *str, int *i);
-int				add_in_lst(t_node_link **link, t_node *node);
+int				add_in_lst(t_node_link **link, t_node *node, int nb_node);
+t_node_link     *malloc_node_lk(int nb_node, int mode);
 int				make_tab_node(t_objectif *obj, char *str, int *i);
 
 //edges_create

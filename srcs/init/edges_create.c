@@ -20,11 +20,17 @@ t_edge		create_edge(t_node *node1, t_node *node2)
 		return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
 	node1->nb_edge_o++;
 	node2->nb_edge_o++;
-	edge = (t_edge){node1, node2, 1, 1, BIDIR, 0, 0};
+	edge.node1 = node1;
+	edge.node2 = node2;
+	edge.w1 = 1;
+	edge.w2 = 1;
+	edge.direction = BIDIR;
+	edge.deja_vu = 0;
+	edge.deja_vu_init = 0;
 	return (edge);
 }
 
-t_node *find_in_lst(t_objectif *obj, char *name, int size)
+t_node		*find_in_lst(t_objectif *obj, char *name, int size)
 {
 	unsigned long	id;
 	t_node_link		*lst_node_lk;
@@ -46,25 +52,21 @@ t_node *find_in_lst(t_objectif *obj, char *name, int size)
 	return (NULL);
 }
 
-
 t_edge		next_edge(t_objectif *obj, char *str, int *i)
 {
 	int		x;
 	int		l;
 	t_edge	edge;
 
-	zap_comm(str, i);
 	x = *i;
+	zap_comm(str, i);
 	l = line_len(str, i) + *i;
 	while (x < l)
 	{
 		if (str[x] == '-')
 		{
 			if (x == *i)
-			{
-				*i = l;
-				return ((t_edge){NULL, NULL, 0, 0, 0, 0, 0});
-			}
+				return ((t_edge){NULL, NULL, (*i = l), 0, 0, 0, 0});
 			edge = create_edge(
 				find_in_lst(obj, str + *i, x - *i),
 				find_in_lst(obj, str + x + 1, l - (x + 1)));
@@ -90,10 +92,8 @@ int			make_tab_edge(t_objectif *obj, char *str, int *i)
 	while ((edge = next_edge(obj, str, i)).node1)
 	{
 		if (index > size || !edge.node2)
-		{
 			return (0);
-		}
-	if (edge.node1 != edge.node2)
+		if (edge.node1 != edge.node2)
 			obj->lst_edge[index++] = edge;
 		if (!str[*i])
 			break ;

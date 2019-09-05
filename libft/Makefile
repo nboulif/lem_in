@@ -27,7 +27,7 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	  ft_toupper.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 	  ft_lstiter.c ft_lstmap.c ft_convert_base.c ft_count_word.c \
 	  ft_atoi_base.c ft_lstadd_back.c ft_lst_read.c ft_itoa_base.c \
-	  ft_lstclear.c ft_tabclear.c ft_indexof.c \
+	  ft_lstclear.c ft_tabclear.c ft_indexof.c ft_atol.c\
 	  ft_array_strdel.c
 
 OBJ = $(SRC:.c=.o) 
