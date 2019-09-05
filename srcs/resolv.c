@@ -95,7 +95,7 @@ int			resolv(t_objectif *obj)
 	obj->queue.node[0] = obj->start_node;
 	obj->queue.size_queue = 1;
 	obj->queue.index = 0;
-	init_solver(obj, &best_sol, &next_sol);
+	init_solver(obj);
 	i = 0;
 	while (i++ < obj->max_way)
 	{
@@ -116,5 +116,6 @@ int			resolv(t_objectif *obj)
 		if (obj->best_sol.nb_way == obj->nb_ants)
 			break ;
 	}
+	fprintf(stderr, "resolv time -> |%f|\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 	return (obj->best_sol.nb_way ? 1 : 0);
 }

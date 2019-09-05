@@ -52,6 +52,8 @@ void	bf_both_deja_vu(t_objectif *obj, t_bf_utils *bf, t_edge *e)
 		obj->dists[bf->u->id] + bf->w < obj->dists[bf->v->id + obj->nb_node])
 	{
 		obj->dist_up = 1;
+		if (obj->dists[bf->v->id + obj->nb_node] == INT_MAX)
+			obj->queue.node[obj->queue.size_queue++] = bf->v;
 		obj->dists[bf->v->id + obj->nb_node] = obj->dists[bf->u->id] + bf->w;
 		bf->v->fathers[obj->next_sol.nb_way].node_out = bf->u;
 		bf->v->fathers[obj->next_sol.nb_way].edge_out = e;
@@ -75,6 +77,8 @@ int		bf_other(t_objectif *obj, t_bf_utils *bf, t_edge *e)
 				obj->dists[bf->v->id] <= obj->dists[bf->u->id +
 				obj->nb_node] + bf->w)
 			return (1);
+		if (obj->dists[bf->v->id] == INT_MAX)
+			obj->queue.node[obj->queue.size_queue++] = bf->v;
 		obj->dists[bf->v->id] = obj->dists[bf->u->id + obj->nb_node] + bf->w;
 		bf->v->father_mode = 1;
 	}
@@ -83,6 +87,8 @@ int		bf_other(t_objectif *obj, t_bf_utils *bf, t_edge *e)
 		if (obj->dists[bf->u->id] == __INT_MAX__ ||
 			obj->dists[bf->u->id] + bf->w >= obj->dists[bf->v->id])
 			return (1);
+		if (obj->dists[bf->v->id] == INT_MAX)
+			obj->queue.node[obj->queue.size_queue++] = bf->v;
 		obj->dists[bf->v->id] = obj->dists[bf->u->id] + bf->w;
 		bf->v->father_mode = 0;
 	}
@@ -131,14 +137,14 @@ void	apply_algo_bellman_ford_part_two(t_objectif *obj, int o)
 	t_edge		*e;
 
 	j = -1;
-	while (++j < obj->lst_node[o]->nb_edge_f)
+	while (++j < obj->queue.node[o]->nb_edge_f)
 	{
-		e = obj->lst_node[o]->edge[j];
+		e = obj->queue.node[o]->edge[j];
 		if (e->direction == NODIR)
 			continue ;
-		if (obj->lst_node[o] == e->node1 && e->direction & UNIDIR1)
+		if (obj->queue.node[o] == e->node1 && e->direction & UNIDIR1)
 			check_bellman_ford(obj, e, 1);
-		else if (obj->lst_node[o] == e->node2 && e->direction & UNIDIR2)
+		else if (obj->queue.node[o] == e->node2 && e->direction & UNIDIR2)
 			check_bellman_ford(obj, e, 2);
 	}
 }
@@ -155,7 +161,7 @@ int		apply_algo_bellman_ford(t_objectif *obj)
 	{
 		obj->dist_up = 0;
 		o = -1;
-		while (++o < obj->nb_node)
+		while (++o < obj->queue.size_queue)
 			apply_algo_bellman_ford_part_two(obj, o);
 		if (!obj->dist_up)
 			break ;

@@ -81,6 +81,23 @@ typedef struct				s_edge
 	int						deja_vu_init;
 }							t_edge;
 
+typedef struct 				s_way
+{
+	t_node_link				*nodes_lk;
+	t_edge_link				*edges_lk;
+	int						len;
+	int						cost;
+	int						nb_ants;
+}							t_way;
+
+typedef struct 				s_solution
+{
+	t_way					*way;
+	int						nb_way;
+	int						nb_turn;
+	int						len;
+}							t_solution;
+
 typedef struct 				s_queue
 {
 	t_node					**node;
@@ -108,26 +125,6 @@ typedef struct				s_objectif
 	t_solution				best_sol;
 	t_solution				next_sol;
 }							t_objectif;
-
-// SOLVE
-
-typedef struct 				s_way
-{
-	t_node_link				*nodes_lk;
-	t_edge_link				*edges_lk;
-	int						len;
-	int						cost;
-	int						nb_ants;
-}							t_way;
-
-typedef struct 				s_solution
-{
-	t_way					*way;
-	int						nb_way;
-	int						nb_turn;
-	int						len;
-}							t_solution;
-
 
 // SOLVE UTILS
 

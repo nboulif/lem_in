@@ -63,13 +63,14 @@ t_node		*create_node(char *str, int *i, int nb_node)
 	nm.index = 0;
 	if (str[*i] == 'L' || !(nm.chaine = malloc(nm.size)))
 		return (NULL);
-	while (str[*i] != ' ')
+	while (str[*i - 1] != ' ')
 	{
 		if (nm.index == nm.size - 1 &&
 		!ft_realloc((void**)&nm.chaine, &nm.size, nm.size * 1.8, sizeof(char)))
 				return (NULL);
 		nm.chaine[nm.index++] = str[(*i)++];
 	}
+	nm.chaine[nm.index] = 0;
 	if (!(node = malloc_node(nb_node, 1)) ||
 		(nm.index != nm.size &&
 		!ft_realloc((void**)&nm.chaine, &nm.index, nm.index, sizeof(char))) ||
