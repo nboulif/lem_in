@@ -153,6 +153,7 @@ int		init_resolv(t_objectif *obj)
 {
 	if (!link_node_and_edge(obj))
 		return (0);
+	delete_dead_end(obj);
 	rec_init_lst_edge_ord(obj);
 	return (1);
 }

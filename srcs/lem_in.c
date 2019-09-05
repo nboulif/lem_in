@@ -107,37 +107,20 @@ int			init_max_father_in_node(t_objectif *obj)
 	return (1);
 }
 
-void		print_main_info(t_objectif obj)
+void free_obj(t_objectif *obj)
 {
-	printf("nb_node => %d\n", obj.nb_node);
-	printf("nb_edge => %d\n", obj.nb_edge);
-	printf("nb_edge_f => %d\n", obj.nb_edge_f);
-	printf("max_way => %d\n", obj.max_way);
-}
+    int i;
 
-void		free_node_lk(t_node_link *cur)
-{
-	if (cur->next)
-		free_node_lk(cur->next);
-	free(cur->node->edge);
-	free(cur->node->name);
-	free(cur->node);
-	free(cur);
-}
-
-void		free_obj(t_objectif *obj)
-{
-	int i;
-
-	i = -1;
-	while (++i < obj->nb_node)
-		if (obj->lst_node_lk[i])
-			free_node_lk(obj->lst_node_lk[i]);
+	clock_t time = clock();
+	malloc_node_lk(0, 0);
+	malloc_node(0, 0);
 	free(obj->lst_node);
 	free(obj->lst_node_lk);
 	free(obj->lst_edge);
 	free(obj->lst_edge_ord);
 	free(obj->dists);
+	free(obj->queue.node);
+	fprintf(stderr,"free time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 	i = -1;
 	while (++i < obj->best_sol.nb_way)
 	{

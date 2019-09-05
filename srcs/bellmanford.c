@@ -149,6 +149,7 @@ int		apply_algo_bellman_ford(t_objectif *obj)
 	int			o;
 
 	init_dist_deja_vu_lst(obj);
+	obj->queue.size_queue = 1;
 	i = -1;
 	while (++i < obj->nb_node)
 	{

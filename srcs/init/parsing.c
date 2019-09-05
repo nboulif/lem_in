@@ -12,32 +12,6 @@
 
 #include "lem_in.h"
 
-long		ft_atol(const char *str)
-{
-	long		i;
-	long	resultat;
-	int		signe;
-
-	signe = 1;
-	i = 0;
-	resultat = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' ||
-			str[i] == '\r' || str[i] == '\v' ||
-			str[i] == '\f')
-		i++;
-	if ((str[i] == '-' || str[i] == '+') && str[i + 1] > 47 && str[i + 1] < 58)
-		signe = (str[i] == '+') ? 1 : -1;
-	i = (str[i] == '-' || str[i] == '+') ? i + 1 : i;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		resultat = resultat * 10 + str[i] - '0';
-		if (resultat < 0)
-			return ((signe < 0) ? 0 : -1);
-		i++;
-	}
-	return (signe * resultat);
-}
-
 int			number_check(char *str)
 {
 	long	number;
@@ -66,7 +40,6 @@ int			check_coord(char *str)
 
 int		is_node(char *str, int *i)
 {
-
 	if (str[*i] == ' ')
 		return (0);
 	*i -= 1;
@@ -138,31 +111,13 @@ int		count_node(char *str, t_objectif *info)
 	}
 	return (nb_node);
 }
-extern int nb_line;
 
-int extract_info(t_objectif *obj, char *str)
+int		create_lst_node_tab(t_objectif *obj)
 {
-	int			i;
 	int			j;
 	int			k;
 	t_node_link	*link;
 
-	i = 0;
-	while (str[i] == '#')
-		if (!ft_strncmp(str + i, "##start\n", 8) ||
-			!ft_strncmp(str + i, "##end\n", 6))
-			exit(write(2, "\"##start\" ot \"##end\" before ants\n", 34));
-		else
-			zap_line(str, &i);
-	if ((obj->nb_node = count_node(str + i, obj)) <= 0)
-		return (0);
-	zap_line(str, &i);
-	while (str[i] == '#' &&
-		ft_strncmp(str + i, "##start\n", 8) &&
-		ft_strncmp(str + i, "##end\n", 6))
-		zap_line(str, &i);
-	if (!(make_tab_node(obj, str, &i)))
-		exit(write(2, "MALLOC ERROR\n", 14));
 	if (!(obj->lst_node = (t_node**)malloc(sizeof(t_node) * obj->nb_node)))
 		return (0);
 	obj->lst_node[0] = obj->start_node;
@@ -185,7 +140,33 @@ int extract_info(t_objectif *obj, char *str)
 			link = link->next;
 		}
 	}
+	return (1);
+}
+
+int extract_info(t_objectif *obj, char *str)
+{
+	int			i;
+
+	clock_t time = clock();
+	i = 0;
+	while (str[i] == '#')
+		if (!ft_strncmp(str + i, "##start\n", 8) ||
+			!ft_strncmp(str + i, "##end\n", 6))
+			exit(write(2, "\"##start\" ot \"##end\" before ants\n", 34));
+		else
+			zap_line(str, &i);
+	if ((obj->nb_node = count_node(str + i, obj)) <= 0)
+		return (0);
+	zap_line(str, &i);
+	while (str[i] == '#' &&
+		ft_strncmp(str + i, "##start\n", 8) &&
+		ft_strncmp(str + i, "##end\n", 6))
+		zap_line(str, &i);
+	if (!(make_tab_node(obj, str, &i)) ||
+		!create_lst_node_tab(obj))
+		exit(write(2, "ERROR\n", 14));
 	if (!make_tab_edge(obj, str, &i))
 		exit(printf("ERROR IN EDGE\n"));
+	fprintf(stderr, "parse time -> %f\n", (float)(clock() - time) / CLOCKS_PER_SEC);
 	return (!str[i]);
 }
