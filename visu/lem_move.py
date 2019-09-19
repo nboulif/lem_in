@@ -18,10 +18,13 @@ def move_one_ant(ant_id, next_node_name, indice_thread, nb_ants):
 
     next_node = lg.all_nodes[next_node_name]
     try:
-        link = lg.all_edges[cur_node["name"]+"-"+next_node["name"]]
+        try:
+            link = lg.all_edges[cur_node["name"]+"-"+next_node["name"]]
+        except:
+            link = lg.all_edges[next_node["name"]+"-"+cur_node["name"]]
     except:
-        link = lg.all_edges[next_node["name"]+"-"+cur_node["name"]]
-
+        return
+        
     link["edge"].color = link["color2"]
     link["edge"].opacity = link["opacity2"]
     pos = vector(0, 0, 0)

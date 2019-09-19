@@ -148,10 +148,10 @@ def init_all_path_node():
                     link = lg.all_edges[cur_node["name"]+"-"+next_node["name"]]
                 except:
                     link = lg.all_edges[next_node["name"]+"-"+cur_node["name"]]
-                link["color2"] = all_color[count] * 4
+                link["color2"] = all_color[count % 6] * 4
                 link["opacity1"] = 0.5  
                 link["opacity2"] = 0.2
-            except Exception:
+            except Exception as e:
                 pass
                 # print("ERROR init -> {}".format(e))
 
