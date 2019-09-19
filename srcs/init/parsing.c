@@ -22,7 +22,7 @@ int		is_node(char *str, int *i)
 		if (str[*i] == ' ')
 		{
 			if (!str[*i + 1] || !check_coord(&str[*i + 1]))
-				exit(write(2, "ERROR\n", 6));
+				exit(write(2, "ERROR\n", 13));
 			else
 			{
 				zap_line(str, i);

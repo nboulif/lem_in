@@ -81,9 +81,9 @@ t_edge		next_edge(t_objectif *obj, char *str, int *i)
 
 int			make_tab_edge(t_objectif *obj, char *str, int *i)
 {
-	t_edge	edge;
-	int		index;
-	int		size;
+	t_edge				edge;
+	unsigned int		index;
+	unsigned int		size;
 
 	index = 0;
 	size = obj->nb_node * obj->nb_node;
@@ -101,5 +101,5 @@ int			make_tab_edge(t_objectif *obj, char *str, int *i)
 	}
 	obj->nb_edge = index;
 	return (!(!index || (index != size && !ft_realloc((void**)&obj->lst_edge,
-		&index, index, sizeof(t_edge)))));
+		(int*)&index, index, sizeof(t_edge)))));
 }

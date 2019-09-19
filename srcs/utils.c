@@ -53,23 +53,27 @@ int				ft_min(int a, int b, int c)
 	return (b < c ? b : c);
 }
 
-int				ft_realloc(void **tab, int *size,
-		int new_size, size_t type_size)
+int				ft_realloc(void **tab, int *size_av,
+		int new_size_ap, size_t type_size)
 {
-	char *save;
+	char			*save;
+	unsigned int	size;
+	unsigned int	new_size;
 
-	if (new_size == *size)
+	size = *size_av;
+	new_size = new_size_ap;
+	if (new_size == size)
 		return (1);
 	if (!(save = malloc(new_size * type_size)))
 		return (0);
-	if (*size)
+	if (size)
 	{
-		ft_memcpy(save, *tab, *size * type_size);
+		ft_memcpy(save, *tab, size * type_size);
 		free(*tab);
 	}
 	*tab = save;
-	if (new_size > *size)
-		ft_memset(*tab + *size, 0, (new_size - *size) * type_size);
-	*size = new_size;
+	if (new_size > size)
+		ft_memset(*tab + size, 0, (new_size - size) * type_size);
+	*size_av = new_size;
 	return (1);
 }

@@ -44,19 +44,16 @@ int			init_max_father_in_node(t_objectif *obj)
 int			lem_in(t_objectif *obj, char *str, int size)
 {
 	if (!obj->max_way)
-		return (free_obj_and_print_error(obj, "ERROR\n"));
+		return (free_obj_and_print_error(obj, "ERROR MAX_WAY\n"));
 	if (!(init_max_father_in_node(obj)))
-		return (free_obj_and_print_error(obj, "ERROR\n"));
+		return (free_obj_and_print_error(obj, "ERROR 2\n"));
 	if (!init_solver(obj))
-		return (free_obj_and_print_error(obj, "ERROR\n"));
+		return (free_obj_and_print_error(obj, "ERROR 3\n"));
 	if (!resolv(obj))
-		return (free_obj_and_print_error(obj, "ERROR\n"));
-	else
-	{
-		print_node_and_edge(str, size);
-		if (!print_ants(obj))
-			return (free_obj_and_print_error(obj, "ERROR\n"));
-	}
+		return (free_obj_and_print_error(obj, "ERROR 4\n"));
+	print_node_and_edge(str, size);
+	if (!print_ants(obj))
+		return (free_obj_and_print_error(obj, "ERROR 5\n"));
 	alloc_t_father(obj, 0);
 	free_obj(obj);
 	return (1);
@@ -82,11 +79,11 @@ int			main(int argc, char **argv)
 		|| !init_resolv(&obj))
 	{
 		free(str);
-		free_obj_and_print_error(&obj, "ERROR\n");
-		return (0);
+		return (free_obj_and_print_error(&obj, "ERROR\n"));
 	}
 	estimate_max_way(&obj);
 	lem_in(&obj, str, size);
 	free(str);
+	exit(1);
 	return (1);
 }

@@ -29,7 +29,7 @@ int		check_atomic_part_two(t_objectif *obj, t_node *node)
 				get_right_node_in_edge(e_check->edge, node_checker, 0);
 			if (node_checker == node && node != obj->end_node && node)
 			{
-				ft_putendl("CROISEMENT");
+				ft_putendl_fd("CROISEMENT", 2);
 				return (1);
 			}
 			e_check = e_check->next;
@@ -50,7 +50,7 @@ int		check_atomic(t_objectif *obj, t_way *way)
 		node = get_right_node_in_edge(e_ln->edge, node, 0);
 		if (e_ln->next && !node)
 		{
-			ft_putendl("DISCONTINUE");
+			ft_putendl_fd("DISCONTINUE", 2);
 			return (1);
 		}
 		if (node && check_atomic_part_two(obj, node))
