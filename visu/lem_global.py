@@ -33,6 +33,10 @@ def init():
     global radius_ring
     global radius_ring_node
 
+    
+    global nb_visited
+
+
     from vpython import scene
     from vpython import color
     from vpython import text
@@ -48,13 +52,15 @@ def init():
     
     all_path_nodes = []
     
+    nb_visited = 0
+
     nb_nodes = 0
     nb_ants = 0
     n_ant = 0
     vision_ant = 0
-    dist_ring = 80
+    dist_ring = 40
     radius_ring_node = 10
-    radius_ring = radius_ring_node + 10
+    radius_ring = 5
 
     dist = 10
 

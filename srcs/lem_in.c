@@ -75,7 +75,7 @@ int			main(int argc, char **argv)
 	}
 	ft_memset(&obj, 0, sizeof(t_objectif));
 	str = NULL;
-	if (!(size = read_all(&str, fd)) || !extract_info(&obj, str)
+	if (!read_all(&str, fd) || !(size = extract_info(&obj, str))
 		|| !init_resolv(&obj))
 	{
 		free(str);

@@ -20,7 +20,8 @@ def make_tree_node(reinit=False):
         
     node_next_lvl = []
     node_done = []
-    
+
+    lg.nb_visited += 1
     # lg.start_node["node"].pos = vector(x, y, z)
     lg.start_node["o_pos_v2"] = vector(x, y, z)
     if not reinit:
@@ -38,16 +39,16 @@ def make_tree_node(reinit=False):
     z += lg.dist_ring
 
     #node_done.append(lg.start_node["name"])
-    lg.start_node["visited"] = 1
+    lg.start_node["visited"] = lg.nb_visited
     now = datetime.now()
     for link in lg.start_node["links"]:
         if link["node1"]["name"] == lg.start_node["name"]:
             node_next_lvl.append(link["node2"])
-            link["node2"]["visited"] = 1
+            link["node2"]["visited"] = lg.nb_visited
             #node_done.append(link["node2"]["name"])
         else:
             node_next_lvl.append(link["node1"])
-            link["node1"]["visited"] = 1
+            link["node1"]["visited"] = lg.nb_visited
             #node_done.append(link["node1"]["name"])
     print(f"link {datetime.now() - now}")
     lvl = 1
@@ -55,23 +56,24 @@ def make_tree_node(reinit=False):
         node_current_level = [i for i in node_next_lvl]
         # print("{}".format([i["name"] for i in node_current_level]))
         step = len(node_current_level)
-        circ = step * 5
-        if circ < 1000:
-            lg.radius_ring = circ / (pi * 2)
+
+        circ = step * lg.radius_ring 
+        if circ < 5000:
+            radius_ring = circ / (pi * 2)
         else :
-            lg.radius_ring = 1000 / (pi * 2)
-        lg.radius_ring_node = lg.radius_ring
+            radius_ring = 5000 / (pi * 2)
+        lg.radius_ring_node = radius_ring
         if not reinit:
             lg.all_rings.append(ring(visible=False, 
                 pos=vector(0, 0, z),
                 axis=vector(0, 0, z + 1),
                 opacity=0.2,
                 thickness=0.3, 
-                radius=lg.radius_ring,
+                radius=radius_ring,
                 color=color.white)
             )
         else:
-            lg.all_rings[lvl].radius = lg.radius_ring
+            lg.all_rings[lvl].radius = radius_ring
             lg.all_rings[lvl].pos=vector(0, 0, z)
             lg.all_rings[lvl].axis=vector(0, 0, z + 1)
         lvl += 1
@@ -99,14 +101,15 @@ def make_tree_node(reinit=False):
         node_next_lvl = []
         for node in node_current_level:
             for i in node["links"]:
-                if i["node1"]["name"] == node["name"] and not i["node2"]["visited"]:
-                    node_next_lvl.append(i["node2"])
-                    i["node2"]["visited"] = 1
-                    #node_done.append(i["node2"]["name"])
-                elif not i["node1"]["visited"]:
-                    node_next_lvl.append(i["node1"])
-                    i["node1"]["visited"] = 1
-                    #node_done.append(i["node1"]["name"])
+                if i["node2"]["visited"] != lg.nb_visited :
+                    if i["node1"]["name"] == node["name"] :
+                        node_next_lvl.append(i["node2"])
+                        i["node2"]["visited"] = lg.nb_visited
+                        #node_done.append(i["node2"]["name"])
+                    else :
+                        node_next_lvl.append(i["node1"])
+                        i["node1"]["visited"] = lg.nb_visited
+                        #node_done.append(i["node1"]["name"])
         print(f"bfs{datetime.now() - now}")
         z += lg.dist_ring
 

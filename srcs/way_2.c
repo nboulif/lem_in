@@ -20,7 +20,7 @@ void		merge_edge_part_two(t_solution *sol, t_e_ln_utils *e_ln_u,
 	else
 	{
 		e_ln_u->e_ln_last_b = e_ln_u->e_ln_last_a;
-		e_ln_u->e_ln_old_b = e_ln_u->e_ln_last_a;
+		e_ln_u->e_ln_old_b = e_ln_u->e_ln_old_a;
 		merge_multiple_disc_edge(sol, e_ln_u);
 		node_out->deja_vu_in_way -= 3;
 	}

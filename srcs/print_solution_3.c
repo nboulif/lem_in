@@ -55,8 +55,8 @@ void			create_node_tab(t_objectif *obj)
 
 void			print_node_and_edge(char *str, int size)
 {
-	write(1, str, size - 1);
-	if (str[size - 2] != '\n')
+	write(1, str, size);
+	if (str[size - 1] != '\n')
 		ft_putchar('\n');
 	ft_putchar('\n');
 }

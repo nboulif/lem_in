@@ -77,9 +77,9 @@ echo "expected vs us (res/total)"
 echo "min | equal | plus_0 | plus_2 | plus_10"
 for (( INDICE=1; INDICE<=$NB_TEST; INDICE++ ))
 do
-	MAPS="test_files/00\_map" 
-	RES1="test_files/00\_ress1" 
-	RES2="test_files/00\_ress2"
+	MAPS="test_files/$INDICE\_map" 
+	RES1="test_files/$INDICE\_ress1" 
+	RES2="test_files/$INDICE\_ress2"
 	./generator --$MODE > $MAPS
 	nb_turn_expected=`sed '2q;d' $MAPS | grep -o "[0-9][0-9]*"`
 	./$lem_in_1 < $MAPS > $RES1

@@ -140,5 +140,5 @@ int		extract_info(t_objectif *obj, char *str)
 		return (0);
 	fprintf(stderr, "parse time -> %f\n",
 		(float)(clock() - time) / C_P_S);
-	return (!str[i]);
+	return (i);
 }
